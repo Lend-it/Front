@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:front/routes/routes.dart';
 import 'package:front/theme/theme.dart';
 
 void main() {
@@ -12,6 +14,13 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: projectTheme,
+      initialRoute: '/',
+      onGenerateRoute: (settings) {
+        return CupertinoPageRoute(
+          builder: (context) => Routes.routes[settings.name](context),
+          settings: settings,
+        );
+      },
     );
   }
 }
