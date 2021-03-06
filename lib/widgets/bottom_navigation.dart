@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/view/home/home_page.dart';
+import 'package:front/view/lend/lend_page.dart';
+import 'package:front/view/notice/notice_page.dart';
+import 'package:front/view/profile/profile_page.dart';
 
 class BottomNavigation extends StatefulWidget {
   @override
@@ -8,21 +12,12 @@ class BottomNavigation extends StatefulWidget {
 
 class _BottomNavigationState extends State<BottomNavigation> {
   int _selectedIndex = 1;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+
+  static List<Widget> _widgetNavigationOptions = <Widget>[
+    HomePage(),
+    LendPage(),
+    NoticePage(),
+    ProfilePage()
   ];
 
   void _onItemTapped(int index) {
@@ -34,25 +29,26 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('BottomNavigationBar Sample'),
-      ),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: _widgetNavigationOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.home_outlined),
+            label: 'Início',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
+            icon: Icon(Icons.home_outlined),
+            label: 'Pedidos',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
+            icon: Icon(Icons.home_outlined),
+            label: 'Avisos',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: 'Perfil',
           ),
         ],
         currentIndex: _selectedIndex,
