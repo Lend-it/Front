@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:front/routes/routes.dart';
 import 'package:front/theme/theme.dart';
+import 'package:front/widgets/bottom_navigation.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: projectTheme,
       initialRoute: '/',
+      home: BottomNavigation(),
       onGenerateRoute: (settings) {
         return CupertinoPageRoute(
           builder: (context) => Routes.routes[settings.name](context),
