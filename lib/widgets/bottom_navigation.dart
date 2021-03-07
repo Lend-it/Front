@@ -20,6 +20,25 @@ class _BottomNavigationState extends State<BottomNavigation> {
     ProfilePage()
   ];
 
+  List<BottomNavigationBarItem> bottomNavigationBarItem = [
+    BottomNavigationBarItem(
+      icon: Icon(Icons.home_outlined),
+      label: 'Início',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.home_outlined),
+      label: 'Pedidos',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.home_outlined),
+      label: 'Avisos',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.home_outlined),
+      label: 'Perfil',
+    ),
+  ];
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -29,28 +48,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _widgetNavigationOptions.elementAt(_selectedIndex),
-      ),
+      body: _widgetNavigationOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Início',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Pedidos',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Avisos',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Perfil',
-          ),
-        ],
+        items: bottomNavigationBarItem,
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
         type: BottomNavigationBarType.fixed,
