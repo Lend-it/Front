@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/theme/colors.dart';
 import 'package:front/view/home/home_page.dart';
 import 'package:front/view/lend/lend_page.dart';
 import 'package:front/view/notice/notice_page.dart';
@@ -52,9 +53,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
       bottomNavigationBar: BottomNavigationBar(
         items: bottomNavigationBarItem,
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: secondaryColor,
+        unselectedItemColor: primaryColor,
         type: BottomNavigationBarType.fixed,
-        unselectedItemColor: Colors.black,
         onTap: _onItemTapped,
         iconSize: 30.0,
       ),
