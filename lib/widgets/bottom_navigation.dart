@@ -53,7 +53,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
+        type: BottomNavigationBarType.fixed,
+        unselectedItemColor: Colors.black,
         onTap: _onItemTapped,
+        iconSize: 30.0,
       ),
     );
   }
