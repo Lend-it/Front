@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:front/routes/app_routes.dart';
+import 'package:front/widgets/notification_tile.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -17,7 +18,11 @@ class HomePage extends StatelessWidget {
             },
             child: Text('Ir para Perfil'),
             color: Colors.blue,
-          )
+          ),
+          NotificationTile(
+            title: "José da silva solicitou um banco imobiliario emprestado",
+            subtitle: "12 min",
+          ),
         ],
       ),
     );
