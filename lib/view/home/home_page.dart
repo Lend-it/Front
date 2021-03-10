@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:front/routes/app_routes.dart';
+import 'package:front/widgets/button.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -17,7 +18,16 @@ class HomePage extends StatelessWidget {
             },
             child: Text('Ir para Perfil'),
             color: Colors.blue,
-          )
+          ),
+          Button(
+            title: 'Placeholder',
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext ctx) => AlertDialog(),
+              );
+            },
+          ),
         ],
       ),
     );
