@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:front/routes/app_routes.dart';
 import 'package:front/widgets/button.dart';
+import 'package:front/widgets/input.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -19,6 +20,7 @@ class HomePage extends StatelessWidget {
             child: Text('Ir para Perfil'),
             color: Colors.blue,
           ),
+          Input(),
           Button(
             title: 'Placeholder',
             onPressed: () {
