@@ -27,12 +27,7 @@ class Button extends StatelessWidget {
       minWidth: double.infinity,
       height: 66,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(4.0),
-          topLeft: Radius.circular(4.0),
-          bottomRight: Radius.circular(4.0),
-          bottomLeft: Radius.circular(4.0),
-        ),
+        borderRadius: BorderRadius.circular(4.0),
       ),
     );
   }
