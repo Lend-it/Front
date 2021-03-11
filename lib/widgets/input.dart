@@ -2,6 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:front/theme/colors.dart';
 
 class Input extends StatefulWidget {
+  final String placeholder;
+  final IconData icon;
+
+  Input({
+    @required this.placeholder,
+    @required this.icon,
+  });
+
   @override
   _InputState createState() => _InputState();
 }
@@ -29,12 +37,12 @@ class _InputState extends State<Input> {
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: primaryLightColor, width: 2.0)),
-          prefixIcon: Icon(Icons.mail,
-              color: focusNode.hasFocus ? primaryLightColor : Colors.black26),
-          hintText: "placeHolder",
+          prefixIcon: Icon(widget.icon,
+              color: focusNode.hasFocus ? primaryLightColor : grayColor),
+          hintText: widget.placeholder,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5.0),
-            borderSide: BorderSide(color: Colors.black38),
+            borderSide: BorderSide(color: grayColor),
           ),
         ),
         textInputAction: TextInputAction.done,

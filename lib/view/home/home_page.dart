@@ -20,7 +20,10 @@ class HomePage extends StatelessWidget {
             child: Text('Ir para Perfil'),
             color: Colors.blue,
           ),
-          Input(),
+          Input(
+            placeholder: 'Placeholder',
+            icon: Icons.mail,
+          ),
           Button(
             title: 'Placeholder',
             onPressed: () {
