@@ -4,8 +4,12 @@ import 'package:front/theme/colors.dart';
 
 class CategoryChip extends StatelessWidget {
   final bool isSelected;
-  
-  const CategoryChip({this.isSelected = false});
+  final String label;
+
+  CategoryChip({
+    @required this.label,
+    this.isSelected = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +17,14 @@ class CategoryChip extends StatelessWidget {
 
     return Chip(
       backgroundColor: Colors.transparent,
-      label: Text('text', style: TextStyle(color: chipColor),),
+      label: Text(
+        label,
+        style: TextStyle(color: chipColor),
+      ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(6),
-        side: BorderSide(color: chipColor)
+        side: BorderSide(color: chipColor),
       ),
     );
   }
-
 }
