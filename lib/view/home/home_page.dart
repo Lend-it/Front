@@ -4,7 +4,35 @@ import 'package:front/routes/app_routes.dart';
 import 'package:front/widgets/button.dart';
 import 'package:front/widgets/input.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  TextEditingController _email;
+  FocusNode _focusEmail;
+  TextEditingController _password;
+  FocusNode _focusPassword;
+
+  @override
+  void initState() {
+    super.initState();
+    _email = TextEditingController();
+    _focusEmail = FocusNode();
+    _password = TextEditingController();
+    _focusPassword = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _focusEmail.dispose();
+    _password.dispose();
+    _focusPassword.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,8 +49,18 @@ class HomePage extends StatelessWidget {
             color: Colors.blue,
           ),
           Input(
-            placeholder: 'Placeholder',
-            icon: Icons.mail,
+            type: TextInputType.emailAddress,
+            controller: _email,
+            placeholder: 'E-mail',
+            icon: Icons.mail_outline,
+            focusNode: _focusEmail,
+          ),
+          Input(
+            type: TextInputType.visiblePassword,
+            controller: _password,
+            placeholder: 'Password',
+            icon: Icons.lock_outline,
+            focusNode: _focusPassword,
           ),
           Button(
             title: 'Placeholder',
