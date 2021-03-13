@@ -6,14 +6,12 @@ class Input extends StatefulWidget {
   final String placeholder;
   final IconData icon;
   final TextEditingController controller;
-  final FocusNode focusNode;
 
   Input({
     @required this.placeholder,
     @required this.icon,
     @required this.type,
     @required this.controller,
-    @required this.focusNode,
   });
 
   @override
@@ -45,18 +43,23 @@ class _InputState extends State<Input> {
           setState(() => _fieldColor = hasFocus ? primaryColor : grayColor);
         },
         child: TextFormField(
+          onChanged: (text) {
+            setState(() {
+              widget.controller.text = text;
+            });
+          },
           obscureText:
               widget.type == TextInputType.visiblePassword ? true : false,
           keyboardType: widget.type,
-          onChanged: (text) {
-            print(_focusNode.hasFocus);
-            print(text);
-          },
           controller: widget.controller,
           focusNode: _focusNode,
           decoration: InputDecoration(
             focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: primaryLightColor, width: 2.0)),
+              borderSide: BorderSide(
+                color: primaryLightColor,
+                width: 2.0,
+              ),
+            ),
             prefixIcon: Icon(widget.icon, color: _fieldColor),
             hintText: widget.placeholder,
             border: OutlineInputBorder(

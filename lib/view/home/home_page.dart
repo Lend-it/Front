@@ -10,26 +10,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController _email;
-  FocusNode _focusEmail;
-  TextEditingController _password;
-  FocusNode _focusPassword;
+  TextEditingController _emailController;
+  TextEditingController _passwordController;
 
   @override
   void initState() {
     super.initState();
-    _email = TextEditingController();
-    _focusEmail = FocusNode();
-    _password = TextEditingController();
-    _focusPassword = FocusNode();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _email.dispose();
-    _focusEmail.dispose();
-    _password.dispose();
-    _focusPassword.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -50,21 +44,21 @@ class _HomePageState extends State<HomePage> {
           ),
           Input(
             type: TextInputType.emailAddress,
-            controller: _email,
+            controller: _emailController,
             placeholder: 'E-mail',
             icon: Icons.mail_outline,
-            focusNode: _focusEmail,
           ),
           Input(
             type: TextInputType.visiblePassword,
-            controller: _password,
+            controller: _passwordController,
             placeholder: 'Password',
             icon: Icons.lock_outline,
-            focusNode: _focusPassword,
           ),
           Button(
             title: 'Placeholder',
             onPressed: () {
+              print(_emailController.text);
+              print(_passwordController.text);
               showDialog(
                 context: context,
                 builder: (BuildContext ctx) => AlertDialog(),
