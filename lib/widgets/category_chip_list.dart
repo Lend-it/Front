@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:front/model/category.model.dart';
 import 'package:front/widgets/category_chip.dart';
 
-List<String> categories = [
-  'Mais próximos',
-  'Jogos',
-  'Eletrodomésticos',
-  'Ferramentas',
-  'Pets'
+List<CategoryModel> categories = [
+  CategoryModel(id: 0, title: 'Mais próximo'),
+  CategoryModel(id: 1, title: 'Jogos'),
+  CategoryModel(id: 2, title: 'Eletrodomésticos'),
+  CategoryModel(id: 3, title: 'Ferramentas'),
+  CategoryModel(id: 4, title: 'Pets'),
 ];
 
 class CategoryChipList extends StatefulWidget {
@@ -27,7 +28,7 @@ class _CategoryChipListState extends State<CategoryChipList> {
         itemBuilder: (ctx, index) => Padding(
           padding: const EdgeInsets.only(right: 8),
           child: CategoryChip(
-            label: categories[index],
+            label: categories[index].title,
             isSelected: index == _selectedChipIndex,
             onTapHandler: () {
               setState(() {
