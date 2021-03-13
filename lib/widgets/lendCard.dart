@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:front/model/lend.model.dart';
-import 'package:front/model/user.model.dart';
 import 'package:front/theme/colors.dart';
 
-Widget LendCardHeader({String title, String category}) {
+Widget lendCardHeader({
+  String title,
+  String category,
+}) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 23.0, vertical: 7.0),
     child: IntrinsicHeight(
@@ -13,7 +15,10 @@ Widget LendCardHeader({String title, String category}) {
           Text(
             title,
             textAlign: TextAlign.left,
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 16,
+            ),
           ),
           VerticalDivider(
             width: 20,
@@ -35,41 +40,45 @@ Widget LendCardHeader({String title, String category}) {
   );
 }
 
-Widget LendCardHandler(
-    {Function onPressed, String leading, IconData trailing}) {
+Widget lendCardHandler({
+  Function onPressed,
+  String leading,
+  IconData trailing,
+}) {
   return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        padding: EdgeInsets.only(
-          left: 23,
-          right: 23,
-          top: 12,
-          bottom: 14,
+    onTap: onPressed,
+    child: Container(
+      padding: EdgeInsets.only(
+        left: 23,
+        right: 23,
+        top: 12,
+        bottom: 14,
+      ),
+      decoration: BoxDecoration(
+        color: primaryColor,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(8),
+          bottomRight: Radius.circular(8),
         ),
-        decoration: BoxDecoration(
-          color: primaryColor,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(8),
-            bottomRight: Radius.circular(8),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            leading,
+            style: TextStyle(fontSize: 16, color: lightColor),
           ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(
-              leading,
-              style: TextStyle(fontSize: 16, color: lightColor),
-            ),
-            Icon(
-              trailing,
-              color: lightColor,
-            )
-          ],
-        ),
-      ));
+          Icon(
+            trailing,
+            color: lightColor,
+          )
+        ],
+      ),
+    ),
+  );
 }
 
-Widget LendCardUserInfo({
+Widget lendCardUserInfo({
   String profilePic,
   String userName,
   String userRating,
@@ -117,13 +126,15 @@ Widget LendCardUserInfo({
   );
 }
 
-Widget LendCardDescription({String description}) {
+Widget lendCardDescription({String description}) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 23.0),
-    child: Text(description,
-        style: TextStyle(fontSize: 16),
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis),
+    child: Text(
+      description,
+      style: TextStyle(fontSize: 16),
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+    ),
   );
 }
 
@@ -149,20 +160,20 @@ class LendCard extends StatelessWidget {
         ),
         child: Column(
           children: <Widget>[
-            LendCardHeader(title: lend.title, category: lend.category.title),
-            LendCardDescription(description: lend.description),
+            lendCardHeader(title: lend.title, category: lend.category.title),
+            lendCardDescription(description: lend.description),
             Divider(
               height: 30,
               thickness: 1,
             ),
-            LendCardUserInfo(
+            lendCardUserInfo(
               profilePic: lend.user.photo,
               userName: lend.user.name,
               userRating: lend.user.rating,
               startDate: lend.startDate,
               endDate: lend.endDate,
             ),
-            LendCardHandler(
+            lendCardHandler(
               onPressed: onPressed,
               trailing: trailing,
               leading: leading,
