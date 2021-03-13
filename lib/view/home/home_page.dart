@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:front/routes/app_routes.dart';
 import 'package:front/widgets/button.dart';
 
+import '../../widgets/category_chip.dart';
+
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,9 @@ class HomePage extends StatelessWidget {
             child: Text('Ir para Perfil'),
             color: Colors.blue,
           ),
+          CategoryChip(isSelected: true,),
+          CategoryChip(),
+          CategoryChip(),
           Button(
             title: 'Placeholder',
             onPressed: () {
