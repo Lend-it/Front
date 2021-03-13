@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 
 class NotificationTile extends StatelessWidget {
-  @required
-  String title;
-  @required
-  String subtitle;
+  final String title;
+  final String subtitle;
+  final Function onTapHandler;
 
   NotificationTile({
-    this.title,
-    this.subtitle,
+    @required this.title,
+    @required this.subtitle,
+    @required this.onTapHandler,
   });
 
   @override
@@ -24,25 +24,22 @@ class NotificationTile extends StatelessWidget {
           color: primaryColor,
           size: 32,
         ),
+        onTap: onTapHandler,
       ),
       height: 104,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-          color: lightColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(4),
-            topRight: Radius.circular(4),
-            bottomLeft: Radius.circular(4),
-            bottomRight: Radius.circular(4),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: grayColor,
-              spreadRadius: 0,
-              blurRadius: 3,
-              offset: Offset(0, 1),
-            )
-          ]),
+        color: lightColor,
+        borderRadius: BorderRadius.circular(2),
+        boxShadow: [
+          BoxShadow(
+            color: grayColor,
+            spreadRadius: 0,
+            blurRadius: 3,
+            offset: Offset(0, 1),
+          )
+        ],
+      ),
     );
   }
 }

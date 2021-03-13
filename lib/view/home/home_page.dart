@@ -22,6 +22,7 @@ class HomePage extends StatelessWidget {
           NotificationTile(
             title: "José da silva solicitou um banco imobiliario emprestado",
             subtitle: "12 min",
+            onTapHandler: () {},
           ),
         ],
       ),
