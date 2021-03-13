@@ -9,7 +9,14 @@ List<String> categories = [
   'Pets'
 ];
 
-class CategoryChipList extends StatelessWidget {
+class CategoryChipList extends StatefulWidget {
+  @override
+  _CategoryChipListState createState() => _CategoryChipListState();
+}
+
+class _CategoryChipListState extends State<CategoryChipList> {
+  int _selectedChipIndex;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,6 +28,12 @@ class CategoryChipList extends StatelessWidget {
           padding: const EdgeInsets.only(right: 8),
           child: CategoryChip(
             label: categories[index],
+            isSelected: index == _selectedChipIndex,
+            onTapHandler: () {
+              setState(() {
+                _selectedChipIndex = index;
+              });
+            },
           ),
         ),
       ),
