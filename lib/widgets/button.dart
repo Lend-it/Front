@@ -16,7 +16,7 @@ class Button extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 24.0,
+          height: 8.0,
         ),
         ConstrainedBox(
           constraints: BoxConstraints.tightFor(
