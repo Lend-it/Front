@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:front/widgets/notification_tile.dart';
 import 'package:front/widgets/button.dart';
+import 'package:front/widgets/category_chip_list.dart';
+
+import '../../widgets/category_chip.dart';
 import 'package:front/widgets/input.dart';
 
 class HomePage extends StatefulWidget {
@@ -35,6 +38,12 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
+          FlatButton(
+            onPressed: () {},
+            child: Text('Ir para Perfil'),
+            color: Colors.blue,
+          ),
+          CategoryChipList(),
           Input(
             type: TextInputType.emailAddress,
             controller: _emailController,
