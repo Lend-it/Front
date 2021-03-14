@@ -12,7 +12,7 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   static List<Widget> _widgetNavigationOptions = <Widget>[
     HomePage(),

@@ -40,13 +40,6 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          FlatButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(AppRoutes.PROFILE_PAGE);
-            },
-            child: Text('Ir para Perfil'),
-            color: Colors.blue,
-          ),
           Input(
             type: TextInputType.emailAddress,
             controller: _emailController,
@@ -61,7 +54,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Button(
             title: 'Placeholder',
-            onPressed: () {
+            onPressedHandler: () {
               print(_emailController.text);
               print(_passwordController.text);
               showDialog(
