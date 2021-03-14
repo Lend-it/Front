@@ -38,9 +38,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           FlatButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(AppRoutes.PROFILE_PAGE);
-            },
+            onPressed: () {},
             child: Text('Ir para Perfil'),
             color: Colors.blue,
           ),
