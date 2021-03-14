@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:front/model/category.model.dart';
-import 'package:front/model/lend.model.dart';
-import 'package:front/model/user.model.dart';
-import 'package:front/routes/app_routes.dart';
 import 'package:front/widgets/button.dart';
-import 'package:front/widgets/lendCard.dart';
-import 'package:intl/intl.dart';
 import 'package:front/widgets/input.dart';
 
 class HomePage extends StatefulWidget {

@@ -10,18 +10,18 @@ class LendPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final UserModel user = UserModel(
-      id: 3,
+      id: '3',
       name: 'José da Silva',
       rating: '4.0',
       photo:
           'https://avatars.githubusercontent.com/u/42722634?s=460&u=5dc66aaf59dbaf2e3e68c931cca641a44b5fd9fc&v=4',
     );
     final CategoryModel category = CategoryModel(
-      id: 3,
+      id: '3',
       title: 'Jogos',
     );
     final LendModel lend = LendModel(
-      id: 3,
+      id: '3',
       title: 'Banco Imobiliário',
       category: category,
       description:
