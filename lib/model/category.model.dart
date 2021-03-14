@@ -1,13 +1,12 @@
 import 'package:flutter/widgets.dart';
 
 class CategoryModel {
-  final int id;
-  @required
+  final String id;
   final String title;
 
   CategoryModel({
-    this.id,
-    this.title,
+    this.id = "",
+    @required this.title,
   });
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) {

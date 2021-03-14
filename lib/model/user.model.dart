@@ -1,19 +1,16 @@
 import 'package:flutter/widgets.dart';
 
 class UserModel {
-  final int id;
-  @required
+  final String id;
   final String name;
-  @required
   final String photo;
-  @required
   final String rating;
 
   UserModel({
-    this.id,
-    this.name,
-    this.photo,
-    this.rating,
+    this.id = "",
+    @required this.name,
+    @required this.photo,
+    @required this.rating,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
