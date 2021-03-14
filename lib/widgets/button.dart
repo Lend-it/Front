@@ -4,31 +4,47 @@ import 'package:front/theme/colors.dart';
 
 class Button extends StatelessWidget {
   final String title;
-  final Function onPressed;
+  final Function onPressedHandler;
 
   Button({
     @required this.title,
-    @required this.onPressed,
+    @required this.onPressedHandler,
   });
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      child: Text(
-        title,
-        style: TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 20,
-          color: lightColor,
+    return Column(
+      children: [
+        SizedBox(
+          height: 24.0,
         ),
-      ),
-      onPressed: onPressed,
-      color: secondaryColor,
-      minWidth: double.infinity,
-      height: 66,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4.0),
-      ),
+        ConstrainedBox(
+          constraints: BoxConstraints.tightFor(
+            width: double.infinity,
+            height: 66,
+          ),
+          child: ElevatedButton(
+            child: Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 20,
+                color: lightColor,
+              ),
+            ),
+            onPressed: onPressedHandler,
+            style: ElevatedButton.styleFrom(
+              primary: secondaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4.0),
+              ),
+              textStyle: TextStyle(
+                color: secondaryColor,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

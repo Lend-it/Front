@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Button(
             title: 'Placeholder',
-            onPressed: () {
+            onPressedHandler: () {
               print(_emailController.text);
               print(_passwordController.text);
               showDialog(
