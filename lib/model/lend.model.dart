@@ -3,28 +3,22 @@ import 'package:front/model/category.model.dart';
 import 'package:front/model/user.model.dart';
 
 class LendModel {
-  final int id;
-  @required
+  final String id;
   final String title;
-  @required
   final CategoryModel category;
-  @required
   final String description;
-  @required
   final String endDate;
-  @required
   final String startDate;
-  @required
   final UserModel user;
 
   LendModel({
-    this.id,
-    this.title,
-    this.category,
-    this.description,
-    this.endDate,
-    this.startDate,
-    this.user,
+    this.id = "",
+    @required this.title,
+    @required this.category,
+    @required this.description,
+    @required this.endDate,
+    @required this.startDate,
+    @required this.user,
   });
 
   factory LendModel.fromJson(Map<String, dynamic> json) {

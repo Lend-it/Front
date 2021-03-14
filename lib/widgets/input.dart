@@ -38,6 +38,7 @@ class _InputState extends State<Input> {
     return Container(
       width: double.infinity,
       height: 57,
+      margin: EdgeInsets.only(bottom: 16),
       child: Focus(
         onFocusChange: (hasFocus) {
           setState(() => _fieldColor = hasFocus ? primaryColor : grayColor);
