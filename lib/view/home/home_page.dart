@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/view/login/login_page.dart';
 import 'package:front/widgets/notification_tile.dart';
 import 'package:front/widgets/button.dart';
 import 'package:front/widgets/category_chip_list.dart';
@@ -39,8 +40,13 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           FlatButton(
-            onPressed: () {},
-            child: Text('Ir para Perfil'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
+            },
+            child: Text('Ir para Login'),
             color: Colors.blue,
           ),
           CategoryChipList(),
