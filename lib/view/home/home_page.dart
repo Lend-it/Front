@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:front/view/auth/register_page.dart';
+import 'package:front/view/geolocation/geolocation_page.dart';
 import 'package:front/widgets/notification_tile.dart';
 import 'package:front/widgets/button.dart';
 import 'package:front/widgets/category_chip_list.dart';
@@ -47,6 +48,16 @@ class _HomePageState extends State<HomePage> {
               );
             },
             child: Text('Ir para Login'),
+            color: Colors.blue,
+          ),
+          FlatButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => GeolocationPage()),
+              );
+            },
+            child: Text('Geolocalização'),
             color: Colors.blue,
           ),
           CategoryChipList(),
