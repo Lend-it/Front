@@ -52,6 +52,7 @@ flutter:
   assets:
     - assets/logo.svg
     - assets/logo_water_mark.svg
+    - assets/location.svg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
