@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
+                MaterialPageRoute(builder: (context) => RegisterPage()),
               );
             },
             child: Text('Ir para Login'),

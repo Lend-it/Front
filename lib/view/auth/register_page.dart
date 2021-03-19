@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/theme/colors.dart';
+import 'package:front/view/home/home_page.dart';
 import 'package:front/widgets/base_auth_page.dart';
 import 'package:front/widgets/input.dart';
 import 'package:front/widgets/button.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   TextEditingController _nameController;
   TextEditingController _emailController;
   TextEditingController _whatsappController;
@@ -46,38 +48,53 @@ class _LoginPageState extends State<LoginPage> {
             "Vamos pegar seus dados para fazer seu cadastro e conseguir entrar no app.",
         body: Column(
           children: [
-            Input(
-              type: TextInputType.name,
-              controller: _nameController,
-              placeholder: 'Nome',
-              icon: Icons.person_outlined,
-            ),
-            Input(
-              type: TextInputType.emailAddress,
-              controller: _emailController,
-              placeholder: 'E-mail',
-              icon: Icons.mail_outline,
-            ),
-            Input(
-              type: TextInputType.phone,
-              controller: _whatsappController,
-              placeholder: 'WhatsApp',
-              icon: Icons.phone,
-            ),
-            Input(
-              type: TextInputType.visiblePassword,
-              controller: _passwordController,
-              placeholder: 'Senha',
-              icon: Icons.lock_outline,
-            ),
-            Input(
-              type: TextInputType.visiblePassword,
-              controller: _passwordConfirmController,
-              placeholder: 'Confirmar Senha',
-              icon: Icons.lock_outline,
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Input(
+                type: TextInputType.name,
+                controller: _nameController,
+                placeholder: 'Nome',
+                icon: Icons.person_outlined,
+              ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Input(
+                type: TextInputType.emailAddress,
+                controller: _emailController,
+                placeholder: 'E-mail',
+                icon: Icons.mail_outline,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Input(
+                type: TextInputType.phone,
+                controller: _whatsappController,
+                placeholder: 'WhatsApp',
+                icon: Icons.phone,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Input(
+                type: TextInputType.visiblePassword,
+                controller: _passwordController,
+                placeholder: 'Senha',
+                icon: Icons.lock_outline,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Input(
+                type: TextInputType.visiblePassword,
+                controller: _passwordConfirmController,
+                placeholder: 'Confirmar Senha',
+                icon: Icons.lock_outline,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Button(
                 title: 'Criar conta',
                 onPressedHandler: () {
@@ -86,6 +103,28 @@ class _LoginPageState extends State<LoginPage> {
                   showDialog(
                     context: context,
                     builder: (BuildContext ctx) => AlertDialog(),
+                  );
+                },
+              ),
+            ),
+            SizedBox(height: 20),
+            Divider(
+              thickness: 2,
+            ),
+            SizedBox(height: 7),
+            Container(
+              child: GestureDetector(
+                child: Text(
+                  'Voltar para Login',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: secondaryColor,
+                    fontSize: 16,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pop(
+                    context,
                   );
                 },
               ),
