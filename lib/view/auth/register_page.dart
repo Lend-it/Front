@@ -10,20 +10,29 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController _nameController;
   TextEditingController _emailController;
+  TextEditingController _whatsappController;
   TextEditingController _passwordController;
+  TextEditingController _passwordConfirmController;
 
   @override
   void initState() {
     super.initState();
+    _nameController = TextEditingController();
     _emailController = TextEditingController();
+    _whatsappController = TextEditingController();
     _passwordController = TextEditingController();
+    _passwordConfirmController = TextEditingController();
   }
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
+    _whatsappController.dispose();
     _passwordController.dispose();
+    _passwordConfirmController.dispose();
     super.dispose();
   }
 
@@ -38,8 +47,8 @@ class _LoginPageState extends State<LoginPage> {
         body: Column(
           children: [
             Input(
-              type: TextInputType.visiblePassword,
-              controller: _passwordController,
+              type: TextInputType.name,
+              controller: _nameController,
               placeholder: 'Nome',
               icon: Icons.person_outlined,
             ),
@@ -50,8 +59,8 @@ class _LoginPageState extends State<LoginPage> {
               icon: Icons.mail_outline,
             ),
             Input(
-              type: TextInputType.visiblePassword,
-              controller: _passwordController,
+              type: TextInputType.phone,
+              controller: _whatsappController,
               placeholder: 'WhatsApp',
               icon: Icons.phone,
             ),
@@ -63,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Input(
               type: TextInputType.visiblePassword,
-              controller: _passwordController,
+              controller: _passwordConfirmController,
               placeholder: 'Confirmar Senha',
               icon: Icons.lock_outline,
             ),
