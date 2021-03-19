@@ -2,14 +2,13 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:front/theme/colors.dart';
+import '../theme/custom_icons.dart';
 
 class NotificationPopup {
   void successNotification({
     String title,
     BuildContext context,
   }) {
-    print('@@@@@@');
-
     Flushbar(
       shouldIconPulse: false,
       padding: EdgeInsets.only(
@@ -27,7 +26,7 @@ class NotificationPopup {
         ),
       ),
       icon: Icon(
-        Icons.thumb_up,
+        CustomIcons.like,
         size: 28.0,
         color: lightColor,
       ),
@@ -59,7 +58,7 @@ class NotificationPopup {
         ),
       ),
       icon: Icon(
-        Icons.thumb_down,
+        CustomIcons.deslike,
         size: 28.0,
         color: lightColor,
       ),
