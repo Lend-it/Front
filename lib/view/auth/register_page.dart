@@ -10,7 +10,7 @@ class LoginPage extends StatelessWidget {
       home: BaseAuthPage(
         title: "Titulo da pagina",
         subtitle: "Subtitulo da pagina",
-        body: null,
+        body: Text('body'),
       ),
     );
   }
