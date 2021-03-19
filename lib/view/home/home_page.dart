@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/view/lend/create_lend.dart';
 import 'package:front/widgets/notification_tile.dart';
 import 'package:front/widgets/button.dart';
 import 'package:front/widgets/category_chip_list.dart';
@@ -41,6 +42,16 @@ class _HomePageState extends State<HomePage> {
           FlatButton(
             onPressed: () {},
             child: Text('Ir para Perfil'),
+            color: Colors.blue,
+          ),
+          FlatButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CreateLend()),
+              );
+            },
+            child: Text('Criar Lend'),
             color: Colors.blue,
           ),
           CategoryChipList(),
