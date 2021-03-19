@@ -55,6 +55,8 @@ class _InputState extends State<Input> {
           controller: widget.controller,
           focusNode: _focusNode,
           decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: primaryLightColor,
