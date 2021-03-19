@@ -15,45 +15,56 @@ class BaseAuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: primaryColor,
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+      body: SingleChildScrollView(
+        child: Stack(
           children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(top: 64, bottom: 25),
+            Positioned(
+              top: statusBarHeight,
+              right: -26,
               child: SvgPicture.asset(
-                'assets/logo.svg',
-                width: 150,
+                'assets/logo_water_mark.svg',
               ),
             ),
-            Container(
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: lightColor,
-                  fontSize: 36,
-                ),
-                textAlign: TextAlign.left,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 64, bottom: 25),
+                    child: SvgPicture.asset(
+                      'assets/logo.svg',
+                      width: 150,
+                    ),
+                  ),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: lightColor,
+                      fontSize: 24,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      color: lightColor,
+                      fontSize: 16,
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  body,
+                ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 15),
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w300,
-                  color: lightColor,
-                  fontSize: 24,
-                ),
-                textAlign: TextAlign.left,
-              ),
-            ),
-            body,
           ],
         ),
       ),
