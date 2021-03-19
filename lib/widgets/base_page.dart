@@ -53,7 +53,10 @@ class BasePage extends StatelessWidget {
                     topRight: Radius.circular(20),
                   ),
                 ),
-                child: body,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: body,
+                ),
               ),
             ],
           ),
