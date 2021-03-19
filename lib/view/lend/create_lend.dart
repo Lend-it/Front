@@ -4,11 +4,11 @@ import 'package:front/controller/lend.controller.dart';
 import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/theme/colors.dart';
+import 'package:front/utils/notification_popup.dart';
 import 'package:front/widgets/button.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_select/smart_select.dart';
-import 'package:flushbar/flushbar.dart';
 
 class CreateLend extends StatefulWidget {
   final LendModel lend;
@@ -35,6 +35,7 @@ class _CreateLendState extends State<CreateLend> {
   String _selectTitle;
 
   LendController lendController = new LendController();
+  NotificationPopup notificationPopup = new NotificationPopup();
 
   List<S2Choice<String>> _options;
 
@@ -268,62 +269,14 @@ class _CreateLendState extends State<CreateLend> {
                       final Response response =
                           await lendController.createNewLend(requestLend);
 
-                      print(response);
-
                       if (response.statusCode != 201) {
-                        Flushbar(
-                          shouldIconPulse: false,
-                          padding: EdgeInsets.only(
-                            top: 20,
-                            bottom: 20,
-                            left: 20,
-                          ),
-                          maxWidth: 350,
-                          messageText: Text(
-                            'Não foi possível realizar a ação',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: lightColor,
-                            ),
-                          ),
-                          icon: Icon(
-                            Icons.thumb_down,
-                            size: 28.0,
-                            color: lightColor,
-                          ),
-                          duration: Duration(seconds: 3),
-                          backgroundColor: dangerColor,
-                          margin: EdgeInsets.all(8),
-                          borderRadius: 8,
-                        )..show(context);
+                        notificationPopup.failNotification(
+                            context: context,
+                            title: 'Não foi possível realizar a ação');
                       } else {
-                        Flushbar(
-                          shouldIconPulse: false,
-                          icon: Icon(
-                            Icons.thumb_up,
-                            size: 28.0,
-                            color: whiteDarkColor,
-                          ),
-                          duration: Duration(seconds: 3),
-                          backgroundColor: primaryColor,
-                          margin: EdgeInsets.all(8),
-                          borderRadius: 8,
-                          padding: EdgeInsets.only(
-                            top: 20,
-                            bottom: 20,
-                            left: 20,
-                          ),
-                          maxWidth: 350,
-                          messageText: Text(
-                            'Ação realizada com sucesso',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: lightColor,
-                            ),
-                          ),
-                        )..show(context);
+                        notificationPopup.successNotification(
+                            context: context,
+                            title: 'Ação realizada com sucesso');
                       }
                     },
                   ),
