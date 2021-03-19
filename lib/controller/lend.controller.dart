@@ -16,7 +16,9 @@ class LendController {
     };
 
     Response response = await api.post(
-        route: "http://192.168.0.4:5002/api/requests", body: postLend);
+      route: "/api/requests",
+      body: postLend,
+    );
 
     return response;
   }
