@@ -4,7 +4,6 @@ import 'package:front/widgets/notification_tile.dart';
 import 'package:front/widgets/button.dart';
 import 'package:front/widgets/category_chip_list.dart';
 
-import '../../widgets/category_chip.dart';
 import 'package:front/widgets/input.dart';
 
 class HomePage extends StatefulWidget {
