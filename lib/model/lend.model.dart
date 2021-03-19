@@ -35,6 +35,7 @@ class LendModel {
       user: UserModel(
         id: json["user"]['id'],
         name: json["user"]['name'],
+        email: json["user"]['email'],
         photo: json["user"]["photo"],
         rating: json["user"]['rating'],
       ),

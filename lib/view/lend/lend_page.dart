@@ -12,6 +12,7 @@ class LendPage extends StatelessWidget {
     final UserModel user = UserModel(
       id: '3',
       name: 'José da Silva',
+      email: 'jose@email.com',
       rating: '4.0',
       photo:
           'https://avatars.githubusercontent.com/u/42722634?s=460&u=5dc66aaf59dbaf2e3e68c931cca641a44b5fd9fc&v=4',
