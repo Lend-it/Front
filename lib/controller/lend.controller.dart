@@ -7,7 +7,7 @@ class LendController {
 
   Future<Response> createNewLend(LendModel lend) async {
     Response response = await api.post(
-      route: "/api/requests",
+      route: "/requests",
       body: lend.toJson(),
     );
 
