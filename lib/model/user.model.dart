@@ -4,12 +4,14 @@ class UserModel {
   final String id;
   final String name;
   final String photo;
+  final String email;
   final String rating;
 
   UserModel({
     this.id = "",
     @required this.name,
     @required this.photo,
+    @required this.email,
     @required this.rating,
   });
 
@@ -17,6 +19,7 @@ class UserModel {
     return UserModel(
       id: json['id'],
       name: json['name'],
+      email: json['email'],
       photo: json['photo'],
       rating: json['rating'],
     );
@@ -26,6 +29,7 @@ class UserModel {
     return {
       "id": this.id,
       "name": this.name,
+      "email": this.email,
       "photo": this.photo,
       "rating": this.rating,
     };
