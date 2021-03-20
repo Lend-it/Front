@@ -270,13 +270,17 @@ class _CreateLendState extends State<CreateLend> {
                           await lendController.createNewLend(requestLend);
 
                       if (response.statusCode != 201) {
-                        notificationPopup.failNotification(
-                            context: context,
-                            title: 'Não foi possível realizar a ação');
+                        notificationPopup.notificate(
+                          context: context,
+                          title: 'Não foi possível realizar a ação',
+                          status: 'fail',
+                        );
                       } else {
-                        notificationPopup.successNotification(
-                            context: context,
-                            title: 'Ação realizada com sucesso');
+                        notificationPopup.notificate(
+                          context: context,
+                          title: 'Ação realizada com sucesso',
+                          status: 'success',
+                        );
                       }
                     },
                   ),
