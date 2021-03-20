@@ -54,13 +54,13 @@ class _HomePageState extends State<HomePage> {
             type: TextInputType.emailAddress,
             controller: _emailController,
             placeholder: 'E-mail',
-            icon: Icons.mail_outline,
+            prefix: Icons.mail_outline,
           ),
           Input(
             type: TextInputType.visiblePassword,
             controller: _passwordController,
             placeholder: 'Password',
-            icon: Icons.lock_outline,
+            prefix: Icons.lock_outline,
           ),
           Button(
             title: 'Placeholder',

@@ -54,7 +54,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 type: TextInputType.name,
                 controller: _nameController,
                 placeholder: 'Nome',
-                icon: Icons.person_outlined,
+                prefix: Icons.person_outlined,
               ),
             ),
             Container(
@@ -63,7 +63,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 type: TextInputType.emailAddress,
                 controller: _emailController,
                 placeholder: 'E-mail',
-                icon: Icons.mail_outline,
+                prefix: Icons.mail_outline,
               ),
             ),
             Container(
@@ -72,7 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 type: TextInputType.phone,
                 controller: _whatsappController,
                 placeholder: 'WhatsApp',
-                icon: Icons.phone,
+                prefix: Icons.phone,
               ),
             ),
             Container(
@@ -81,7 +81,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 type: TextInputType.visiblePassword,
                 controller: _passwordController,
                 placeholder: 'Senha',
-                icon: Icons.lock_outline,
+                prefix: Icons.lock_outline,
+                suffix: Icons.remove_red_eye_outlined,
               ),
             ),
             Container(
@@ -90,7 +91,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 type: TextInputType.visiblePassword,
                 controller: _passwordConfirmController,
                 placeholder: 'Confirmar Senha',
-                icon: Icons.lock_outline,
+                prefix: Icons.lock_outline,
+                suffix: Icons.remove_red_eye_outlined,
               ),
             ),
             Container(

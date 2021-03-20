@@ -4,14 +4,16 @@ import 'package:front/theme/colors.dart';
 class Input extends StatefulWidget {
   final TextInputType type;
   final String placeholder;
-  final IconData icon;
+  final IconData prefix;
+  final IconData suffix;
   final TextEditingController controller;
 
   Input({
     @required this.placeholder,
-    @required this.icon,
     @required this.type,
     @required this.controller,
+    this.prefix,
+    this.suffix,
   });
 
   @override
@@ -44,11 +46,6 @@ class _InputState extends State<Input> {
           setState(() => _fieldColor = hasFocus ? primaryColor : grayColor);
         },
         child: TextFormField(
-          onChanged: (text) {
-            setState(() {
-              widget.controller.text = text;
-            });
-          },
           obscureText:
               widget.type == TextInputType.visiblePassword ? true : false,
           keyboardType: widget.type,
@@ -63,7 +60,8 @@ class _InputState extends State<Input> {
                 width: 2.0,
               ),
             ),
-            prefixIcon: Icon(widget.icon, color: _fieldColor),
+            prefixIcon: Icon(widget.prefix, color: _fieldColor),
+            suffixIcon: Icon(widget.suffix, color: _fieldColor),
             hintText: widget.placeholder,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(4.0),
