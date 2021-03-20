@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/controller/user.controller.dart';
+import 'package:front/model/user.model.dart';
 import 'package:front/theme/colors.dart';
 import 'package:front/view/home/home_page.dart';
 import 'package:front/widgets/base_auth_page.dart';
@@ -36,6 +38,16 @@ class _RegisterPageState extends State<RegisterPage> {
     _passwordController.dispose();
     _passwordConfirmController.dispose();
     super.dispose();
+  }
+
+  void _createUser() {
+    final UserModel user = new UserModel(
+      name: _nameController.text,
+      email: _emailController.text,
+      whatsapp: _whatsappController.text,
+      password: _passwordController.text,
+    );
+    new UserController().createNewUser(user);
   }
 
   @override
@@ -99,14 +111,7 @@ class _RegisterPageState extends State<RegisterPage> {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Button(
                 title: 'Criar conta',
-                onPressedHandler: () {
-                  print(_emailController.text);
-                  print(_passwordController.text);
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext ctx) => AlertDialog(),
-                  );
-                },
+                onPressedHandler: _createUser,
               ),
             ),
             SizedBox(height: 20),

@@ -8,7 +8,7 @@ class UserController {
   Api api = new Api();
 
   void createNewUser(UserModel user) async {
-    Response response = await api.post(route: "/new-user", body: user.toJson());
+    Response response = await api.post(route: "/users", body: user.toJson());
     if (response.statusCode != 200) {
       throw jsonDecode(response.body);
     }
