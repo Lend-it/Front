@@ -13,8 +13,8 @@ class UserModel {
     this.id = "",
     @required this.name,
     @required this.email,
-    @required this.whatsapp,
-    @required this.password,
+    this.whatsapp,
+    this.password,
     this.photo,
     this.rating,
   });
