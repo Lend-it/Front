@@ -5,15 +5,17 @@ class Input extends StatefulWidget {
   final TextInputType type;
   final String placeholder;
   final IconData prefix;
-  final IconData suffix;
+  final bool isPassword;
   final TextEditingController controller;
+  final Function suffixTapHandler;
 
   Input({
     @required this.placeholder,
     @required this.type,
     @required this.controller,
     this.prefix,
-    this.suffix,
+    this.isPassword = false,
+    this.suffixTapHandler,
   });
 
   @override
@@ -23,6 +25,7 @@ class Input extends StatefulWidget {
 class _InputState extends State<Input> {
   FocusNode _focusNode;
   Color _fieldColor;
+  bool _isObscure = true;
 
   @override
   void initState() {
@@ -36,6 +39,13 @@ class _InputState extends State<Input> {
     super.dispose();
   }
 
+  void _toggleObscureText() {
+    setState(() {
+      _isObscure = !_isObscure;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
@@ -47,7 +57,7 @@ class _InputState extends State<Input> {
         },
         child: TextFormField(
           obscureText:
-              widget.type == TextInputType.visiblePassword ? true : false,
+              widget.type == TextInputType.visiblePassword ? _isObscure : false,
           keyboardType: widget.type,
           controller: widget.controller,
           focusNode: _focusNode,
@@ -61,7 +71,17 @@ class _InputState extends State<Input> {
               ),
             ),
             prefixIcon: Icon(widget.prefix, color: _fieldColor),
-            suffixIcon: Icon(widget.suffix, color: _fieldColor),
+            suffixIcon: widget.isPassword
+                ? IconButton(
+                    icon: Icon(
+                      _isObscure
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
+                      color: _fieldColor,
+                    ),
+                    onPressed: _toggleObscureText,
+                  )
+                : null,
             hintText: widget.placeholder,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(4.0),

@@ -18,7 +18,6 @@ class BaseAuthPage extends StatelessWidget {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: primaryColor,
       body: SingleChildScrollView(
         child: Stack(

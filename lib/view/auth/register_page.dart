@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:front/controller/user.controller.dart';
 import 'package:front/model/user.model.dart';
 import 'package:front/theme/colors.dart';
-import 'package:front/view/home/home_page.dart';
 import 'package:front/widgets/base_auth_page.dart';
 import 'package:front/widgets/input.dart';
 import 'package:front/widgets/button.dart';
@@ -94,7 +93,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: _passwordController,
                 placeholder: 'Senha',
                 prefix: Icons.lock_outline,
-                suffix: Icons.remove_red_eye_outlined,
+                isPassword: true,
               ),
             ),
             Container(
@@ -104,7 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 controller: _passwordConfirmController,
                 placeholder: 'Confirmar Senha',
                 prefix: Icons.lock_outline,
-                suffix: Icons.remove_red_eye_outlined,
+                isPassword: true,
               ),
             ),
             Container(
