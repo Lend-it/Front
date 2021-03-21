@@ -39,14 +39,14 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  void _createUser() {
+  void _createUser(BuildContext context) {
     final UserModel user = new UserModel(
       name: _nameController.text,
       email: _emailController.text,
       whatsapp: _whatsappController.text,
       password: _passwordController.text,
     );
-    new UserController().createNewUser(user);
+    new UserController().createNewUser(user, context);
   }
 
   @override
@@ -110,7 +110,9 @@ class _RegisterPageState extends State<RegisterPage> {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Button(
                 title: 'Criar conta',
-                onPressedHandler: _createUser,
+                onPressedHandler: () {
+                  _createUser(context);
+                },
               ),
             ),
             SizedBox(height: 20),
