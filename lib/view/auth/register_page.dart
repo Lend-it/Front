@@ -115,13 +115,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 },
               ),
             ),
-            SizedBox(height: 20),
-            Divider(
-              thickness: 2,
-            ),
-            SizedBox(height: 7),
-            Container(
-              child: GestureDetector(
+            SizedBox(height: 12),
+            Divider(height: 45, thickness: 2),
+            GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 15),
                 child: Text(
                   'Voltar para Login',
                   style: TextStyle(
@@ -130,11 +129,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     fontSize: 16,
                   ),
                 ),
-                onTap: () {
-                  Navigator.pop(
-                    context,
-                  );
-                },
               ),
             )
           ],
