@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/routes/app_routes.dart';
 import 'package:front/view/auth/register_page.dart';
 import 'package:front/view/geolocation/geolocation_page.dart';
 import 'package:front/model/category.model.dart';
@@ -78,9 +79,9 @@ class _HomePageState extends State<HomePage> {
           ),
           FlatButton(
             onPressed: () {
-              Navigator.push(
+              Navigator.pushNamed(
                 context,
-                MaterialPageRoute(builder: (context) => GeolocationPage()),
+                AppRoutes.GEOLOCATION_PAGE,
               );
             },
             child: Text('Geolocalização'),
