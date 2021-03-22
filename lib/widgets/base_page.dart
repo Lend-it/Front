@@ -3,12 +3,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:front/theme/colors.dart';
 
 class BasePage extends StatelessWidget {
-  final Widget body;
   final Widget header;
+  final Widget body;
 
   BasePage({
-    @required this.body,
     @required this.header,
+    @required this.body,
   });
 
   @override

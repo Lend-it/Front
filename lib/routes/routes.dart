@@ -3,6 +3,7 @@ import 'package:front/routes/app_routes.dart';
 import 'package:front/view/auth/register_page.dart';
 import 'package:front/view/geolocation/geolocation_page.dart';
 import 'package:front/view/home/home_page.dart';
+import 'package:front/view/lend/create_lend.dart';
 import 'package:front/view/profile/profile_page.dart';
 
 class Routes {
@@ -11,5 +12,6 @@ class Routes {
     AppRoutes.PROFILE_PAGE: (ctx) => ProfilePage(),
     AppRoutes.REGISTER_PAGE: (ctx) => RegisterPage(),
     AppRoutes.GEOLOCATION_PAGE: (ctx) => GeolocationPage(),
+    AppRoutes.CREATE_LEND: (ctx) => CreateLend(),
   };
 }
