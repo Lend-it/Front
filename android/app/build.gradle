@@ -43,6 +43,7 @@ android {
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        manifestPlaceholders = [API_KEY: "$System.env.API_KEY"]
     }
 
     buildTypes {
