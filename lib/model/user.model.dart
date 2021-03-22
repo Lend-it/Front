@@ -3,16 +3,20 @@ import 'package:flutter/widgets.dart';
 class UserModel {
   final String id;
   final String name;
-  final String photo;
   final String email;
+  final String whatsapp;
+  final String password;
+  final String photo;
   final String rating;
 
   UserModel({
     this.id = "",
     @required this.name,
-    @required this.photo,
     @required this.email,
-    @required this.rating,
+    this.whatsapp,
+    this.password,
+    this.photo,
+    this.rating,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -20,6 +24,8 @@ class UserModel {
       id: json['id'],
       name: json['name'],
       email: json['email'],
+      whatsapp: json['whatsapp'],
+      password: json['password'],
       photo: json['photo'],
       rating: json['rating'],
     );
@@ -29,7 +35,9 @@ class UserModel {
     return {
       "id": this.id,
       "name": this.name,
-      "email": this.email,
+      "useremail": this.email,
+      "whatsappnumber": this.whatsapp,
+      "password": this.password,
       "photo": this.photo,
       "rating": this.rating,
     };

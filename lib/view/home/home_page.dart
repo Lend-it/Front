@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/view/auth/register_page.dart';
 import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/model/user.model.dart';
@@ -65,8 +66,13 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           FlatButton(
-            onPressed: () {},
-            child: Text('Ir para Perfil'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RegisterPage()),
+              );
+            },
+            child: Text('Ir para Login'),
             color: Colors.blue,
           ),
           FlatButton(
@@ -90,13 +96,13 @@ class _HomePageState extends State<HomePage> {
             type: TextInputType.emailAddress,
             controller: _emailController,
             placeholder: 'E-mail',
-            icon: Icons.mail_outline,
+            prefix: Icons.mail_outline,
           ),
           Input(
             type: TextInputType.visiblePassword,
             controller: _passwordController,
             placeholder: 'Password',
-            icon: Icons.lock_outline,
+            prefix: Icons.lock_outline,
           ),
           Button(
             title: 'Placeholder',
