@@ -65,11 +65,7 @@ class BasePage extends StatelessWidget {
               ],
             ),
             Container(
-              padding: EdgeInsets.only(
-                left: 20,
-                right: 20,
-                bottom: 20,
-              ),
+              padding: EdgeInsets.all(20),
               child: body,
             ),
           ],
