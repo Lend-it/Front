@@ -35,6 +35,7 @@ class LendModel {
       user: UserModel(
         id: json["user"]['id'],
         name: json["user"]['name'],
+        email: json["user"]['email'],
         photo: json["user"]["photo"],
         rating: json["user"]['rating'],
       ),
@@ -43,13 +44,12 @@ class LendModel {
 
   Map<String, dynamic> toJson() {
     return {
-      "id": this.id,
-      "title": this.title,
-      "category": this.category,
+      "productname": this.title,
+      "startdate": this.startDate,
+      "enddate": this.endDate,
       "description": this.description,
-      "endDate": this.endDate,
-      "startDate": this.startDate,
-      "user": this.user,
+      "requester": this.user.email,
+      "productcategoryid": int.parse(this.category.id),
     };
   }
 }

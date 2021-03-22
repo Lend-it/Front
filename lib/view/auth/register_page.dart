@@ -1,30 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/controller/user.controller.dart';
+import 'package:front/model/user.model.dart';
+import 'package:front/theme/colors.dart';
 import 'package:front/widgets/base_auth_page.dart';
 import 'package:front/widgets/input.dart';
 import 'package:front/widgets/button.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
+  TextEditingController _nameController;
   TextEditingController _emailController;
+  TextEditingController _whatsappController;
   TextEditingController _passwordController;
+  TextEditingController _passwordConfirmController;
 
   @override
   void initState() {
     super.initState();
+    _nameController = TextEditingController();
     _emailController = TextEditingController();
+    _whatsappController = TextEditingController();
     _passwordController = TextEditingController();
+    _passwordConfirmController = TextEditingController();
   }
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
+    _whatsappController.dispose();
     _passwordController.dispose();
+    _passwordConfirmController.dispose();
     super.dispose();
+  }
+
+  void _createUser(BuildContext context) {
+    final UserModel user = new UserModel(
+      name: _nameController.text,
+      email: _emailController.text,
+      whatsapp: _whatsappController.text,
+      password: _passwordController.text,
+    );
+    new UserController().createNewUser(user, context);
   }
 
   @override
@@ -37,48 +59,76 @@ class _LoginPageState extends State<LoginPage> {
             "Vamos pegar seus dados para fazer seu cadastro e conseguir entrar no app.",
         body: Column(
           children: [
-            Input(
-              type: TextInputType.visiblePassword,
-              controller: _passwordController,
-              placeholder: 'Nome',
-              icon: Icons.person_outlined,
-            ),
-            Input(
-              type: TextInputType.emailAddress,
-              controller: _emailController,
-              placeholder: 'E-mail',
-              icon: Icons.mail_outline,
-            ),
-            Input(
-              type: TextInputType.visiblePassword,
-              controller: _passwordController,
-              placeholder: 'WhatsApp',
-              icon: Icons.phone,
-            ),
-            Input(
-              type: TextInputType.visiblePassword,
-              controller: _passwordController,
-              placeholder: 'Senha',
-              icon: Icons.lock_outline,
-            ),
-            Input(
-              type: TextInputType.visiblePassword,
-              controller: _passwordController,
-              placeholder: 'Confirmar Senha',
-              icon: Icons.lock_outline,
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Input(
+                type: TextInputType.name,
+                controller: _nameController,
+                placeholder: 'Nome',
+                prefix: Icons.person_outlined,
+              ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Input(
+                type: TextInputType.emailAddress,
+                controller: _emailController,
+                placeholder: 'E-mail',
+                prefix: Icons.mail_outline,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Input(
+                type: TextInputType.phone,
+                controller: _whatsappController,
+                placeholder: 'WhatsApp',
+                prefix: Icons.phone,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Input(
+                type: TextInputType.visiblePassword,
+                controller: _passwordController,
+                placeholder: 'Senha',
+                prefix: Icons.lock_outline,
+                isPassword: true,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Input(
+                type: TextInputType.visiblePassword,
+                controller: _passwordConfirmController,
+                placeholder: 'Confirmar Senha',
+                prefix: Icons.lock_outline,
+                isPassword: true,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Button(
                 title: 'Criar conta',
                 onPressedHandler: () {
-                  print(_emailController.text);
-                  print(_passwordController.text);
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext ctx) => AlertDialog(),
-                  );
+                  _createUser(context);
                 },
+              ),
+            ),
+            SizedBox(height: 12),
+            Divider(height: 45, thickness: 2),
+            GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 15),
+                child: Text(
+                  'Voltar para Login',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: secondaryColor,
+                    fontSize: 16,
+                  ),
+                ),
               ),
             )
           ],

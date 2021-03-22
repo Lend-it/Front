@@ -18,7 +18,6 @@ class BaseAuthPage extends StatelessWidget {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: primaryColor,
       body: SingleChildScrollView(
         child: Stack(
@@ -30,20 +29,21 @@ class BaseAuthPage extends StatelessWidget {
                 'assets/logo_water_mark.svg',
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 64, bottom: 25),
-                    child: SvgPicture.asset(
-                      'assets/logo.svg',
-                      width: 150,
-                    ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  margin: EdgeInsets.only(top: 64, bottom: 25),
+                  child: SvgPicture.asset(
+                    'assets/logo.svg',
+                    width: 150,
                   ),
-                  Text(
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
                     title,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -51,8 +51,11 @@ class BaseAuthPage extends StatelessWidget {
                       fontSize: 24,
                     ),
                   ),
-                  SizedBox(height: 8),
-                  Text(
+                ),
+                SizedBox(height: 8),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
                     subtitle,
                     style: TextStyle(
                       fontWeight: FontWeight.w300,
@@ -60,10 +63,10 @@ class BaseAuthPage extends StatelessWidget {
                       fontSize: 16,
                     ),
                   ),
-                  SizedBox(height: 30),
-                  body,
-                ],
-              ),
+                ),
+                SizedBox(height: 20),
+                body,
+              ],
             ),
           ],
         ),
