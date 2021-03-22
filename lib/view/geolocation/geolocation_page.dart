@@ -14,6 +14,10 @@ class _GeolocationPageState extends State<GeolocationPage> {
   @override
   Widget build(BuildContext context) {
     return BasePage(
+      header: SvgPicture.asset(
+        'assets/logo.svg',
+        width: 150,
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -40,7 +44,7 @@ class _GeolocationPageState extends State<GeolocationPage> {
             ),
           ),
           SizedBox(height: 80),
-          Button(title: "Permitir localização", onPressedHandler: () {})
+          Button(title: "Permitir localização", onPressedHandler: () {}),
         ],
       ),
     );

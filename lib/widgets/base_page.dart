@@ -8,7 +8,7 @@ class BasePage extends StatelessWidget {
 
   BasePage({
     @required this.body,
-    this.header,
+    @required this.header,
   });
 
   @override
@@ -17,50 +17,63 @@ class BasePage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: primaryColor,
-      body: Stack(
-        children: <Widget>[
-          Positioned(
-            top: statusBarHeight,
-            right: -26,
-            child: SvgPicture.asset(
-              'assets/logo_water_mark.svg',
-            ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: size.height * 0.08,
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                margin: EdgeInsets.only(top: 64, bottom: 25),
-                child: header != null
-                    ? header
-                    : SvgPicture.asset(
-                        'assets/logo.svg',
-                        width: 150,
-                      ),
-              ),
-              Container(
-                width: size.width,
-                height: size.height * 0.8,
-                decoration: BoxDecoration(
-                  color: lightColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
+      backgroundColor: lightColor,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  height: size.height * 0.17,
+                  width: size.width,
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.only(
+                    top: statusBarHeight,
+                    bottom: 0,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: header,
+                  decoration: BoxDecoration(
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(-10),
                   ),
                 ),
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: body,
+                Positioned(
+                  top: statusBarHeight,
+                  right: -26,
+                  child: SvgPicture.asset(
+                    'assets/logo_water_mark.svg',
+                    width: 115,
+                  ),
                 ),
+                Positioned(
+                  bottom: -2,
+                  child: Container(
+                    width: size.width,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: lightColor,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Container(
+              padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+                bottom: 20,
               ),
-            ],
-          ),
-        ],
+              child: body,
+            ),
+          ],
+        ),
       ),
     );
   }
