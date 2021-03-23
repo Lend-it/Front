@@ -6,6 +6,8 @@ import 'package:front/model/user.model.dart';
 import 'package:front/widgets/lendCard.dart';
 import 'package:intl/intl.dart';
 
+import '../../routes/app_routes.dart';
+
 class LendPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -47,6 +49,16 @@ class LendPage extends StatelessWidget {
                 builder: (BuildContext ctx) => AlertDialog(),
               );
             },
+          ),
+          FlatButton(
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                AppRoutes.SHOW_LEND,
+              );
+            },
+            child: Text('Vê Lend'),
+            color: Colors.blue,
           ),
         ],
       ),
