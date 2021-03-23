@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:front/routes/app_routes.dart';
 import 'package:front/widgets/PageHeading.dart';
 import 'package:front/widgets/base_page.dart';
 import 'package:front/widgets/button.dart';
@@ -14,14 +15,30 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   GoogleMapController _mapController;
   Set<Marker> _markers = new Set<Marker>();
+  LatLng _selectedCoords;
 
   void _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
   }
 
+  void _updateCoordOnTap(LatLng position) {
+    _mapController.animateCamera(CameraUpdate.newLatLng(position));
+
+    final Marker marker = Marker(
+      markerId: new MarkerId('123'),
+      position: position,
+    );
+
+    setState(() {
+      _markers.add(marker);
+      _selectedCoords = position;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final Position position = ModalRoute.of(context).settings.arguments;
+
     return BasePage(
       header: SvgPicture.asset(
         'assets/logo.svg',
@@ -40,18 +57,7 @@ class _MapPageState extends State<MapPage> {
             child: GoogleMap(
               onMapCreated: _onMapCreated,
               markers: _markers,
-              onTap: (position) {
-                _mapController.animateCamera(CameraUpdate.newLatLng(position));
-
-                final Marker marker = Marker(
-                  markerId: new MarkerId('123'),
-                  position: position,
-                );
-
-                setState(() {
-                  _markers.add(marker);
-                });
-              },
+              onTap: _updateCoordOnTap,
               initialCameraPosition: CameraPosition(
                 target: LatLng(position.latitude, position.longitude),
                 zoom: 14.0,
@@ -60,7 +66,13 @@ class _MapPageState extends State<MapPage> {
           ),
           Button(
             title: "Salvar localização",
-            onPressedHandler: () {},
+            onPressedHandler: () {
+              Navigator.pushNamed(
+                context,
+                AppRoutes.REGISTER_PAGE,
+                arguments: _selectedCoords,
+              );
+            },
           ),
         ],
       ),

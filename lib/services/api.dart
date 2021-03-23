@@ -7,8 +7,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Api {
   String token;
   Api._privateConstructor();
-
+  final String _url = "";
   static final Api _instance = Api._privateConstructor();
+  static final headers = {"content-type": 'application/json'};
 
   factory Api() {
     return _instance;
@@ -19,10 +20,6 @@ class Api {
     String token = localStorage.getString('token');
     return token;
   }
-
-  final String _url = "";
-
-  static final headers = {"content-type": 'application/json'};
 
   Future<http.Response> get({@required String route}) async {
     String token = await getToken();

@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:front/routes/app_routes.dart';
 import 'package:front/view/auth/register_page.dart';
-import 'package:front/view/geolocation/geolocation_page.dart';
 import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/model/user.model.dart';
-import 'package:front/view/lend/create_lend.dart';
 import 'package:front/widgets/notification_tile.dart';
 import 'package:front/widgets/button.dart';
 import 'package:front/widgets/category_chip_list.dart';
@@ -84,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                 AppRoutes.GEOLOCATION_PAGE,
               );
             },
-            child: Text('Geolocalização'),
+            child: Text('Fluxo de Registro'),
             color: Colors.blue,
           ),
           CategoryChipList(),
