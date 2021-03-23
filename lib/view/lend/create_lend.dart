@@ -36,7 +36,6 @@ class _CreateLendState extends State<CreateLend> {
   String _selectTitle;
 
   LendController lendController = new LendController();
-  NotificationPopup notificationPopup = new NotificationPopup();
 
   List<S2Choice<String>> _options;
 
@@ -262,13 +261,13 @@ class _CreateLendState extends State<CreateLend> {
                           await lendController.createNewLend(requestLend);
 
                       if (response.statusCode != 201) {
-                        notificationPopup.notificate(
+                        NotificationPopup.notificate(
                           context: context,
                           title: 'Não foi possível realizar a ação',
                           status: 'fail',
                         );
                       } else {
-                        notificationPopup.notificate(
+                        NotificationPopup.notificate(
                           context: context,
                           title: 'Ação realizada com sucesso',
                           status: 'success',

@@ -5,11 +5,13 @@ import 'package:front/theme/colors.dart';
 import '../theme/custom_icons.dart';
 
 class NotificationPopup {
-  void notificate({
+  static void notificate({
     @required String title,
     @required BuildContext context,
     @required String status,
   }) {
+    Size size = MediaQuery.of(context).size;
+
     Flushbar(
       shouldIconPulse: false,
       padding: EdgeInsets.only(
@@ -17,7 +19,7 @@ class NotificationPopup {
         bottom: 20,
         left: 20,
       ),
-      maxWidth: 350,
+      maxWidth: size.width * .9,
       messageText: Text(
         title,
         style: TextStyle(
