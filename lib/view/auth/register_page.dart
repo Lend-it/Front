@@ -6,6 +6,7 @@ import 'package:front/theme/colors.dart';
 import 'package:front/widgets/base_auth_page.dart';
 import 'package:front/widgets/input.dart';
 import 'package:front/widgets/button.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -40,12 +41,17 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void _createUser(BuildContext context) {
+    final LatLng selectedCoords = ModalRoute.of(context).settings.arguments;
+
     final UserModel user = new UserModel(
       name: _nameController.text,
       email: _emailController.text,
       whatsapp: _whatsappController.text,
       password: _passwordController.text,
+      latitude: selectedCoords.latitude,
+      longitude: selectedCoords.longitude,
     );
+
     new UserController().createNewUser(user, context);
   }
 
