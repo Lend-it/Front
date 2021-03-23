@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:front/widgets/PageHeading.dart';
 import 'package:front/widgets/base_page.dart';
 import 'package:front/widgets/button.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapPage extends StatefulWidget {
@@ -13,8 +14,6 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   GoogleMapController _mapController;
   Set<Marker> _markers = new Set<Marker>();
-  double lat = 45.521563;
-  double lng = -122.677433;
 
   void _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
@@ -22,6 +21,7 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Position position = ModalRoute.of(context).settings.arguments;
     return BasePage(
       header: SvgPicture.asset(
         'assets/logo.svg',
@@ -53,8 +53,8 @@ class _MapPageState extends State<MapPage> {
                 });
               },
               initialCameraPosition: CameraPosition(
-                target: LatLng(lat, lng),
-                zoom: 11.0,
+                target: LatLng(position.latitude, position.longitude),
+                zoom: 14.0,
               ),
             ),
           ),

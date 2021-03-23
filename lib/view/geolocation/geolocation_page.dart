@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:front/routes/app_routes.dart';
-import 'package:front/theme/colors.dart';
+import 'package:front/utils/geolocation.dart';
+import 'package:front/utils/notification_popup.dart';
 import 'package:front/widgets/PageHeading.dart';
 import 'package:front/widgets/base_page.dart';
 import 'package:front/widgets/button.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class GeolocationPage extends StatefulWidget {
   @override
@@ -38,7 +38,19 @@ class _GeolocationPageState extends State<GeolocationPage> {
           Button(
             title: "Permitir localização",
             onPressedHandler: () {
-              Navigator.pushNamed(context, AppRoutes.MAP_PAGE);
+              Geolocation.getCurrentPosition(context).then((position) {
+                Navigator.pushNamed(
+                  context,
+                  AppRoutes.MAP_PAGE,
+                  arguments: position,
+                );
+              }).catchError((onError) {
+                NotificationPopup.notificate(
+                  title: 'Permita o acesso a sua localização',
+                  context: context,
+                  status: 'fail',
+                );
+              });
             },
           ),
         ],
