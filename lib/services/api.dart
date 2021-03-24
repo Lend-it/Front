@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Api {
   String token;
   Api._privateConstructor();
-  final String _url = "";
+  final String _url = "https://lendit-gateway-homolog.herokuapp.com";
   static final Api _instance = Api._privateConstructor();
   static final headers = {"content-type": 'application/json'};
 
