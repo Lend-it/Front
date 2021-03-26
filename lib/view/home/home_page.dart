@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/controller/session.controller.dart';
 import 'package:front/routes/app_routes.dart';
 import 'package:front/view/auth/register_page.dart';
 import 'package:front/model/category.model.dart';
@@ -84,6 +85,13 @@ class _HomePageState extends State<HomePage> {
             },
             child: Text('Fluxo de Registro'),
             color: Colors.blue,
+          ),
+          FlatButton(
+            onPressed: () {
+              new SessionController().cleanToken(context);
+            },
+            child: Text('Logout'),
+            color: Colors.red,
           ),
           CategoryChipList(),
           Input(
