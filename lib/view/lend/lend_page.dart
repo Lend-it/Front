@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/controller/lend.controller.dart';
 import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/model/user.model.dart';
@@ -7,6 +8,11 @@ import 'package:front/widgets/lendCard.dart';
 import 'package:intl/intl.dart';
 
 class LendPage extends StatelessWidget {
+  void _deleteRequest(String id) async {
+    final LendController lendController = new LendController();
+    await lendController.deleteLend(id);
+  }
+
   @override
   Widget build(BuildContext context) {
     final UserModel user = UserModel(
@@ -40,12 +46,9 @@ class LendPage extends StatelessWidget {
           LendCard(
             lend: lend,
             trailing: Icons.favorite_border,
-            leading: 'Emprestar',
+            leading: 'Editar',
             onPressed: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext ctx) => AlertDialog(),
-              );
+              _deleteRequest('0ef0412d-6cdb-47f3-a60a-2d74067ae136');
             },
           ),
         ],

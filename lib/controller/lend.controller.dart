@@ -10,7 +10,13 @@ class LendController {
       route: "/requests",
       body: lend.toJson(),
     );
+    return response;
+  }
 
+  Future<Response> deleteLend(String id) async {
+    Response response = await api.delete(
+      route: "/requests/$id",
+    );
     return response;
   }
 }
