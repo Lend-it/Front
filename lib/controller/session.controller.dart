@@ -15,7 +15,11 @@ class SessionController {
     await localStorage.setString('token', token);
   }
 
-  void cleanToken() {}
+  void cleanToken(BuildContext context) async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    localStorage.remove('token');
+    Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
+  }
 
   void createSession(
     String email,
