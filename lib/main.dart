@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: projectTheme,
-      initialRoute: '/',
+      initialRoute: '/login',
       home: BottomNavigation(),
       onGenerateRoute: (settings) {
         return CupertinoPageRoute(

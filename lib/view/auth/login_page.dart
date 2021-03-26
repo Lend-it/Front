@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:front/controller/session.controller.dart';
+import 'package:front/routes/app_routes.dart';
 import 'package:front/theme/colors.dart';
 import 'package:front/widgets/button.dart';
 import 'package:front/widgets/input.dart';
@@ -12,6 +14,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailController;
   TextEditingController _passwordController;
+  SessionController _sessionController = SessionController();
 
   @override
   void initState() {
@@ -25,6 +28,14 @@ class _LoginPageState extends State<LoginPage> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  void _createSession() {
+    _sessionController.createSession(
+      _emailController.text,
+      _passwordController.text,
+      context,
+    );
   }
 
   @override
@@ -133,7 +144,9 @@ class _LoginPageState extends State<LoginPage> {
                             SizedBox(height: 15),
                             Button(
                               title: "Entrar",
-                              onPressedHandler: () {},
+                              onPressedHandler: () {
+                                _createSession();
+                              },
                             ),
                           ],
                         ),
@@ -145,7 +158,12 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       Center(
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              AppRoutes.REGISTER_PAGE,
+                            );
+                          },
                           child: Padding(
                             padding: EdgeInsets.only(bottom: 15),
                             child: Text(
