@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:front/routes/app_routes.dart';
 import 'package:front/utils/geolocation.dart';
 import 'package:front/utils/notification_popup.dart';
-import 'package:front/widgets/PageHeading.dart';
+import 'package:front/widgets/page_heading.dart';
 import 'package:front/widgets/base_page.dart';
 import 'package:front/widgets/button.dart';
 

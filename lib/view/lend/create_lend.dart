@@ -5,7 +5,7 @@ import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/theme/colors.dart';
 import 'package:front/utils/notification_popup.dart';
-import 'package:front/widgets/PageHeading.dart';
+import 'package:front/widgets/page_heading.dart';
 import 'package:front/widgets/button.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';

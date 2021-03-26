@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:front/routes/app_routes.dart';
-import 'package:front/widgets/PageHeading.dart';
+import 'package:front/widgets/page_heading.dart';
 import 'package:front/widgets/base_page.dart';
 import 'package:front/widgets/button.dart';
 import 'package:geolocator/geolocator.dart';

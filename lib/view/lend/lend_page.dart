@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/model/user.model.dart';
-import 'package:front/widgets/lendCard.dart';
+import 'package:front/widgets/lend_card.dart';
 import 'package:intl/intl.dart';
 
 class LendPage extends StatelessWidget {

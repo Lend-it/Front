@@ -4,10 +4,12 @@ import 'package:front/theme/colors.dart';
 class PageHeading extends StatelessWidget {
   final String title;
   final String subtitle;
+  final bool inverted;
 
   const PageHeading({
     @required this.title,
     this.subtitle,
+    this.inverted = false,
   });
 
   @override
@@ -19,7 +21,7 @@ class PageHeading extends StatelessWidget {
           title,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: darkColor,
+            color: this.inverted ? lightColor : darkColor,
             fontSize: 24,
           ),
         ),
@@ -28,7 +30,7 @@ class PageHeading extends StatelessWidget {
           subtitle,
           style: TextStyle(
             fontWeight: FontWeight.normal,
-            color: darkColor,
+            color: this.inverted ? lightColor : darkColor,
             fontSize: 16,
           ),
         ),
