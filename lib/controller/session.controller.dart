@@ -5,16 +5,23 @@ import 'package:front/routes/app_routes.dart';
 import 'package:front/utils/notification_popup.dart';
 import 'package:http/http.dart';
 import 'package:front/services/api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SessionController {
   Api api = new Api();
 
-  void saveToken() {}
+  void saveToken(String token) async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    await localStorage.setString('token', token);
+  }
 
   void cleanToken() {}
 
   void createSession(
-      String email, String password, BuildContext context) async {
+    String email,
+    String password,
+    BuildContext context,
+  ) async {
     Response response = await api.post(
       route: "/session",
       body: {
@@ -31,6 +38,7 @@ class SessionController {
         status: 'fail',
       );
     } else {
+      saveToken(jsonDecode(response.body));
       Navigator.pushNamed(context, AppRoutes.HOME_PAGE);
     }
   }

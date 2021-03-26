@@ -5,6 +5,7 @@ import 'package:front/routes/app_routes.dart';
 import 'package:front/theme/colors.dart';
 import 'package:front/widgets/button.dart';
 import 'package:front/widgets/input.dart';
+import 'package:front/widgets/page_heading.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -102,22 +103,11 @@ class _LoginPageState extends State<LoginPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "Bem vindo ao Lend.it",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: lightColor,
-                                fontSize: 24,
-                              ),
-                            ),
-                            SizedBox(height: 12),
-                            Text(
-                              "Insira seus dados para fazer o login e começar a ajudar seus vizinhos!",
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                color: lightColor,
-                                fontSize: 16,
-                              ),
+                            PageHeading(
+                              title: "Bem vindo ao Lend.it",
+                              subtitle:
+                                  "Insira seus dados para fazer o login e começar a ajudar seus vizinhos!",
+                              inverted: true,
                             ),
                             SizedBox(height: 30),
                             Input(
