@@ -4,13 +4,29 @@ import 'package:front/controller/lend.controller.dart';
 import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/model/user.model.dart';
+import 'package:front/utils/notification_popup.dart';
 import 'package:front/widgets/lendCard.dart';
 import 'package:intl/intl.dart';
 
 class LendPage extends StatelessWidget {
-  void _deleteRequest(String id) async {
-    final LendController lendController = new LendController();
-    await lendController.deleteLend(id);
+  final NotificationPopup notificationPopup = new NotificationPopup();
+  final LendController lendController = new LendController();
+
+  void _deleteRequest(String id, context) async {
+    var response = await lendController.deleteLend(id);
+    if (response.statusCode != 200) {
+      notificationPopup.notificate(
+        context: context,
+        title: 'Não foi possível realizar a ação',
+        status: 'fail',
+      );
+    } else {
+      notificationPopup.notificate(
+        context: context,
+        title: 'Ação realizada com sucesso',
+        status: 'success',
+      );
+    }
   }
 
   @override
@@ -45,10 +61,10 @@ class LendPage extends StatelessWidget {
         children: [
           LendCard(
             lend: lend,
-            trailing: Icons.favorite_border,
-            leading: 'Editar',
+            trailing: Icons.delete,
+            leading: 'Deletar',
             onPressed: () {
-              _deleteRequest('0ef0412d-6cdb-47f3-a60a-2d74067ae136');
+              _deleteRequest('9406ab9c-a0e2-4ec3-8779-a45ec7788f7c', context);
             },
           ),
         ],
