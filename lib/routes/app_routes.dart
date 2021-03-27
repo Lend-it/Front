@@ -6,4 +6,5 @@ class AppRoutes {
   static const GEOLOCATION_PAGE = '/geolocation';
   static const MAP_PAGE = '/house-map';
   static const CREATE_LEND = '/create-lend';
+  static const EDIT_LEND = '/edit-lend';
 }

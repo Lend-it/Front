@@ -7,7 +7,15 @@ class LendController {
 
   Future<Response> createNewLend(LendModel lend) async {
     Response response = await api.post(
-      route: "/requests",
+      route: '/requests',
+      body: lend.toJson(),
+    );
+    return response;
+  }
+
+  Future<Response> editLend(LendModel lend) async {
+    Response response = await api.put(
+      route: '/requests/${lend.id}',
       body: lend.toJson(),
     );
     return response;
@@ -15,7 +23,7 @@ class LendController {
 
   Future<Response> deleteLend(String id) async {
     Response response = await api.delete(
-      route: "/requests/$id",
+      route: '/requests/$id',
     );
     return response;
   }

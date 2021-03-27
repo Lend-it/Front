@@ -13,14 +13,11 @@ import 'package:smart_select/smart_select.dart';
 
 class CreateLend extends StatefulWidget {
   final LendModel lend;
-  final String title;
-  final String subtitle;
+  final bool isEdit;
 
   CreateLend({
-    Key key,
-    this.lend,
-    this.title,
-    this.subtitle,
+    @required this.lend,
+    @required this.isEdit,
   });
 
   @override
@@ -34,6 +31,8 @@ class _CreateLendState extends State<CreateLend> {
 
   String _selectValue;
   String _selectTitle;
+  String _title;
+  String _subtitle;
 
   LendController lendController = new LendController();
 
@@ -42,6 +41,16 @@ class _CreateLendState extends State<CreateLend> {
   @override
   void initState() {
     super.initState();
+
+    if (widget.isEdit) {
+      _title = 'Editar pedido';
+      _subtitle =
+          'Mude os dados que deseja, eles serão refletidos quando você salvar.';
+    } else {
+      _title = 'Criar pedido';
+      _subtitle =
+          'Peça ajuda! Preencha esse formulário para solicitar o empréstimo de um produto.';
+    }
 
     if (widget.lend == null) {
       _nameController = TextEditingController();
@@ -101,6 +110,55 @@ class _CreateLendState extends State<CreateLend> {
     }
   }
 
+  void handleLendRequest() async {
+    final requestLend = LendModel(
+      id: widget.lend.id,
+      user: widget.lend.user,
+      category: CategoryModel(
+        title: _selectTitle,
+        id: _selectValue,
+      ),
+      description: _descriptionController.text,
+      endDate: _dateTimeRange.end.toString(),
+      startDate: _dateTimeRange.start.toString(),
+      title: _nameController.text,
+    );
+
+    if (widget.isEdit) {
+      final Response response = await lendController.editLend(requestLend);
+
+      if (response.statusCode != 201) {
+        NotificationPopup.notificate(
+          context: context,
+          title: 'Não foi possível realizar a ação',
+          status: 'fail',
+        );
+      } else {
+        NotificationPopup.notificate(
+          context: context,
+          title: 'Ação realizada com sucesso',
+          status: 'success',
+        );
+      }
+    } else {
+      final Response response = await lendController.createNewLend(requestLend);
+
+      if (response.statusCode != 201) {
+        NotificationPopup.notificate(
+          context: context,
+          title: 'Não foi possível realizar a ação',
+          status: 'fail',
+        );
+      } else {
+        NotificationPopup.notificate(
+          context: context,
+          title: 'Ação realizada com sucesso',
+          status: 'success',
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,14 +171,14 @@ class _CreateLendState extends State<CreateLend> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(left: 10, right: 10, bottom: 30),
+              padding: EdgeInsets.only(left: 20, right: 20, bottom: 30),
               child: PageHeading(
-                title: widget.title,
-                subtitle: widget.subtitle,
+                title: _title,
+                subtitle: _subtitle,
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 25, right: 25),
+              padding: EdgeInsets.only(left: 20, right: 20),
               child: Column(
                 children: <Widget>[
                   Container(
@@ -242,38 +300,8 @@ class _CreateLendState extends State<CreateLend> {
                   ),
                   SizedBox(height: 20),
                   Button(
-                    title: widget.title,
-                    onPressedHandler: () async {
-                      final requestLend = LendModel(
-                        id: widget.lend.id,
-                        user: widget.lend.user,
-                        category: CategoryModel(
-                          title: _selectTitle,
-                          id: _selectValue,
-                        ),
-                        description: _descriptionController.text,
-                        endDate: _dateTimeRange.end.toString(),
-                        startDate: _dateTimeRange.start.toString(),
-                        title: _nameController.text,
-                      );
-
-                      final Response response =
-                          await lendController.createNewLend(requestLend);
-
-                      if (response.statusCode != 201) {
-                        NotificationPopup.notificate(
-                          context: context,
-                          title: 'Não foi possível realizar a ação',
-                          status: 'fail',
-                        );
-                      } else {
-                        NotificationPopup.notificate(
-                          context: context,
-                          title: 'Ação realizada com sucesso',
-                          status: 'success',
-                        );
-                      }
-                    },
+                    title: _title,
+                    onPressedHandler: handleLendRequest,
                   ),
                 ],
               ),
