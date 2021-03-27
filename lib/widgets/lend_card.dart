@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/theme/colors.dart';
+import 'package:front/utils/dates.dart';
 
 Widget lendCardHeader({
   String title,
@@ -118,7 +119,8 @@ Widget lendCardUserInfo({
             Icon(Icons.calendar_today_outlined),
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 7.0),
-                child: Text('$startDate até $endDate')),
+                child: Text(
+                    '${Dates.formatDateDDMM(startDate)} até ${Dates.formatDateDDMM(endDate)}')),
           ],
         ),
       ],

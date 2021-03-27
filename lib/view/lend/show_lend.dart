@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/model/lend.model.dart';
 import 'package:front/theme/colors.dart';
+import 'package:front/utils/dates.dart';
+import 'package:intl/intl.dart';
+import 'dart:io';
 
 import '../../theme/colors.dart';
 import '../../widgets/button.dart';
@@ -13,6 +17,7 @@ class ShowLend extends StatefulWidget {
 class _ShowLendState extends State<ShowLend> {
   @override
   Widget build(BuildContext context) {
+    final LendModel lend = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       backgroundColor: lightColor,
       extendBodyBehindAppBar: true,
@@ -25,9 +30,7 @@ class _ShowLendState extends State<ShowLend> {
           child: Column(
             children: [
               Image(
-                image: NetworkImage(
-                  'https://avatars.githubusercontent.com/u/42722634?s=460&u=5dc66aaf59dbaf2e3e68c931cca641a44b5fd9fc&v=4',
-                ),
+                image: NetworkImage(lend.user.photo),
               ),
               Container(
                 padding: EdgeInsets.symmetric(
@@ -45,7 +48,7 @@ class _ShowLendState extends State<ShowLend> {
                           size: 30,
                         ),
                         Text(
-                          '4,8',
+                          lend.user.rating,
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 22,
@@ -56,7 +59,7 @@ class _ShowLendState extends State<ShowLend> {
                     ),
                     Divider(height: 45, thickness: 1),
                     Text(
-                      'José da Silva solicita um Banco Imobiliário emprestado.',
+                      '${lend.user.name} solicita um ${lend.title} emprestado.',
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 22,
@@ -67,7 +70,7 @@ class _ShowLendState extends State<ShowLend> {
                       children: [
                         Chip(
                           label: Text(
-                            'Jogos',
+                            lend.category.title,
                             style: TextStyle(color: lightColor),
                           ),
                           backgroundColor: secondaryLightColor,
@@ -85,7 +88,7 @@ class _ShowLendState extends State<ShowLend> {
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 7.0),
                               child: Text(
-                                '20/02 até 22/02',
+                                '${Dates.formatDateDDMM(lend.startDate)} até ${Dates.formatDateDDMM(lend.endDate)}',
                               ),
                             ),
                           ],
@@ -96,7 +99,7 @@ class _ShowLendState extends State<ShowLend> {
                       height: 20,
                     ),
                     Text(
-                      'Queria um banco imobiliário emprestado para jogar com meus amigos neste fim de semana, prometo que vou cuidar muito bem',
+                      lend.description,
                       style: TextStyle(
                         fontSize: 16,
                         height: 1.5,

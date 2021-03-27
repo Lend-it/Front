@@ -49,7 +49,11 @@ class _LendPageState extends State<LendPage> {
             trailing: Icons.favorite_border,
             leading: 'Emprestar',
             onPressed: () {
-              Navigator.pushNamed(context, AppRoutes.SHOW_LEND);
+              Navigator.pushNamed(
+                context,
+                AppRoutes.SHOW_LEND,
+                arguments: lends[i],
+              );
             },
           );
         },

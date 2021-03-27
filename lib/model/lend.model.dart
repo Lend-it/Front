@@ -42,8 +42,8 @@ class LendModel {
             'https://avatars.githubusercontent.com/u/42722634?s=460&u=5dc66aaf59dbaf2e3e68c931cca641a44b5fd9fc&v=4',
       ),
       description: json["description"],
-      endDate: json["endDate"],
-      startDate: json["startDate"],
+      endDate: json["enddate"],
+      startDate: json["startdate"],
       //user: UserModel(
       //id: json["user"]['id'],
       //name: json["user"]['name'],
