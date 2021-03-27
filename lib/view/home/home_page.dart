@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/controller/session.controller.dart';
+import 'package:front/routes/app_routes.dart';
 import 'package:front/view/auth/register_page.dart';
 import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/model/user.model.dart';
-import 'package:front/view/lend/create_lend.dart';
 import 'package:front/widgets/notification_tile.dart';
 import 'package:front/widgets/button.dart';
 import 'package:front/widgets/category_chip_list.dart';
@@ -77,19 +78,20 @@ class _HomePageState extends State<HomePage> {
           ),
           FlatButton(
             onPressed: () {
-              Navigator.push(
+              Navigator.pushNamed(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => CreateLend(
-                      lend: lend,
-                      title: 'Criar pedido',
-                      subtitle:
-                          'Peça ajuda! Você só precisa preencher esse formulário para solicitar o empréstimo de um produto'),
-                ),
+                AppRoutes.GEOLOCATION_PAGE,
               );
             },
-            child: Text('Criar Lend'),
+            child: Text('Fluxo de Registro'),
             color: Colors.blue,
+          ),
+          FlatButton(
+            onPressed: () {
+              new SessionController().cleanToken(context);
+            },
+            child: Text('Logout'),
+            color: Colors.red,
           ),
           CategoryChipList(),
           Input(
