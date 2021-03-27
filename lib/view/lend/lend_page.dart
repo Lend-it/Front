@@ -5,23 +5,22 @@ import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/model/user.model.dart';
 import 'package:front/utils/notification_popup.dart';
-import 'package:front/widgets/lendCard.dart';
+import 'package:front/widgets/lend_card.dart';
 import 'package:intl/intl.dart';
 
 class LendPage extends StatelessWidget {
-  final NotificationPopup notificationPopup = new NotificationPopup();
   final LendController lendController = new LendController();
 
   void _deleteRequest(String id, context) async {
     var response = await lendController.deleteLend(id);
     if (response.statusCode != 200) {
-      notificationPopup.notificate(
+      NotificationPopup.notificate(
         context: context,
         title: 'Não foi possível realizar a ação',
         status: 'fail',
       );
     } else {
-      notificationPopup.notificate(
+      NotificationPopup.notificate(
         context: context,
         title: 'Ação realizada com sucesso',
         status: 'success',

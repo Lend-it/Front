@@ -14,7 +14,7 @@ class UserController {
     if (response.body.contains('error')) {
       var errorMessage = jsonDecode(response.body)['error'];
       print(errorMessage);
-      new NotificationPopup().notificate(
+      NotificationPopup.notificate(
         title: errorMessage,
         context: context,
         status: 'fail',

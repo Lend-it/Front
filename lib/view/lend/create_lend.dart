@@ -5,6 +5,7 @@ import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/theme/colors.dart';
 import 'package:front/utils/notification_popup.dart';
+import 'package:front/widgets/page_heading.dart';
 import 'package:front/widgets/button.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
@@ -35,7 +36,6 @@ class _CreateLendState extends State<CreateLend> {
   String _selectTitle;
 
   LendController lendController = new LendController();
-  NotificationPopup notificationPopup = new NotificationPopup();
 
   List<S2Choice<String>> _options;
 
@@ -114,18 +114,9 @@ class _CreateLendState extends State<CreateLend> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(left: 10, right: 10, bottom: 30),
-              child: ListTile(
-                title: Padding(
-                  padding: EdgeInsets.only(bottom: 10),
-                  child: Text(
-                    widget.title,
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
-                  ),
-                ),
-                subtitle: Text(
-                  widget.subtitle,
-                  style: TextStyle(fontSize: 16, color: darkColor),
-                ),
+              child: PageHeading(
+                title: widget.title,
+                subtitle: widget.subtitle,
               ),
             ),
             Padding(
@@ -270,13 +261,13 @@ class _CreateLendState extends State<CreateLend> {
                           await lendController.createNewLend(requestLend);
 
                       if (response.statusCode != 201) {
-                        notificationPopup.notificate(
+                        NotificationPopup.notificate(
                           context: context,
                           title: 'Não foi possível realizar a ação',
                           status: 'fail',
                         );
                       } else {
-                        notificationPopup.notificate(
+                        NotificationPopup.notificate(
                           context: context,
                           title: 'Ação realizada com sucesso',
                           status: 'success',
