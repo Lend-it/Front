@@ -41,6 +41,10 @@ Em seguida rode o comando para ver se alguma outra dependencia é necessária pa
 $ flutter doctor
 ```
 
+### Android Studio
+
+Instalação do Android Studio: https://developer.android.com/studio/install
+
 ## Rodando o projeto
 
 Navegue até a pasta **Front** no terminal usando **cd** e execute:
