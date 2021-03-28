@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:front/controller/lend.controller.dart';
@@ -8,8 +10,30 @@ import 'package:front/utils/notification_popup.dart';
 import 'package:front/widgets/lend_card.dart';
 import 'package:intl/intl.dart';
 
-class LendPage extends StatelessWidget {
-  final LendController lendController = new LendController();
+import '../../routes/app_routes.dart';
+
+class LendPage extends StatefulWidget {
+  @override
+  _LendPageState createState() => _LendPageState();
+}
+
+class _LendPageState extends State<LendPage> {
+  LendController lendController = new LendController();
+  List<LendModel> lends = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getAllLends();
+  }
+
+  void getAllLends() async {
+    final List<LendModel> response = await lendController.getLends();
+    setState(() {
+      lends = response;
+    });
+    print(response);
+  }
 
   void _deleteRequest(String id, context) async {
     var response = await lendController.deleteLend(id);
@@ -30,43 +54,27 @@ class LendPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final UserModel user = UserModel(
-      id: '3',
-      name: 'José da Silva',
-      email: 'jose@email.com',
-      rating: '4.0',
-      photo:
-          'https://avatars.githubusercontent.com/u/42722634?s=460&u=5dc66aaf59dbaf2e3e68c931cca641a44b5fd9fc&v=4',
-    );
-    final CategoryModel category = CategoryModel(
-      id: '3',
-      title: 'Jogos',
-    );
-    final LendModel lend = LendModel(
-      id: '3',
-      title: 'Banco Imobiliário',
-      category: category,
-      description:
-          'Queria um banco imobiliário emprestado para jogar com meus amigos neste fim de semana!',
-      endDate: DateFormat("dd/MM").format(DateTime.parse("2020-09-30")),
-      startDate: DateFormat("dd/MM").format(DateTime.parse("2020-09-12")),
-      user: user,
-    );
     return Scaffold(
       appBar: AppBar(
         title: Text('LendPage'),
       ),
-      body: Column(
-        children: [
-          LendCard(
-            lend: lend,
-            trailing: Icons.delete,
-            leading: 'Deletar',
+      body: ListView.separated(
+        separatorBuilder: (context, i) => SizedBox(height: 10),
+        itemCount: lends.length,
+        itemBuilder: (context, i) {
+          return LendCard(
+            lend: lends[i],
+            trailing: Icons.favorite_border,
+            leading: 'Emprestar',
             onPressed: () {
-              _deleteRequest('9406ab9c-a0e2-4ec3-8779-a45ec7788f7c', context);
+              Navigator.pushNamed(
+                context,
+                AppRoutes.SHOW_LEND,
+                arguments: lends[i],
+              );
             },
-          ),
-        ],
+          );
+        },
       ),
     );
   }
