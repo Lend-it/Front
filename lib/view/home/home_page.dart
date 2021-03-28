@@ -6,6 +6,7 @@ import 'package:front/view/auth/register_page.dart';
 import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/model/user.model.dart';
+import 'package:front/view/lend/create_lend.dart';
 import 'package:front/widgets/notification_tile.dart';
 import 'package:front/widgets/button.dart';
 import 'package:front/widgets/category_chip_list.dart';
@@ -50,11 +51,11 @@ class _HomePageState extends State<HomePage> {
       title: 'Ferramentas',
     );
     final LendModel lend = LendModel(
-      id: '3',
-      title: 'Banco Imobiliário',
+      id: 'fce61c6d-1cb0-488c-a2fa-6a90fdbe192d',
+      title: 'Furadeira',
       category: category,
       description:
-          'Queria um banco imobiliário emprestado para jogar com meus amigos neste fim de semana!',
+          'Preciso furar as cortinas e os suportes da televisão do meu apartamento e gostaria emprestado! Alguém pode me ajudar?',
       endDate: "2020-09-30",
       startDate: "2020-09-12",
       user: user,
@@ -92,6 +93,21 @@ class _HomePageState extends State<HomePage> {
             },
             child: Text('Logout'),
             color: Colors.red,
+          ),
+          FlatButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CreateLend(
+                    lend: lend,
+                    isEdit: true,
+                  ),
+                ),
+              );
+            },
+            child: Text('Editar pedido'),
+            color: Colors.blue,
           ),
           CategoryChipList(),
           Input(
