@@ -23,22 +23,34 @@ class LendModel {
 
   factory LendModel.fromJson(Map<String, dynamic> json) {
     return LendModel(
-      id: json["id"],
-      title: json["title"],
+      id: json["requestid"],
+      title: json["productname"],
+      //category: CategoryModel(
+      //id: json["category"]["id"],
+      //title: json["category"]["title"],
+      //),
       category: CategoryModel(
-        id: json["category"]["id"],
-        title: json["category"]["title"],
+        id: '3',
+        title: 'Jogos',
+      ),
+      user: UserModel(
+        id: '3',
+        name: 'José da Silva',
+        email: 'jose@email.com',
+        rating: '4.0',
+        photo:
+            'https://avatars.githubusercontent.com/u/42722634?s=460&u=5dc66aaf59dbaf2e3e68c931cca641a44b5fd9fc&v=4',
       ),
       description: json["description"],
-      endDate: json["endDate"],
-      startDate: json["startDate"],
-      user: UserModel(
-        id: json["user"]['id'],
-        name: json["user"]['name'],
-        email: json["user"]['email'],
-        photo: json["user"]["photo"],
-        rating: json["user"]['rating'],
-      ),
+      endDate: json["enddate"],
+      startDate: json["startdate"],
+      //user: UserModel(
+      //id: json["user"]['id'],
+      //name: json["user"]['name'],
+      //email: json["user"]['email'],
+      //photo: json["user"]["photo"],
+      //rating: json["user"]['rating'],
+      //),
     );
   }
 

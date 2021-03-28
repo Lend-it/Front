@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:front/controller/lend.controller.dart';
@@ -64,8 +66,8 @@ class _CreateLendState extends State<CreateLend> {
       _descriptionController =
           TextEditingController(text: widget.lend.description);
       _dateTimeRange = DateTimeRange(
-        start: DateTime.parse(widget.lend.startDate),
-        end: DateTime.parse(widget.lend.endDate),
+        start: HttpDate.parse(widget.lend.startDate),
+        end: HttpDate.parse(widget.lend.endDate),
       );
       _selectValue = widget.lend.category.id;
       _selectTitle = widget.lend.category.title;
