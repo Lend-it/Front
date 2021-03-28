@@ -6,12 +6,16 @@ import 'package:front/view/geolocation/map_page.dart';
 import 'package:front/view/home/home_page.dart';
 import 'package:front/view/lend/create_lend.dart';
 import 'package:front/view/profile/profile_page.dart';
+import 'package:front/view/lend/show_lend.dart';
+
+import 'app_routes.dart';
 import 'package:front/view/auth/login_page.dart';
 
 class Routes {
   static Map<String, Widget Function(BuildContext)> routes = {
     AppRoutes.HOME_PAGE: (ctx) => HomePage(),
     AppRoutes.PROFILE_PAGE: (ctx) => ProfilePage(),
+    AppRoutes.SHOW_LEND: (ctx) => ShowLend(),
     AppRoutes.LOGIN_PAGE: (ctx) => LoginPage(),
     AppRoutes.REGISTER_PAGE: (ctx) => RegisterPage(),
     AppRoutes.GEOLOCATION_PAGE: (ctx) => GeolocationPage(),
