@@ -6,6 +6,7 @@ import 'package:front/controller/lend.controller.dart';
 import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/model/user.model.dart';
+import 'package:front/utils/notification_popup.dart';
 import 'package:front/widgets/lend_card.dart';
 import 'package:intl/intl.dart';
 
@@ -20,6 +21,12 @@ class _LendPageState extends State<LendPage> {
   LendController lendController = new LendController();
   List<LendModel> lends = [];
 
+  @override
+  void initState() {
+    super.initState();
+    getAllLends();
+  }
+
   void getAllLends() async {
     final List<LendModel> response = await lendController.getLends();
     setState(() {
@@ -28,10 +35,21 @@ class _LendPageState extends State<LendPage> {
     print(response);
   }
 
-  @override
-  void initState() {
-    super.initState();
-    getAllLends();
+  void _deleteRequest(String id, context) async {
+    var response = await lendController.deleteLend(id);
+    if (response.statusCode != 200) {
+      NotificationPopup.notificate(
+        context: context,
+        title: 'Não foi possível realizar a ação',
+        status: 'fail',
+      );
+    } else {
+      NotificationPopup.notificate(
+        context: context,
+        title: 'Ação realizada com sucesso',
+        status: 'success',
+      );
+    }
   }
 
   @override
