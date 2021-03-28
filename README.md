@@ -14,10 +14,10 @@ $ sudo apt install snap
 
 Com o snap instalado podemos instalar o flutter:
 ```
-$ sudo snap install flutter --clasic
+$ sudo snap install flutter --classic
 ```
 
-Em seguida rode o comando para ver se alguma outra dependencia é necessária para instalação:
+Em seguida rode o comando para ver se alguma outra dependência é necessária para instalação:
 ```
 $ flutter doctor
 ```
