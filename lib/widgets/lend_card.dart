@@ -118,9 +118,10 @@ Widget lendCardUserInfo({
           children: <Widget>[
             Icon(Icons.calendar_today_outlined),
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 7.0),
-                child: Text(
-                    '${Dates.formatDateDDMM(startDate)} até ${Dates.formatDateDDMM(endDate)}')),
+              padding: EdgeInsets.symmetric(horizontal: 7.0),
+              child: Text(
+                  '${Dates.formatDateDDMM(startDate)} até ${Dates.formatDateDDMM(endDate)}'),
+            ),
           ],
         ),
       ],
