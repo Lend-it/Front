@@ -19,20 +19,16 @@ class PageHeading extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: this.inverted ? lightColor : darkColor,
-            fontSize: 24,
-          ),
+          style: Theme.of(context).textTheme.headline2.copyWith(
+                color: this.inverted ? lightColor : darkColor,
+              ),
         ),
-        SizedBox(height: 12),
+        SizedBox(height: 8),
         Text(
           subtitle,
-          style: TextStyle(
-            fontWeight: FontWeight.normal,
-            color: this.inverted ? lightColor : darkColor,
-            fontSize: 16,
-          ),
+          style: Theme.of(context).textTheme.bodyText2.copyWith(
+                color: this.inverted ? lightColor : darkColor,
+              ),
         ),
       ],
     );
