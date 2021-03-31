@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:front/controller/lend.controller.dart';
 import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
@@ -80,94 +81,152 @@ class _LendPageState extends State<LendPage> {
       user: user,
     );
 
-    return Scaffold(
-      body: BasePage(
-        header: DefaultTabController(
-          length: 2,
-          child: SafeArea(
-            child: Scaffold(
-              backgroundColor: primaryColor,
-              appBar: PreferredSize(
-                preferredSize: Size(double.infinity, 80),
-                child: Center(
-                  child: TabBar(indicatorColor: Colors.transparent, tabs: [
-                    Tab(
-                      child: Text(
-                        "Meus Pedidos",
-                        style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700,
-                            color: lightColor),
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        "Emprestados",
-                        style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700,
-                            color: lightColor),
-                      ),
-                    )
-                  ]),
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+    Size size = MediaQuery.of(context).size;
+
+    return DefaultTabController(
+      length: 2,
+      child: Container(
+        child: Scaffold(
+          backgroundColor: primaryColor,
+          appBar: AppBar(
+            titleSpacing: 0,
+            toolbarHeight: 100,
+            backgroundColor: primaryColor,
+            elevation: 0,
+            title: Stack(
+              children: [
+                Positioned(
+                  top: statusBarHeight,
+                  right: -25,
+                  child: SvgPicture.asset(
+                    'assets/logo_water_mark.svg',
+                    width: 100,
+                  ),
                 ),
-              ),
+                Container(
+                  height: 160,
+                  width: size.width,
+                  child: TabBar(
+                    indicatorColor: Colors.transparent,
+                    tabs: [
+                      Tab(
+                        child: Text(
+                          "Meus pedidos",
+                          style: TextStyle(fontSize: 22),
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          "Emprestados",
+                          style: TextStyle(fontSize: 22),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Pedidos que você criou",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+          body: Container(
+            decoration: BoxDecoration(
+              color: lightColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
               ),
-              SizedBox(
-                height: 15,
-              ),
-              CategoryChipList(),
-              SizedBox(
-                height: 25,
-              ),
-              Column(
-                children: [
-                  LendCard(
-                    lend: lend,
-                    trailing: Icons.favorite_border,
-                    leading: 'Emprestar',
-                    onPressed: () {},
+            ),
+            child: TabBarView(
+              children: [
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Pedidos que você criou",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        CategoryChipList(),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        Column(
+                          children: [
+                            LendCard(
+                              lend: lend,
+                              trailing: Icons.favorite_border,
+                              leading: 'Emprestar',
+                              onPressed: () {},
+                            ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                            LendCard(
+                              lend: lend,
+                              trailing: Icons.favorite_border,
+                              leading: 'Emprestar',
+                              onPressed: () {},
+                            ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                            LendCard(
+                              lend: lend,
+                              trailing: Icons.favorite_border,
+                              leading: 'Emprestar',
+                              onPressed: () {},
+                            ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                            LendCard(
+                              lend: lend,
+                              trailing: Icons.favorite_border,
+                              leading: 'Emprestar',
+                              onPressed: () {},
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  SizedBox(
-                    height: 25,
+                ),
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Produtos que você emprestou",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        Column(
+                          children: [
+                            LendCard(
+                              lend: lend,
+                              trailing: Icons.favorite_border,
+                              leading: 'Emprestar',
+                              onPressed: () {},
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  LendCard(
-                    lend: lend,
-                    trailing: Icons.favorite_border,
-                    leading: 'Emprestar',
-                    onPressed: () {},
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  LendCard(
-                    lend: lend,
-                    trailing: Icons.favorite_border,
-                    leading: 'Emprestar',
-                    onPressed: () {},
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  LendCard(
-                    lend: lend,
-                    trailing: Icons.favorite_border,
-                    leading: 'Emprestar',
-                    onPressed: () {},
-                  ),
-                ],
-              )
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
