@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:front/model/user.model.dart';
 import 'package:front/routes/app_routes.dart';
 import 'package:front/utils/notification_popup.dart';
 import 'package:http/http.dart';
@@ -13,6 +14,12 @@ class SessionController {
   void saveToken(String token) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     await localStorage.setString('token', token);
+  }
+
+  void saveUser(UserModel user) async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    await localStorage.setString('useremail', user.email);
+    await localStorage.setString('username', user.name);
   }
 
   void cleanToken(BuildContext context) async {
@@ -42,7 +49,9 @@ class SessionController {
         status: 'fail',
       );
     } else {
-      saveToken(jsonDecode(response.body));
+      final dynamic body = jsonDecode(response.body);
+      saveToken(body['token']);
+      saveUser(UserModel.fromJson(body['user']));
       Navigator.pushNamed(context, AppRoutes.HOME_PAGE);
     }
   }

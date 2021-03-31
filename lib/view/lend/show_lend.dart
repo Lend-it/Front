@@ -3,11 +3,43 @@ import 'package:flutter/widgets.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/theme/colors.dart';
 import 'package:front/utils/dates.dart';
-import 'package:intl/intl.dart';
-import 'dart:io';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../theme/colors.dart';
 import '../../widgets/button.dart';
+
+Widget modalButton({
+  String title,
+  Color color,
+  Color textColor,
+  Function onPressed,
+}) {
+  return ConstrainedBox(
+    constraints: BoxConstraints.tightFor(
+      width: double.infinity,
+      height: 53,
+    ),
+    child: ElevatedButton(
+      child: Text(
+        title,
+        style: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 18,
+          color: textColor,
+        ),
+      ),
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        elevation: 0,
+        primary: color,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+      ),
+    ),
+  );
+}
 
 class ShowLend extends StatefulWidget {
   @override
@@ -15,9 +47,95 @@ class ShowLend extends StatefulWidget {
 }
 
 class _ShowLendState extends State<ShowLend> {
+  SharedPreferences _preferences;
+
+  Future<void> _setPreferences() async {
+    setState(() async {
+      _preferences = await SharedPreferences.getInstance();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _setPreferences();
+  }
+
+  Future<void> _showMyBottomSheet(LendModel lend) async {
+    final userName = _preferences.getString('username');
+    final userEmail = _preferences.getString('useremail');
+
+    return showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: 30,
+            vertical: 10,
+          ),
+          height: 320,
+          color: lightColor,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  Icons.warning_amber_rounded,
+                  size: 50,
+                ),
+                Text(
+                  'Confirmação de empréstimo',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Text(
+                  'Você realmente se compromete em emprestar o ${lend.title} para ${lend.user.name}',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                Column(
+                  children: [
+                    modalButton(
+                      color: secondaryColor,
+                      onPressed: () {
+                        final String message =
+                            'Olá ${lend.user.name}, meu nome é $userName e eu posso te ajudar!';
+                        FlutterOpenWhatsapp.sendSingleMessage(
+                          lend.user.whatsapp,
+                          message,
+                        );
+                      },
+                      title: 'Sim, quero emprestar',
+                      textColor: lightColor,
+                    ),
+                    SizedBox(
+                      height: 14,
+                    ),
+                    modalButton(
+                      color: dangerColor.withOpacity(0.4),
+                      onPressed: () => Navigator.pop(context),
+                      title: 'Não, quero voltar atrás',
+                      textColor: dangerColor,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final LendModel lend = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       backgroundColor: lightColor,
       extendBodyBehindAppBar: true,
@@ -110,7 +228,7 @@ class _ShowLendState extends State<ShowLend> {
                     ),
                     Button(
                       title: 'Emprestar',
-                      onPressedHandler: () {},
+                      onPressedHandler: () => _showMyBottomSheet(lend),
                     ),
                   ],
                 ),
