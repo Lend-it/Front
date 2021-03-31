@@ -33,6 +33,12 @@ ThemeData _buildProjectTheme() {
         fontWeight: FontWeight.bold,
         color: darkColor,
       ),
+      button: TextStyle(
+        fontFamily: 'Poppins',
+        fontSize: 18,
+        fontWeight: FontWeight.w500,
+        color: lightColor,
+      ),
       bodyText2: TextStyle(
         fontFamily: 'OpenSans',
         fontSize: 16,
