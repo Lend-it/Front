@@ -43,7 +43,10 @@ class SessionController {
       );
     } else {
       saveToken(jsonDecode(response.body));
-      Navigator.pushNamed(context, AppRoutes.HOME_PAGE);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        AppRoutes.HOME_PAGE,
+        (route) => false,
+      );
     }
   }
 }
