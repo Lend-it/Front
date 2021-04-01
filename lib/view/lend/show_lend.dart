@@ -47,24 +47,7 @@ class ShowLend extends StatefulWidget {
 }
 
 class _ShowLendState extends State<ShowLend> {
-  SharedPreferences _preferences;
-
-  Future<void> _setPreferences() async {
-    setState(() async {
-      _preferences = await SharedPreferences.getInstance();
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _setPreferences();
-  }
-
   Future<void> _showMyBottomSheet(LendModel lend) async {
-    final userName = _preferences.getString('username');
-    final userEmail = _preferences.getString('useremail');
-
     return showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
@@ -104,7 +87,7 @@ class _ShowLendState extends State<ShowLend> {
                       color: secondaryColor,
                       onPressed: () {
                         final String message =
-                            'Olá ${lend.user.name}, meu nome é $userName e eu posso te ajudar!';
+                            'Olá ${lend.user.name}, meu nome é Matheus Afonso e eu posso te ajudar!';
                         FlutterOpenWhatsapp.sendSingleMessage(
                           lend.user.whatsapp,
                           message,

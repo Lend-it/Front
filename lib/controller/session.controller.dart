@@ -16,12 +16,6 @@ class SessionController {
     await localStorage.setString('token', token);
   }
 
-  void saveUser(UserModel user) async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    await localStorage.setString('useremail', user.email);
-    await localStorage.setString('username', user.name);
-  }
-
   void cleanToken(BuildContext context) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     localStorage.remove('token');
@@ -51,7 +45,6 @@ class SessionController {
     } else {
       final dynamic body = jsonDecode(response.body);
       saveToken(body['token']);
-      saveUser(UserModel.fromJson(body['user']));
       Navigator.pushNamed(context, AppRoutes.HOME_PAGE);
     }
   }
