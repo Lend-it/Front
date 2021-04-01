@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:front/controller/session.controller.dart';
-import 'package:front/routes/app_routes.dart';
-import 'package:front/view/auth/register_page.dart';
 import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/model/user.model.dart';
-import 'package:front/view/lend/create_lend.dart';
-import 'package:front/widgets/notification_tile.dart';
-import 'package:front/widgets/button.dart';
+import 'package:front/widgets/base_page.dart';
+import 'package:front/widgets/lend_card.dart';
 import 'package:front/widgets/category_chip_list.dart';
 
-import 'package:front/widgets/input.dart';
+import 'package:front/widgets/page_heading.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -56,90 +52,58 @@ class _HomePageState extends State<HomePage> {
       category: category,
       description:
           'Preciso furar as cortinas e os suportes da televisão do meu apartamento e gostaria emprestado! Alguém pode me ajudar?',
-      endDate: "2020-09-30",
-      startDate: "2020-09-12",
+      endDate: "Sat, 21 Sep 2019 00:00:00 GMT",
+      startDate: "Sat, 21 Sep 2019 00:00:00 GMT",
       user: user,
     );
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-      ),
-      body: Column(
-        children: [
-          FlatButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => RegisterPage()),
-              );
-            },
-            child: Text('Ir para Login'),
-            color: Colors.blue,
+      body: BasePage(
+          header: Container(
+            padding: EdgeInsets.only(top: 20),
+            child: PageHeading(
+              title: "Boa tarde, Maia",
+              subtitle: "Que dia lindo para ajudar alguém!",
+              inverted: true,
+            ),
           ),
-          FlatButton(
-            onPressed: () {
-              Navigator.pushNamed(
-                context,
-                AppRoutes.GEOLOCATION_PAGE,
-              );
-            },
-            child: Text('Fluxo de Registro'),
-            color: Colors.blue,
-          ),
-          FlatButton(
-            onPressed: () {
-              new SessionController().cleanToken(context);
-            },
-            child: Text('Logout'),
-            color: Colors.red,
-          ),
-          FlatButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CreateLend(
-                    lend: lend,
-                    isEdit: true,
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Pedidos de categoria",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              );
-            },
-            child: Text('Editar pedido'),
-            color: Colors.blue,
-          ),
-          CategoryChipList(),
-          Input(
-            type: TextInputType.emailAddress,
-            controller: _emailController,
-            placeholder: 'E-mail',
-            prefix: Icons.mail_outline,
-          ),
-          Input(
-            type: TextInputType.visiblePassword,
-            controller: _passwordController,
-            placeholder: 'Password',
-            prefix: Icons.lock_outline,
-          ),
-          Button(
-            title: 'Placeholder',
-            onPressedHandler: () {
-              print(_emailController.text);
-              print(_passwordController.text);
-              showDialog(
-                context: context,
-                builder: (BuildContext ctx) => AlertDialog(),
-              );
-            },
-          ),
-          NotificationTile(
-            title: "José da silva solicitou um banco imobiliario emprestado",
-            subtitle: "12 min",
-            onTapHandler: () {},
-          ),
-        ],
-      ),
+                SizedBox(height: 10),
+                CategoryChipList(),
+                SizedBox(height: 25),
+                LendCard(
+                  lend: lend,
+                  onPressed: () {},
+                  leading: "Maia",
+                  trailing: Icons.favorite,
+                ),
+                SizedBox(height: 15),
+                LendCard(
+                  lend: lend,
+                  onPressed: () {},
+                  leading: "Maia",
+                  trailing: Icons.favorite,
+                ),
+                SizedBox(height: 15),
+                LendCard(
+                  lend: lend,
+                  onPressed: () {},
+                  leading: "Maia",
+                  trailing: Icons.favorite,
+                ),
+              ],
+            ),
+          )),
     );
   }
 }
