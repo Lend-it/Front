@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/theme/colors.dart';
 
@@ -38,6 +37,11 @@ Widget modalButton({
 class ConfirmModal {
   static Future<void> showConfirmModal({
     LendModel lend,
+    String title,
+    String subtitle,
+    String confirmButtonText,
+    String declineButtonText,
+    Function confirmPressed,
     BuildContext context,
   }) async {
     return showModalBottomSheet<void>(
@@ -65,14 +69,14 @@ class ConfirmModal {
                   size: 50,
                 ),
                 Text(
-                  'Confirmação de empréstimo',
+                  title,
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 Text(
-                  'Você realmente se compromete em emprestar o ${lend.title} para ${lend.user.name}',
+                  subtitle,
                   style: TextStyle(
                     fontSize: 16,
                   ),
@@ -82,15 +86,8 @@ class ConfirmModal {
                   children: [
                     modalButton(
                       color: secondaryColor,
-                      onPressed: () {
-                        final String message =
-                            'Olá ${lend.user.name}, meu nome é Matheus Afonso e eu posso te ajudar!';
-                        FlutterOpenWhatsapp.sendSingleMessage(
-                          lend.user.whatsapp,
-                          message,
-                        );
-                      },
-                      title: 'Sim, quero emprestar',
+                      onPressed: confirmPressed,
+                      title: confirmButtonText,
                       textColor: lightColor,
                     ),
                     SizedBox(
@@ -99,7 +96,7 @@ class ConfirmModal {
                     modalButton(
                       color: dangerColor.withOpacity(0.4),
                       onPressed: () => Navigator.pop(context),
-                      title: 'Não, quero voltar atrás',
+                      title: declineButtonText,
                       textColor: dangerColor,
                     ),
                   ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/theme/colors.dart';
 import 'package:front/utils/confirm_modal.dart';
@@ -113,6 +114,19 @@ class _ShowLendState extends State<ShowLend> {
                       onPressedHandler: () => ConfirmModal.showConfirmModal(
                         context: context,
                         lend: lend,
+                        title: 'Confirmação de empréstimo',
+                        subtitle:
+                            'Você realmente se compromete em emprestar o ${lend.title} para ${lend.user.name}?',
+                        confirmButtonText: 'Sim, quero emprestar',
+                        declineButtonText: 'Não, quero voltar atrás',
+                        confirmPressed: () {
+                          final String message =
+                              'Olá ${lend.user.name}, meu nome é Matheus Afonso e eu posso te ajudar!';
+                          FlutterOpenWhatsapp.sendSingleMessage(
+                            lend.user.whatsapp,
+                            message,
+                          );
+                        },
                       ),
                     ),
                   ],
