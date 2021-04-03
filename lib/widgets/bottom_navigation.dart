@@ -51,7 +51,16 @@ class _BottomNavigationState extends State<BottomNavigation> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _widgetNavigationOptions.elementAt(_selectedIndex),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: secondaryColor,
+        elevation: 2,
+        child: Icon(Icons.add, size: 35),
+        onPressed: () {},
+      ),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterDocked,
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 12,
         items: bottomNavigationBarItem,
         currentIndex: _selectedIndex,
         selectedItemColor: secondaryColor,
