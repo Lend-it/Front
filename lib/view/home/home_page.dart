@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/controller/lend.controller.dart';
 import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/model/user.model.dart';
+import 'package:front/routes/app_routes.dart';
 import 'package:front/widgets/base_page.dart';
 import 'package:front/widgets/lend_card.dart';
 import 'package:front/widgets/category_chip_list.dart';
@@ -17,12 +19,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController _emailController;
   TextEditingController _passwordController;
+  LendController _lendController;
+  List<LendModel> lends = [];
 
   @override
   void initState() {
     super.initState();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+    _lendController = LendController();
   }
 
   @override
@@ -46,7 +51,7 @@ class _HomePageState extends State<HomePage> {
       id: '3',
       title: 'Ferramentas',
     );
-    final LendModel lend = LendModel(
+    final LendModel teste = LendModel(
       id: 'fce61c6d-1cb0-488c-a2fa-6a90fdbe192d',
       title: 'Furadeira',
       category: category,
@@ -59,51 +64,55 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       body: BasePage(
-          header: Container(
-            padding: EdgeInsets.only(top: 20),
-            child: PageHeading(
-              title: "Boa tarde, Maia",
-              subtitle: "Que dia lindo para ajudar alguém!",
-              inverted: true,
-            ),
+        header: Container(
+          padding: EdgeInsets.only(top: 20),
+          child: PageHeading(
+            title: "Boa tarde, Maia",
+            subtitle: "Que dia lindo para ajudar alguém!",
+            inverted: true,
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Pedidos de categoria",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Pedidos de categoria",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
                 ),
-                SizedBox(height: 10),
-                CategoryChipList(),
-                SizedBox(height: 25),
-                LendCard(
-                  lend: lend,
-                  onPressed: () {},
-                  leading: "Maia",
-                  trailing: Icons.favorite,
-                ),
-                SizedBox(height: 15),
-                LendCard(
-                  lend: lend,
-                  onPressed: () {},
-                  leading: "Maia",
-                  trailing: Icons.favorite,
-                ),
-                SizedBox(height: 15),
-                LendCard(
-                  lend: lend,
-                  onPressed: () {},
-                  leading: "Maia",
-                  trailing: Icons.favorite,
-                ),
-              ],
-            ),
-          )),
+              ),
+              SizedBox(height: 10),
+              CategoryChipList(),
+              SizedBox(height: 25),
+              FutureBuilder(
+                future: _lendController.getLends(),
+                builder: (context, snapshot) {
+                  return ListView.separated(
+                    separatorBuilder: (context, i) => SizedBox(height: 10),
+                    itemCount: lends.length,
+                    itemBuilder: (context, i) {
+                      return LendCard(
+                        lend: lends[i],
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.SHOW_LEND,
+                            arguments: lends[i],
+                          );
+                        },
+                        leading: "maia",
+                        trailing: Icons.ac_unit,
+                      );
+                    },
+                  );
+                },
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

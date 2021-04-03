@@ -3,11 +3,11 @@ import 'package:front/model/category.model.dart';
 import 'package:front/widgets/category_chip.dart';
 
 List<CategoryModel> categories = [
-  CategoryModel(id: '0', title: 'Mais próximo'),
-  CategoryModel(id: '1', title: 'Jogos'),
-  CategoryModel(id: '2', title: 'Eletrodomésticos'),
-  CategoryModel(id: '3', title: 'Ferramentas'),
-  CategoryModel(id: '4', title: 'Pets'),
+  CategoryModel(id: '1', title: 'Eletrodomésticos'),
+  CategoryModel(id: '2', title: 'Livros e revistas'),
+  CategoryModel(id: '3', title: 'Eletrônicos'),
+  CategoryModel(id: '4', title: 'Ferramentas'),
+  CategoryModel(id: '5', title: 'Jogos'),
 ];
 
 class CategoryChipList extends StatefulWidget {
