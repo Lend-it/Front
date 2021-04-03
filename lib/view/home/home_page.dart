@@ -20,7 +20,6 @@ class _HomePageState extends State<HomePage> {
   TextEditingController _emailController;
   TextEditingController _passwordController;
   LendController _lendController;
-  List<LendModel> lends = [];
 
   @override
   void initState() {
@@ -48,7 +47,7 @@ class _HomePageState extends State<HomePage> {
           'https://avatars.githubusercontent.com/u/42722634?s=460&u=5dc66aaf59dbaf2e3e68c931cca641a44b5fd9fc&v=4',
     );
     final CategoryModel category = CategoryModel(
-      id: '3',
+      id: '1',
       title: 'Ferramentas',
     );
     final LendModel teste = LendModel(
@@ -65,7 +64,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: BasePage(
         header: Container(
-          padding: EdgeInsets.only(top: 20),
+          padding: EdgeInsets.only(top: 28),
           child: PageHeading(
             title: "Boa tarde, Maia",
             subtitle: "Que dia lindo para ajudar alguém!",
@@ -87,26 +86,38 @@ class _HomePageState extends State<HomePage> {
               CategoryChipList(),
               SizedBox(height: 25),
               FutureBuilder(
-                future: _lendController.getLends(),
-                builder: (context, snapshot) {
-                  return ListView.separated(
-                    separatorBuilder: (context, i) => SizedBox(height: 10),
-                    itemCount: lends.length,
-                    itemBuilder: (context, i) {
-                      return LendCard(
-                        lend: lends[i],
-                        onPressed: () {
-                          Navigator.pushNamed(
-                            context,
-                            AppRoutes.SHOW_LEND,
-                            arguments: lends[i],
-                          );
-                        },
-                        leading: "maia",
-                        trailing: Icons.ac_unit,
-                      );
-                    },
-                  );
+                future:
+                    _lendController.getFilteredLends(categoryId: category.id),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    List<LendModel> lends = snapshot.data;
+
+                    return Column(
+                      children: lends
+                          .map(
+                            (lend) => LendCard(
+                              lend: lend,
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  AppRoutes.SHOW_LEND,
+                                  arguments: lend,
+                                );
+                              },
+                              leading: "maia",
+                              trailing: Icons.ac_unit,
+                            ),
+                          )
+                          .toList(),
+                    );
+                  } else if (snapshot.hasError) {
+                    // TODO: Fazer uma tela de Retry bonita(lembrar da retry policy na gateway)
+                    return Center(
+                      child: Text(snapshot.error),
+                    );
+                  }
+                  // TODO: Shimmer effect com LendCard dummy
+                  return Center(child: CircularProgressIndicator());
                 },
               )
             ],

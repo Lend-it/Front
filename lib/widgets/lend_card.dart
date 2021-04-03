@@ -157,6 +157,7 @@ class LendCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Card(
+        elevation: 4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
