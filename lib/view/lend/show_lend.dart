@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
+import 'package:front/controller/lend.controller.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/model/session.model.dart';
 import 'package:front/theme/colors.dart';
@@ -17,6 +18,8 @@ class ShowLend extends StatefulWidget {
 }
 
 class _ShowLendState extends State<ShowLend> {
+  LendController lendController = new LendController();
+
   @override
   Widget build(BuildContext context) {
     final LendModel lend = ModalRoute.of(context).settings.arguments;
@@ -122,7 +125,12 @@ class _ShowLendState extends State<ShowLend> {
                             'Você realmente se compromete em emprestar o ${lend.title} para ${lend.requester.name}?',
                         confirmButtonText: 'Sim, quero emprestar',
                         declineButtonText: 'Não, quero voltar atrás',
-                        confirmPressed: () {
+                        confirmPressed: () async {
+                          await lendController.updateLender(
+                            session.user.id,
+                            lend.id,
+                          );
+
                           final String message =
                               'Olá ${lend.requester.name}, meu nome é ${session.user.name} e eu posso te ajudar!';
                           FlutterOpenWhatsapp.sendSingleMessage(
