@@ -115,7 +115,9 @@ class _CreateLendState extends State<CreateLend> {
   void handleLendRequest() async {
     final requestLend = LendModel(
       id: widget.lend.id,
-      user: widget.lend.user,
+      requester: widget.lend.requester,
+      lender: null,
+      finalized: false,
       category: CategoryModel(
         title: _selectTitle,
         id: _selectValue,

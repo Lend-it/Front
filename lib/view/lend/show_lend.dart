@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:front/model/lend.model.dart';
+import 'package:front/model/session.model.dart';
 import 'package:front/theme/colors.dart';
 import 'package:front/utils/confirm_modal.dart';
 import 'package:front/utils/dates.dart';
+import 'package:provider/provider.dart';
 
 import '../../theme/colors.dart';
 import '../../widgets/button.dart';
@@ -18,7 +20,8 @@ class _ShowLendState extends State<ShowLend> {
   @override
   Widget build(BuildContext context) {
     final LendModel lend = ModalRoute.of(context).settings.arguments;
-
+    final SessionModel session =
+        Provider.of<SessionModel>(context, listen: false);
     return Scaffold(
       backgroundColor: lightColor,
       extendBodyBehindAppBar: true,
@@ -31,7 +34,7 @@ class _ShowLendState extends State<ShowLend> {
           child: Column(
             children: [
               Image(
-                image: NetworkImage(lend.user.photo),
+                image: NetworkImage(lend.requester.photo),
               ),
               Container(
                 padding: EdgeInsets.symmetric(
@@ -49,7 +52,7 @@ class _ShowLendState extends State<ShowLend> {
                           size: 30,
                         ),
                         Text(
-                          lend.user.rating,
+                          lend.requester.rating,
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 22,
@@ -60,7 +63,7 @@ class _ShowLendState extends State<ShowLend> {
                     ),
                     Divider(height: 45, thickness: 1),
                     Text(
-                      '${lend.user.name} solicita um ${lend.title} emprestado.',
+                      '${lend.requester.name} solicita um ${lend.title} emprestado.',
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 22,
@@ -116,14 +119,14 @@ class _ShowLendState extends State<ShowLend> {
                         lend: lend,
                         title: 'Confirmação de empréstimo',
                         subtitle:
-                            'Você realmente se compromete em emprestar o ${lend.title} para ${lend.user.name}?',
+                            'Você realmente se compromete em emprestar o ${lend.title} para ${lend.requester.name}?',
                         confirmButtonText: 'Sim, quero emprestar',
                         declineButtonText: 'Não, quero voltar atrás',
                         confirmPressed: () {
                           final String message =
-                              'Olá ${lend.user.name}, meu nome é Matheus Afonso e eu posso te ajudar!';
+                              'Olá ${lend.requester.name}, meu nome é ${session.user.name} e eu posso te ajudar!';
                           FlutterOpenWhatsapp.sendSingleMessage(
-                            lend.user.whatsapp,
+                            lend.requester.whatsapp,
                             message,
                           );
                         },

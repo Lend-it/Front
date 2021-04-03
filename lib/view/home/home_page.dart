@@ -58,7 +58,9 @@ class _HomePageState extends State<HomePage> {
           'Preciso furar as cortinas e os suportes da televisão do meu apartamento e gostaria emprestado! Alguém pode me ajudar?',
       endDate: "2020-09-30",
       startDate: "2020-09-12",
-      user: user,
+      requester: user,
+      lender: null,
+      finalized: false,
     );
 
     return Scaffold(
