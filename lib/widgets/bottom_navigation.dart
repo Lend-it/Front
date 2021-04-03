@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:front/theme/colors.dart';
+import 'package:front/theme/custom_icons.dart';
 import 'package:front/view/home/home_page.dart';
 import 'package:front/view/lend/lend_page.dart';
 import 'package:front/view/notice/notice_page.dart';
@@ -23,19 +24,19 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   List<BottomNavigationBarItem> bottomNavigationBarItem = [
     BottomNavigationBarItem(
-      icon: Icon(Icons.home_outlined),
+      icon: Icon(CustomIcons.home),
       label: 'Início',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.home_outlined),
+      icon: Icon(CustomIcons.heart),
       label: 'Pedidos',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.home_outlined),
+      icon: Icon(CustomIcons.bell),
       label: 'Avisos',
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.home_outlined),
+      icon: Icon(CustomIcons.avatar),
       label: 'Perfil',
     ),
   ];
@@ -54,10 +55,12 @@ class _BottomNavigationState extends State<BottomNavigation> {
         items: bottomNavigationBarItem,
         currentIndex: _selectedIndex,
         selectedItemColor: secondaryColor,
-        unselectedItemColor: primaryColor,
+        unselectedItemColor: grayColor,
         type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped,
-        iconSize: 30.0,
+        iconSize: 26,
+        showSelectedLabels: true,
+        showUnselectedLabels: false,
       ),
     );
   }
