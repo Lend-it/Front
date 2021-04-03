@@ -86,7 +86,10 @@ class ConfirmModal {
                   children: [
                     modalButton(
                       color: secondaryColor,
-                      onPressed: confirmPressed,
+                      onPressed: () async {
+                        await confirmPressed();
+                        Navigator.pop(context);
+                      },
                       title: confirmButtonText,
                       textColor: lightColor,
                     ),
