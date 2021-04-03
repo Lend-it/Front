@@ -15,6 +15,25 @@ class LendController {
     return response;
   }
 
+  Future<Response> updateLender(String lenderId, String requestId) async {
+    Response response = await api.patch(
+      route: '/requests/request/$requestId',
+      body: {
+        "lender": lenderId,
+      },
+    );
+    return response;
+  }
+
+  Future<Response> finalizeLend(String requestId) async {
+    Response response = await api.patch(
+      route: '/requests/request/$requestId/finalize',
+      body: {},
+    );
+
+    return response;
+  }
+
   Future<Response> editLend(LendModel lend) async {
     Response response = await api.put(
       route: '/requests/${lend.id}',
