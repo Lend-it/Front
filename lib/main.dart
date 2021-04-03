@@ -4,6 +4,9 @@ import 'package:front/routes/app_routes.dart';
 import 'package:front/routes/routes.dart';
 import 'package:front/theme/theme.dart';
 import 'package:front/widgets/bottom_navigation.dart';
+import 'package:provider/provider.dart';
+
+import 'model/session.model.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,18 +15,25 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: projectTheme,
-      initialRoute: AppRoutes.HOME_PAGE,
-      home: BottomNavigation(),
-      onGenerateRoute: (settings) {
-        return CupertinoPageRoute(
-          builder: (context) => Routes.routes[settings.name](context),
-          settings: settings,
-        );
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => SessionModel(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: projectTheme,
+        initialRoute: '/login',
+        home: BottomNavigation(),
+        onGenerateRoute: (settings) {
+          return CupertinoPageRoute(
+            builder: (context) => Routes.routes[settings.name](context),
+            settings: settings,
+          );
+        },
+      ),
     );
   }
 }
