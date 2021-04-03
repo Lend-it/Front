@@ -31,7 +31,10 @@ class CategoryChip extends StatelessWidget {
           ),
         ),
         decoration: BoxDecoration(
-          border: Border.all(color: chipColor),
+          color: isSelected ? secondaryTransparentColor : null,
+          border: Border.all(
+            color: isSelected ? secondaryTransparentColor : chipColor,
+          ),
           borderRadius: BorderRadius.circular(6),
         ),
       ),

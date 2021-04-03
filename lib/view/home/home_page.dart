@@ -20,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   TextEditingController _emailController;
   TextEditingController _passwordController;
   LendController _lendController;
+  CategoryModel _selectedCategory;
 
   @override
   void initState() {
@@ -38,29 +39,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final UserModel user = UserModel(
-      id: '3',
-      name: 'José da Silva',
-      email: 'jose@email.com',
-      rating: '4.0',
-      photo:
-          'https://avatars.githubusercontent.com/u/42722634?s=460&u=5dc66aaf59dbaf2e3e68c931cca641a44b5fd9fc&v=4',
-    );
-    final CategoryModel category = CategoryModel(
-      id: '1',
-      title: 'Ferramentas',
-    );
-    final LendModel teste = LendModel(
-      id: 'fce61c6d-1cb0-488c-a2fa-6a90fdbe192d',
-      title: 'Furadeira',
-      category: category,
-      description:
-          'Preciso furar as cortinas e os suportes da televisão do meu apartamento e gostaria emprestado! Alguém pode me ajudar?',
-      endDate: "Sat, 21 Sep 2019 00:00:00 GMT",
-      startDate: "Sat, 21 Sep 2019 00:00:00 GMT",
-      user: user,
-    );
-
     return Scaffold(
       body: BasePage(
         header: Container(
@@ -83,11 +61,18 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(height: 10),
-              CategoryChipList(),
+              CategoryChipList(
+                getSelectedCategory: (selectedCategory) {
+                  setState(() {
+                    _selectedCategory = selectedCategory;
+                  });
+                },
+              ),
               SizedBox(height: 25),
               FutureBuilder(
-                future:
-                    _lendController.getFilteredLends(categoryId: category.id),
+                future: _lendController.getLends(
+                  categoryId: _selectedCategory?.id,
+                ),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     List<LendModel> lends = snapshot.data;

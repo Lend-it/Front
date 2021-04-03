@@ -11,6 +11,9 @@ List<CategoryModel> categories = [
 ];
 
 class CategoryChipList extends StatefulWidget {
+  final Function getSelectedCategory;
+  CategoryChipList({this.getSelectedCategory});
+
   @override
   _CategoryChipListState createState() => _CategoryChipListState();
 }
@@ -18,10 +21,24 @@ class CategoryChipList extends StatefulWidget {
 class _CategoryChipListState extends State<CategoryChipList> {
   int _selectedChipIndex;
 
+  void selectCategory(index) {
+    setState(() {
+      if (_selectedChipIndex == index) {
+        _selectedChipIndex = null;
+      } else
+        _selectedChipIndex = index;
+    });
+
+    // return null when we have to cancel the filter(make a get all)
+    widget.getSelectedCategory(
+      _selectedChipIndex != null ? categories[_selectedChipIndex] : null,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      height: 34,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
@@ -30,11 +47,7 @@ class _CategoryChipListState extends State<CategoryChipList> {
           child: CategoryChip(
             label: categories[index].title,
             isSelected: index == _selectedChipIndex,
-            onTapHandler: () {
-              setState(() {
-                _selectedChipIndex = index;
-              });
-            },
+            onTapHandler: () => selectCategory(index),
           ),
         ),
       ),
