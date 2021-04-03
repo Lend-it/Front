@@ -33,8 +33,10 @@ class UserModel {
       photo:
           'https://avatars.githubusercontent.com/u/42722634?s=460&u=5dc66aaf59dbaf2e3e68c931cca641a44b5fd9fc&v=4',
       rating: '4.5',
-      latitude: double.parse(json['latitude']),
-      longitude: double.parse(json['longitude']),
+      latitude:
+          json['latitude'] != null ? double.parse(json['latitude']) : 12.0,
+      longitude:
+          json['latitude'] != null ? double.parse(json['longitude']) : 12.0,
     );
   }
 
