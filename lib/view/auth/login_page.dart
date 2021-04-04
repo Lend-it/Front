@@ -69,18 +69,20 @@ class _LoginPageState extends State<LoginPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top: 84),
+                        margin: EdgeInsets.only(top: 70),
                         child: SvgPicture.asset(
                           'assets/logo_white_background.svg',
-                          width: 180,
+                          width: 190,
                         ),
                       ),
                       Container(
-                        width: 200,
+                        width: 220,
                         child: Text(
                           "Vamos ajudar um vizinho hoje?",
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.w700),
+                          style: Theme.of(context).textTheme.headline2.copyWith(
+                                color: darkColor,
+                                height: 1.25,
+                              ),
                         ),
                       ),
                     ],

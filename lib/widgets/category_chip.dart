@@ -26,7 +26,9 @@ class CategoryChip extends StatelessWidget {
         child: Center(
           child: AnimatedDefaultTextStyle(
             duration: animationDuration,
-            style: TextStyle(color: chipColor),
+            style: Theme.of(context).textTheme.caption.copyWith(
+                  color: chipColor,
+                ),
             child: Text(label),
           ),
         ),

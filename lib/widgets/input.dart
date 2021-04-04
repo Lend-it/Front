@@ -49,7 +49,6 @@ class _InputState extends State<Input> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 57,
       margin: EdgeInsets.only(bottom: 16),
       child: Focus(
         onFocusChange: (hasFocus) {
@@ -61,9 +60,15 @@ class _InputState extends State<Input> {
           keyboardType: widget.type,
           controller: widget.controller,
           focusNode: _focusNode,
+          style: Theme.of(context).textTheme.bodyText2,
           decoration: InputDecoration(
+            contentPadding: new EdgeInsets.symmetric(vertical: 18),
             filled: true,
             fillColor: Colors.white,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4.0),
+              borderSide: BorderSide(color: grayColor),
+            ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: primaryLightColor,
@@ -83,10 +88,6 @@ class _InputState extends State<Input> {
                   )
                 : null,
             hintText: widget.placeholder,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4.0),
-              borderSide: BorderSide(color: grayColor),
-            ),
           ),
           textInputAction: TextInputAction.done,
         ),
