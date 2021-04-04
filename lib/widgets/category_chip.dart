@@ -26,12 +26,17 @@ class CategoryChip extends StatelessWidget {
         child: Center(
           child: AnimatedDefaultTextStyle(
             duration: animationDuration,
-            style: TextStyle(color: chipColor),
+            style: Theme.of(context).textTheme.caption.copyWith(
+                  color: chipColor,
+                ),
             child: Text(label),
           ),
         ),
         decoration: BoxDecoration(
-          border: Border.all(color: chipColor),
+          color: isSelected ? secondaryTransparentColor : null,
+          border: Border.all(
+            color: isSelected ? secondaryTransparentColor : chipColor,
+          ),
           borderRadius: BorderRadius.circular(6),
         ),
       ),

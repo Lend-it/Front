@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:front/routes/app_routes.dart';
 import 'package:front/routes/routes.dart';
 import 'package:front/theme/theme.dart';
 import 'package:front/widgets/bottom_navigation.dart';
@@ -21,10 +22,10 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Lend.it',
         debugShowCheckedModeBanner: false,
         theme: projectTheme,
-        initialRoute: '/login',
+        initialRoute: AppRoutes.HOME_PAGE,
         home: BottomNavigation(),
         onGenerateRoute: (settings) {
           return CupertinoPageRoute(
