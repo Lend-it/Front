@@ -27,8 +27,8 @@ class UserModel {
     return UserModel(
       id: json['id'],
       name: json['name'],
-      email: json['email'],
-      whatsapp: json['whatsapp'],
+      email: json['useremail'],
+      whatsapp: json['whatsappnumber'],
       password: json['password'],
       photo: json['photo'],
       rating: json['rating'],

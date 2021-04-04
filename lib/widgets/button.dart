@@ -15,31 +15,20 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: 8.0,
-        ),
+        SizedBox(height: 8.0),
         ConstrainedBox(
           constraints: BoxConstraints.tightFor(
             width: double.infinity,
             height: 66,
           ),
           child: ElevatedButton(
-            child: Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 20,
-                color: lightColor,
-              ),
-            ),
+            child: Text(title),
             onPressed: onPressedHandler,
             style: ElevatedButton.styleFrom(
+              shadowColor: secondaryColor,
               primary: secondaryColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4.0),
-              ),
-              textStyle: TextStyle(
-                color: secondaryColor,
               ),
             ),
           ),

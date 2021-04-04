@@ -5,10 +5,12 @@ import 'package:flutter/widgets.dart';
 import 'package:front/controller/lend.controller.dart';
 import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
+import 'package:front/model/session.model.dart';
 import 'package:front/model/user.model.dart';
 import 'package:front/utils/notification_popup.dart';
 import 'package:front/widgets/lend_card.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../../routes/app_routes.dart';
 
@@ -54,6 +56,10 @@ class _LendPageState extends State<LendPage> {
 
   @override
   Widget build(BuildContext context) {
+    final SessionModel session =
+        Provider.of<SessionModel>(context, listen: false);
+    print(session.user.email);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('LendPage'),

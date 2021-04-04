@@ -29,7 +29,7 @@ class NotificationPopup {
         ),
       ),
       icon: Icon(
-        status == 'success' ? CustomIcons.like : CustomIcons.deslike,
+        status == 'success' ? CustomIcons.like : CustomIcons.dislike,
         size: 28.0,
         color: lightColor,
       ),
