@@ -22,10 +22,10 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Lend.it',
         debugShowCheckedModeBanner: false,
         theme: projectTheme,
-        initialRoute: '/login',
+        initialRoute: AppRoutes.HOME_PAGE,
         home: BottomNavigation(),
         onGenerateRoute: (settings) {
           return CupertinoPageRoute(

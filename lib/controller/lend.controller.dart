@@ -32,16 +32,16 @@ class LendController {
     return response;
   }
 
-  Future<List<LendModel>> getLends() async {
-    Response response = await api.get(
-      route: "/requests",
-    );
+  Future<List<LendModel>> getLends({String categoryId}) async {
+    String route = 'requests/request';
+    if (categoryId != null) route = route + '/$categoryId';
+
+    Response response = await api.get(route: route);
 
     List<dynamic> requests = jsonDecode(response.body)['data']['requests'];
-
-    List<LendModel> lends = requests.map((lend) {
-      LendModel x = LendModel.fromJson(lend);
-      return x;
+    List<LendModel> lends = requests.map((lendData) {
+      LendModel lend = LendModel.fromJson(lendData);
+      return lend;
     }).toList();
 
     return lends;

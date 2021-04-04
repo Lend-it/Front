@@ -36,7 +36,7 @@ class SessionController {
     BuildContext context,
   ) async {
     Response response = await api.post(
-      route: "/session",
+      route: "/users/session",
       body: {
         "useremail": email,
         "password": password,
