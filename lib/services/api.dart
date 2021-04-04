@@ -46,6 +46,18 @@ class Api {
     });
   }
 
+  Future<http.Response> patch({
+    @required String route,
+    @required dynamic body,
+  }) async {
+    String token = await getToken();
+
+    return http.patch(_url + route, body: jsonEncode(body), headers: {
+      ...headers,
+      "authorization": token,
+    });
+  }
+
   Future<http.Response> put({
     @required String route,
     @required dynamic body,

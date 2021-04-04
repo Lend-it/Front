@@ -9,7 +9,9 @@ class LendModel {
   final String description;
   final String endDate;
   final String startDate;
-  final UserModel user;
+  final UserModel requester;
+  final UserModel lender;
+  final bool finalized;
 
   LendModel({
     this.id = "",
@@ -18,32 +20,22 @@ class LendModel {
     @required this.description,
     @required this.endDate,
     @required this.startDate,
-    @required this.user,
+    @required this.requester,
+    @required this.lender,
+    @required this.finalized,
   });
 
   factory LendModel.fromJson(Map<String, dynamic> json) {
     return LendModel(
       id: json["requestid"],
       title: json["productname"],
-      //category: CategoryModel(
-      //id: json["category"]["id"],
-      //title: json["category"]["title"],
-      //),
-      category: CategoryModel(
-        id: '3',
-        title: 'Jogos',
-      ),
-      user: UserModel(
-        id: '3',
-        name: 'José da Silva',
-        email: 'jose@email.com',
-        rating: '4.0',
-        photo:
-            'https://avatars.githubusercontent.com/u/42722634?s=460&u=5dc66aaf59dbaf2e3e68c931cca641a44b5fd9fc&v=4',
-      ),
       description: json["description"],
       endDate: json["enddate"],
       startDate: json["startdate"],
+      finalized: json["finalized"],
+      category: CategoryModel.fromJson(json),
+      lender: UserModel.fromJson(json["lender"]),
+      requester: UserModel.fromJson(json["requester"]),
       //user: UserModel(
       //id: json["user"]['id'],
       //name: json["user"]['name'],
@@ -59,9 +51,11 @@ class LendModel {
       "productname": this.title,
       "startdate": this.startDate,
       "enddate": this.endDate,
+      "finalized": this.finalized,
       "description": this.description,
-      "requester": this.user.email,
       "productcategoryid": int.parse(this.category.id),
+      "lender": this.lender.toJson(),
+      "requester": this.requester.toJson(),
     };
   }
 }

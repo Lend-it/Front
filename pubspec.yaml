@@ -30,6 +30,7 @@ dependencies:
   flutter_svg: ^0.19.3
   google_maps_flutter: ^2.0.1
   geolocator: ^7.0.1
+  flutter_open_whatsapp: ^0.1.2
   shared_preferences: ^0.4.3
   provider: ^5.0.0
 

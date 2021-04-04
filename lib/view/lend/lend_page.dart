@@ -56,10 +56,6 @@ class _LendPageState extends State<LendPage> {
 
   @override
   Widget build(BuildContext context) {
-    final SessionModel session =
-        Provider.of<SessionModel>(context, listen: false);
-    print(session.user.email);
-
     return Scaffold(
       appBar: AppBar(
         title: Text('LendPage'),
