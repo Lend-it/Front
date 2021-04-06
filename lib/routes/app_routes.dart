@@ -9,4 +9,5 @@ class AppRoutes {
   static const CREATE_LEND = '/create-lend';
   static const EDIT_LEND = '/edit-lend';
   static const RECOVER_PASSWORD = '/recover-password';
+  static const NEW_PASSWORD = '/new-password';
 }

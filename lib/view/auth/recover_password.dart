@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/routes/app_routes.dart';
 import 'package:front/widgets/base_auth_page.dart';
 import 'package:front/widgets/button.dart';
 import 'package:front/widgets/input.dart';
@@ -43,7 +44,12 @@ class _RecoverPasswordState extends State<RecoverPassword> {
               ),
               Button(
                 title: 'Solicitar nova senha',
-                onPressedHandler: () {},
+                onPressedHandler: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.NEW_PASSWORD,
+                  );
+                },
               )
             ],
           ),
