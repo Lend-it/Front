@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:front/routes/app_routes.dart';
+import 'package:front/view/auth/recover_password.dart';
 import 'package:front/view/auth/register_page.dart';
 import 'package:front/view/geolocation/geolocation_page.dart';
 import 'package:front/view/geolocation/map_page.dart';
@@ -21,5 +22,6 @@ class Routes {
     AppRoutes.GEOLOCATION_PAGE: (ctx) => GeolocationPage(),
     AppRoutes.MAP_PAGE: (ctx) => MapPage(),
     AppRoutes.CREATE_LEND: (ctx) => CreateLend(),
+    AppRoutes.RECOVER_PASSWORD: (ctx) => RecoverPassword(),
   };
 }
