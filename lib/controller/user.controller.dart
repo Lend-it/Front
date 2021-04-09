@@ -21,4 +21,32 @@ class UserController {
       );
     }
   }
+
+  Future<void> updateUser({
+    String name,
+    String useremail,
+    String whatsappnumber,
+    BuildContext context,
+  }) async {
+    final user = {
+      'name': name,
+      'useremail': useremail,
+      'whatsappnumber': whatsappnumber,
+    };
+
+    Response response = await api.put(route: "/users/user", body: user);
+    if (response.body.contains('error')) {
+      NotificationPopup.notificate(
+        title: 'Não foi possível alterar seu perfil',
+        context: context,
+        status: 'fail',
+      );
+    } else {
+      NotificationPopup.notificate(
+        title: 'Perfil alterado com sucesso',
+        context: context,
+        status: 'success',
+      );
+    }
+  }
 }

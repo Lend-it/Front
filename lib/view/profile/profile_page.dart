@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/controller/user.controller.dart';
+import 'package:front/model/session.model.dart';
+import 'package:front/model/user.model.dart';
 import 'package:front/routes/app_routes.dart';
 import 'package:front/theme/colors.dart';
 import 'package:front/widgets/button.dart';
 import 'package:front/widgets/input.dart';
+import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 
 Widget editProfile({
   @required TextEditingController nameController,
@@ -12,6 +17,7 @@ Widget editProfile({
   @required TextEditingController passwordController,
   @required TextEditingController newPasswordController,
   @required BuildContext context,
+  @required Function onPressed,
 }) {
   return Column(
     children: [
@@ -92,7 +98,7 @@ Widget editProfile({
             ),
             Button(
               title: 'Salvar',
-              onPressedHandler: () {},
+              onPressedHandler: onPressed,
             ),
           ],
         ),
@@ -109,14 +115,39 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   bool isEdit = false;
 
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _whatsappController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _newPasswordController = TextEditingController();
+  TextEditingController _nameController;
+  TextEditingController _emailController;
+  TextEditingController _whatsappController;
+  TextEditingController _passwordController;
+  TextEditingController _newPasswordController;
+
+  UserController _userController = new UserController();
+
+  Future<void> handleUpdateProfile() async {
+    await _userController.updateUser(
+      context: context,
+      name: _nameController.text,
+      useremail: _emailController.text,
+      whatsappnumber: _whatsappController.text,
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final session = Provider.of<SessionModel>(context, listen: false);
+    final UserModel user = session.user;
+
+    _emailController = TextEditingController(text: user.email);
+    _nameController = TextEditingController(text: user.name);
+    _whatsappController = TextEditingController(text: user.whatsapp);
+    _passwordController = TextEditingController();
+    _newPasswordController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
+    Duration animationDuration = Duration(milliseconds: 300);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -143,13 +174,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   Positioned(
                     bottom: -22,
                     right: 30,
-                    child: GestureDetector(
+                    child: InkWell(
                       onTap: () {
                         setState(() {
                           isEdit = !isEdit;
                         });
                       },
-                      child: Container(
+                      child: AnimatedContainer(
+                        duration: animationDuration,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
                           color: isEdit ? dangerColor : secondaryColor,
@@ -175,6 +207,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         newPasswordController: _newPasswordController,
                         whatsappController: _whatsappController,
                         context: context,
+                        onPressed: handleUpdateProfile,
                       )
                     : null,
               ),
