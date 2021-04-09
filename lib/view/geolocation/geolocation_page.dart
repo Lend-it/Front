@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:front/dtos/locationPageDTO.dart';
 import 'package:front/routes/app_routes.dart';
 import 'package:front/utils/geolocation.dart';
 import 'package:front/utils/notification_popup.dart';
@@ -16,6 +17,8 @@ class GeolocationPage extends StatefulWidget {
 class _GeolocationPageState extends State<GeolocationPage> {
   @override
   Widget build(BuildContext context) {
+    final LocationPageDTO data = ModalRoute.of(context).settings.arguments;
+
     return BasePage(
       header: SvgPicture.asset(
         'assets/logo.svg',
@@ -39,10 +42,12 @@ class _GeolocationPageState extends State<GeolocationPage> {
             title: "Permitir localização",
             onPressedHandler: () {
               Geolocation.getCurrentPosition(context).then((position) {
+                data.updatePosition(position);
+
                 Navigator.pushNamed(
                   context,
                   AppRoutes.MAP_PAGE,
-                  arguments: position,
+                  arguments: data,
                 );
               }).catchError((onError) {
                 NotificationPopup.notificate(

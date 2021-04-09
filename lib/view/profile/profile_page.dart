@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:front/controller/user.controller.dart';
+import 'package:front/dtos/locationPageDTO.dart';
 import 'package:front/model/session.model.dart';
 import 'package:front/model/user.model.dart';
 import 'package:front/routes/app_routes.dart';
@@ -23,9 +24,15 @@ Widget editProfile({
     children: [
       GestureDetector(
         onTap: () {
+          final LocationPageDTO data = LocationPageDTO(
+            route: AppRoutes.PROFILE_PAGE,
+            useremail: emailController.text,
+          );
+
           Navigator.pushNamed(
             context,
             AppRoutes.GEOLOCATION_PAGE,
+            arguments: data,
           );
         },
         child: Container(
