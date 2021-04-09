@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:front/controller/lend.controller.dart';
 import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
+import 'package:front/model/session.model.dart';
 import 'package:front/model/user.model.dart';
 import 'package:front/theme/colors.dart';
 import 'package:front/utils/notification_popup.dart';
@@ -13,6 +14,7 @@ import 'package:front/widgets/base_page.dart';
 import 'package:front/widgets/category_chip_list.dart';
 import 'package:front/widgets/lend_card.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../../routes/app_routes.dart';
 

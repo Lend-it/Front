@@ -158,6 +158,7 @@ class LendCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Card(
+        elevation: 4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
@@ -170,9 +171,9 @@ class LendCard extends StatelessWidget {
               thickness: 1,
             ),
             lendCardUserInfo(
-              profilePic: lend.user.photo,
-              userName: lend.user.name,
-              userRating: lend.user.rating,
+              profilePic: lend.requester.photo,
+              userName: lend.requester.name,
+              userRating: lend.requester.rating,
               startDate: lend.startDate,
               endDate: lend.endDate,
             ),

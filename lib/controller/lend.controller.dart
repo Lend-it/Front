@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
-import 'package:front/model/user.model.dart';
 import 'package:http/http.dart';
 import 'package:front/services/api.dart';
 
@@ -14,6 +12,25 @@ class LendController {
       route: '/requests',
       body: lend.toJson(),
     );
+    return response;
+  }
+
+  Future<Response> updateLender(String lenderId, String requestId) async {
+    Response response = await api.patch(
+      route: '/requests/request/$requestId',
+      body: {
+        "lender": lenderId,
+      },
+    );
+    return response;
+  }
+
+  Future<Response> finalizeLend(String requestId) async {
+    Response response = await api.patch(
+      route: '/requests/request/$requestId/finalize',
+      body: {},
+    );
+
     return response;
   }
 
@@ -32,16 +49,16 @@ class LendController {
     return response;
   }
 
-  Future<List<LendModel>> getLends() async {
-    Response response = await api.get(
-      route: "/requests",
-    );
+  Future<List<LendModel>> getLends({String categoryId}) async {
+    String route = 'requests/request';
+    if (categoryId != null) route = route + '/$categoryId';
 
-    List<dynamic> requests = jsonDecode(response.body)['data']['requests'];
+    Response response = await api.get(route: route);
 
-    List<LendModel> lends = requests.map((lend) {
-      LendModel x = LendModel.fromJson(lend);
-      return x;
+    List<dynamic> requests = jsonDecode(response.body);
+    List<LendModel> lends = requests.map((lendData) {
+      LendModel lend = LendModel.fromJson(lendData);
+      return lend;
     }).toList();
 
     return lends;

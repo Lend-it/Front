@@ -17,11 +17,16 @@ class NotificationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: ListTile(
-        title: Text(title),
-        subtitle: Text(subtitle),
+        title: Text(
+          title,
+          style: Theme.of(context).textTheme.bodyText2,
+        ),
+        subtitle: Text(
+          subtitle,
+          style: Theme.of(context).textTheme.caption,
+        ),
         trailing: Icon(
           Icons.keyboard_arrow_right,
-          color: primaryColor,
           size: 32,
         ),
         onTap: onTapHandler,
@@ -30,12 +35,12 @@ class NotificationTile extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: lightColor,
-        borderRadius: BorderRadius.circular(2),
+        borderRadius: BorderRadius.circular(4),
         boxShadow: [
           BoxShadow(
-            color: grayColor,
+            color: Colors.black38,
             spreadRadius: 0,
-            blurRadius: 3,
+            blurRadius: 4,
             offset: Offset(0, 1),
           )
         ],

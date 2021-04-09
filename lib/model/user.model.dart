@@ -25,15 +25,18 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json['id'],
+      id: json['useremail'],
       name: json['name'],
-      email: json['email'],
-      whatsapp: json['whatsapp'],
+      email: json['useremail'],
+      whatsapp: json['whatsappnumber'],
       password: json['password'],
-      photo: json['photo'],
-      rating: json['rating'],
-      latitude: json['latitude'],
-      longitude: json['longitude'],
+      photo:
+          'https://avatars.githubusercontent.com/u/42722634?s=460&u=5dc66aaf59dbaf2e3e68c931cca641a44b5fd9fc&v=4',
+      rating: '4.5',
+      latitude:
+          json['latitude'] != null ? double.parse(json['latitude']) : 12.0,
+      longitude:
+          json['latitude'] != null ? double.parse(json['longitude']) : 12.0,
     );
   }
 
