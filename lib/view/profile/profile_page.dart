@@ -168,15 +168,49 @@ class _ProfilePageState extends State<ProfilePage> {
               Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  Container(
-                    width: double.infinity,
-                    height: 350,
-                    child: Image(
-                      fit: BoxFit.fitWidth,
-                      image: NetworkImage(
-                        'https://avatars.githubusercontent.com/u/42722634?v=4',
+                  Stack(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: 350,
+                        child: Image(
+                          color: isEdit ? Color.fromRGBO(0, 0, 0, 0.5) : null,
+                          colorBlendMode: BlendMode.darken,
+                          fit: BoxFit.fitWidth,
+                          image: NetworkImage(
+                            'https://avatars.githubusercontent.com/u/42722634?v=4',
+                          ),
+                        ),
                       ),
-                    ),
+                      Positioned.fill(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: isEdit
+                              ? InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      isEdit = !isEdit;
+                                    });
+                                  },
+                                  child: AnimatedContainer(
+                                    duration: animationDuration,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(100),
+                                      color: secondaryTransparentColor,
+                                    ),
+                                    height: 90,
+                                    width: 90,
+                                    child: Icon(
+                                      Icons.image_search_rounded,
+                                      color: secondaryColor,
+                                      size: 45,
+                                    ),
+                                  ),
+                                )
+                              : null,
+                        ),
+                      ),
+                    ],
                   ),
                   Positioned(
                     bottom: -22,

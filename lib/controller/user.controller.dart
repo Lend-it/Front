@@ -62,8 +62,6 @@ class UserController {
       'useremail': useremail,
     };
 
-    print(userPosition);
-
     Response response = await api.patch(
       route: "/users/user/location",
       body: userPosition,
