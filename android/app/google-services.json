@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "9583265848",
+    "project_id": "lendit-app",
+    "storage_bucket": "lendit-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9583265848:android:c7e7a802d9f90a42b7becd",
+        "android_client_info": {
+          "package_name": "com.lendit.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9583265848-5g143j2iqgbn9i2f4idulv5i423a3ptf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUTt1Kr2LCMun0Roe5HiTJI9WzGeDKidA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9583265848-5g143j2iqgbn9i2f4idulv5i423a3ptf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
