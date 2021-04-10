@@ -26,10 +26,13 @@ class LendPage extends StatefulWidget {
 class _LendPageState extends State<LendPage> {
   LendController lendController = new LendController();
   List<LendModel> lends = [];
+  LendController _lendController;
+  CategoryModel _selectedCategory;
 
   @override
   void initState() {
     super.initState();
+    _lendController = LendController();
     getAllLends();
   }
 
@@ -60,30 +63,9 @@ class _LendPageState extends State<LendPage> {
 
   @override
   Widget build(BuildContext context) {
-    final UserModel user = UserModel(
-      id: '3',
-      name: 'José da Silva',
-      email: 'jose@email.com',
-      rating: '4.0',
-      photo:
-          'https://avatars.githubusercontent.com/u/42722634?s=460&u=5dc66aaf59dbaf2e3e68c931cca641a44b5fd9fc&v=4',
-    );
-    final CategoryModel category = CategoryModel(
-      id: '3',
-      title: 'Ferramentas',
-    );
-    final LendModel lend = LendModel(
-      id: 'fce61c6d-1cb0-488c-a2fa-6a90fdbe192d',
-      title: 'Furadeira',
-      category: category,
-      description:
-          'Preciso furar as cortinas e os suportes da televisão do meu apartamento e gostaria emprestado! Alguém pode me ajudar?',
-      endDate: "Sat, 21 Sep 2019 00:00:00 GMT",
-      startDate: "Sat, 21 Sep 2019 00:00:00 GMT",
-      user: user,
-    );
-
     final double statusBarHeight = MediaQuery.of(context).padding.top;
+    final session = Provider.of<SessionModel>(context, listen: false);
+
     Size size = MediaQuery.of(context).size;
 
     return DefaultTabController(
@@ -158,43 +140,44 @@ class _LendPageState extends State<LendPage> {
                         SizedBox(
                           height: 25,
                         ),
-                        Column(
-                          children: [
-                            LendCard(
-                              lend: lend,
-                              trailing: Icons.favorite_border,
-                              leading: 'Emprestar',
-                              onPressed: () {},
-                            ),
-                            SizedBox(
-                              height: 25,
-                            ),
-                            LendCard(
-                              lend: lend,
-                              trailing: Icons.favorite_border,
-                              leading: 'Emprestar',
-                              onPressed: () {},
-                            ),
-                            SizedBox(
-                              height: 25,
-                            ),
-                            LendCard(
-                              lend: lend,
-                              trailing: Icons.favorite_border,
-                              leading: 'Emprestar',
-                              onPressed: () {},
-                            ),
-                            SizedBox(
-                              height: 25,
-                            ),
-                            LendCard(
-                              lend: lend,
-                              trailing: Icons.favorite_border,
-                              leading: 'Emprestar',
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
+                        FutureBuilder(
+                          future: _lendController.getLends(
+                            categoryId: _selectedCategory?.id,
+                            useremail: session.user.email,
+                          ),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
+                              List<LendModel> lends = snapshot.data;
+
+                              return Column(
+                                children: lends
+                                    .map(
+                                      (lend) => LendCard(
+                                        lend: lend,
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            AppRoutes.SHOW_LEND,
+                                            arguments: lend,
+                                          );
+                                        },
+                                        leading: "maia",
+                                        trailing: Icons.ac_unit,
+                                      ),
+                                    )
+                                    .toList(),
+                              );
+                            } else if (snapshot.hasError) {
+                              // TODO: Fazer uma tela de Retry bonita(lembrar da retry policy na gateway)
+                              return Center(
+                                child: Text(snapshot.error),
+                              );
+                            }
+                            // TODO: Shimmer effect com LendCard dummy
+                            return Center(child: CircularProgressIndicator());
+                          },
+                        )
                       ],
                     ),
                   ),
@@ -214,14 +197,7 @@ class _LendPageState extends State<LendPage> {
                           height: 25,
                         ),
                         Column(
-                          children: [
-                            LendCard(
-                              lend: lend,
-                              trailing: Icons.favorite_border,
-                              leading: 'Emprestar',
-                              onPressed: () {},
-                            ),
-                          ],
+                          children: [],
                         ),
                       ],
                     ),

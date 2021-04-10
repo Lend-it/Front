@@ -49,9 +49,14 @@ class LendController {
     return response;
   }
 
-  Future<List<LendModel>> getLends({String categoryId}) async {
-    String route = 'requests/request';
+  Future<List<LendModel>> getLends({
+    String categoryId,
+    String useremail,
+  }) async {
+    String route = '/requests/request';
     if (categoryId != null) route = route + '/$categoryId';
+
+    if (useremail != null) route = route + '?requester=$useremail';
 
     Response response = await api.get(route: route);
 
