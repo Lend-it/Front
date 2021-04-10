@@ -33,15 +33,6 @@ class _LendPageState extends State<LendPage> {
   void initState() {
     super.initState();
     _lendController = LendController();
-    getAllLends();
-  }
-
-  void getAllLends() async {
-    final List<LendModel> response = await lendController.getLends();
-    setState(() {
-      lends = response;
-    });
-    print(response);
   }
 
   void _deleteRequest(String id, context) async {
@@ -144,6 +135,8 @@ class _LendPageState extends State<LendPage> {
                           future: _lendController.getLends(
                             categoryId: _selectedCategory?.id,
                             useremail: session.user.email,
+                            isRequester: true,
+                            isLender: false,
                           ),
                           builder:
                               (BuildContext context, AsyncSnapshot snapshot) {
@@ -196,9 +189,46 @@ class _LendPageState extends State<LendPage> {
                         SizedBox(
                           height: 25,
                         ),
-                        Column(
-                          children: [],
-                        ),
+                        FutureBuilder(
+                          future: _lendController.getLends(
+                            categoryId: _selectedCategory?.id,
+                            useremail: session.user.email,
+                            isRequester: false,
+                            isLender: true,
+                          ),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
+                              List<LendModel> lends = snapshot.data;
+
+                              return Column(
+                                children: lends
+                                    .map(
+                                      (lend) => LendCard(
+                                        lend: lend,
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            AppRoutes.SHOW_LEND,
+                                            arguments: lend,
+                                          );
+                                        },
+                                        leading: "maia",
+                                        trailing: Icons.ac_unit,
+                                      ),
+                                    )
+                                    .toList(),
+                              );
+                            } else if (snapshot.hasError) {
+                              // TODO: Fazer uma tela de Retry bonita(lembrar da retry policy na gateway)
+                              return Center(
+                                child: Text(snapshot.error),
+                              );
+                            }
+                            // TODO: Shimmer effect com LendCard dummy
+                            return Center(child: CircularProgressIndicator());
+                          },
+                        )
                       ],
                     ),
                   ),
