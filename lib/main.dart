@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         title: 'Lend.it',
         debugShowCheckedModeBanner: false,
         theme: projectTheme,
-        initialRoute: AppRoutes.HOME_PAGE,
+        initialRoute: AppRoutes.LOGIN_PAGE,
         home: BottomNavigation(),
         onGenerateRoute: (settings) {
           return CupertinoPageRoute(
