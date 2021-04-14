@@ -2,12 +2,16 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:front/controller/lend.controller.dart';
 import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
 import 'package:front/model/session.model.dart';
 import 'package:front/model/user.model.dart';
+import 'package:front/theme/colors.dart';
 import 'package:front/utils/notification_popup.dart';
+import 'package:front/widgets/base_page.dart';
+import 'package:front/widgets/category_chip_list.dart';
 import 'package:front/widgets/lend_card.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -22,19 +26,13 @@ class LendPage extends StatefulWidget {
 class _LendPageState extends State<LendPage> {
   LendController lendController = new LendController();
   List<LendModel> lends = [];
+  LendController _lendController;
+  CategoryModel _selectedCategory;
 
   @override
   void initState() {
     super.initState();
-    getAllLends();
-  }
-
-  void getAllLends() async {
-    final List<LendModel> response = await lendController.getLends();
-    setState(() {
-      lends = response;
-    });
-    print(response);
+    _lendController = LendController();
   }
 
   void _deleteRequest(String id, context) async {
@@ -56,27 +54,189 @@ class _LendPageState extends State<LendPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('LendPage'),
-      ),
-      body: ListView.separated(
-        separatorBuilder: (context, i) => SizedBox(height: 10),
-        itemCount: lends.length,
-        itemBuilder: (context, i) {
-          return LendCard(
-            lend: lends[i],
-            trailing: Icons.favorite_border,
-            leading: 'Emprestar',
-            onPressed: () {
-              Navigator.pushNamed(
-                context,
-                AppRoutes.SHOW_LEND,
-                arguments: lends[i],
-              );
-            },
-          );
-        },
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+    final session = Provider.of<SessionModel>(context, listen: false);
+
+    Size size = MediaQuery.of(context).size;
+
+    return DefaultTabController(
+      length: 2,
+      child: Container(
+        child: Scaffold(
+          backgroundColor: primaryColor,
+          appBar: AppBar(
+            titleSpacing: 0,
+            toolbarHeight: 100,
+            backgroundColor: primaryColor,
+            elevation: 0,
+            title: Stack(
+              children: [
+                Positioned(
+                  top: statusBarHeight,
+                  right: -25,
+                  child: SvgPicture.asset(
+                    'assets/logo_water_mark.svg',
+                    width: 100,
+                  ),
+                ),
+                Container(
+                  height: 160,
+                  width: size.width,
+                  child: TabBar(
+                    indicatorColor: Colors.transparent,
+                    tabs: [
+                      Tab(
+                        child: Text(
+                          "Meus pedidos",
+                          style: TextStyle(fontSize: 22),
+                        ),
+                      ),
+                      Tab(
+                        child: Text(
+                          "Emprestados",
+                          style: TextStyle(fontSize: 22),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          body: Container(
+            decoration: BoxDecoration(
+              color: lightColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            child: TabBarView(
+              children: [
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Pedidos que você criou",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        CategoryChipList(),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        FutureBuilder(
+                          future: _lendController.getLends(
+                            categoryId: _selectedCategory?.id,
+                            useremail: session.user.email,
+                            isRequester: true,
+                            isLender: false,
+                          ),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
+                              List<LendModel> lends = snapshot.data;
+
+                              return Column(
+                                children: lends
+                                    .map(
+                                      (lend) => LendCard(
+                                        lend: lend,
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            AppRoutes.SHOW_LEND,
+                                            arguments: lend,
+                                          );
+                                        },
+                                        leading: "maia",
+                                        trailing: Icons.ac_unit,
+                                      ),
+                                    )
+                                    .toList(),
+                              );
+                            } else if (snapshot.hasError) {
+                              // TODO: Fazer uma tela de Retry bonita(lembrar da retry policy na gateway)
+                              return Center(
+                                child: Text(snapshot.error),
+                              );
+                            }
+                            // TODO: Shimmer effect com LendCard dummy
+                            return Center(child: CircularProgressIndicator());
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Produtos que você emprestou",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        FutureBuilder(
+                          future: _lendController.getLends(
+                            categoryId: _selectedCategory?.id,
+                            useremail: session.user.email,
+                            isRequester: false,
+                            isLender: true,
+                          ),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
+                              List<LendModel> lends = snapshot.data;
+
+                              return Column(
+                                children: lends
+                                    .map(
+                                      (lend) => LendCard(
+                                        lend: lend,
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            AppRoutes.SHOW_LEND,
+                                            arguments: lend,
+                                          );
+                                        },
+                                        leading: "maia",
+                                        trailing: Icons.ac_unit,
+                                      ),
+                                    )
+                                    .toList(),
+                              );
+                            } else if (snapshot.hasError) {
+                              // TODO: Fazer uma tela de Retry bonita(lembrar da retry policy na gateway)
+                              return Center(
+                                child: Text(snapshot.error),
+                              );
+                            }
+                            // TODO: Shimmer effect com LendCard dummy
+                            return Center(child: CircularProgressIndicator());
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
