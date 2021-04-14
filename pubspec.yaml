@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -25,7 +25,7 @@ dependencies:
     sdk: flutter
   intl: ^0.17.0
   smart_select: ^4.3.2
-  http: ^0.12.1 
+  http: ^0.12.1
   flushbar: ^1.10.4
   flutter_svg: ^0.19.3
   google_maps_flutter: ^2.0.1
@@ -33,7 +33,6 @@ dependencies:
   flutter_open_whatsapp: ^0.1.2
   shared_preferences: ^0.4.3
   provider: ^5.0.0
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
@@ -41,14 +40,12 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-
   uses-material-design: true
 
   assets:
@@ -61,19 +58,17 @@ flutter:
     - family: CustomIcons
       fonts:
         - asset: assets/fonts/customIcons.ttf
-    
+
     - family: OpenSans
       fonts:
         - asset: assets/fonts/OpenSans-Regular.ttf
         - asset: assets/fonts/OpenSans-Bold.ttf
           weight: 700
-    
+
     - family: Poppins
       fonts:
         - asset: assets/fonts/Poppins-SemiBold.ttf
           weight: 500
-
-
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
