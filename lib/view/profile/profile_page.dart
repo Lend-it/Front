@@ -6,10 +6,122 @@ import 'package:front/model/session.model.dart';
 import 'package:front/model/user.model.dart';
 import 'package:front/routes/app_routes.dart';
 import 'package:front/theme/colors.dart';
+import 'package:front/theme/custom_icons.dart';
 import 'package:front/widgets/button.dart';
 import 'package:front/widgets/input.dart';
-import 'package:http/http.dart';
 import 'package:provider/provider.dart';
+
+Widget infoUser({
+  @required String value,
+  @required String text,
+}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        value,
+        style: TextStyle(
+          fontSize: 28,
+          fontWeight: FontWeight.w500,
+          color: darkColor,
+        ),
+      ),
+      Text(
+        text,
+        style: TextStyle(
+          fontSize: 16,
+          color: darkColor,
+        ),
+      ),
+    ],
+  );
+}
+
+Widget lendInfo({
+  @required String username,
+  @required String product,
+  String rateDescription,
+  int rate,
+}) {
+  final stars = List<Icon>.generate(
+    rate == null ? 0 : rate,
+    (i) => Icon(
+      Icons.star_outlined,
+      color: secondaryColor,
+      size: 20,
+    ),
+  ).toList();
+
+  return Column(
+    children: [
+      Container(
+        padding: EdgeInsets.only(
+          bottom: 15,
+          top: 15,
+          left: 23,
+          right: 23,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                right: 16,
+              ),
+              child: Icon(
+                CustomIcons.heart,
+                size: 30,
+                color: grayColor,
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Emprestou para $username',
+                  style: TextStyle(
+                    fontSize: 14,
+                  ),
+                ),
+                Text(
+                  product,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                rate == null
+                    ? null
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            rateDescription,
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                          Row(
+                            children: [...stars],
+                          ),
+                        ],
+                      ),
+              ].where((element) => element != null).toList(),
+            ),
+          ],
+        ),
+      ),
+      Divider(
+        thickness: 1,
+        color: whiteDarkColor,
+      ),
+    ],
+  );
+}
 
 Widget editProfile({
   @required TextEditingController nameController,
@@ -110,6 +222,70 @@ Widget editProfile({
           ],
         ),
       )
+    ],
+  );
+}
+
+Widget showProfile() {
+  return Column(
+    children: [
+      Container(
+        padding: EdgeInsets.only(
+          bottom: 20,
+          top: 20,
+          left: 23,
+          right: 23,
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Youssef Muhamad',
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700),
+                ),
+                Row(
+                  children: <Widget>[
+                    Icon(Icons.star, color: secondaryLightColor),
+                    Text(
+                      '4,5',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700,
+                        color: grayColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                infoUser(text: 'Pedidos', value: '2'),
+                infoUser(text: 'Empréstimos', value: '1'),
+                infoUser(text: 'Denúncias', value: '0'),
+              ],
+            ),
+          ],
+        ),
+      ),
+      Divider(
+        thickness: 1,
+        color: whiteDarkColor,
+      ),
+      lendInfo(
+        product: 'Playstation 3',
+        username: 'Youseff Muhamad',
+      ),
+      lendInfo(
+        product: 'Gibis da Mônica',
+        username: 'Ésio Freitas',
+        rate: 5,
+        rateDescription: 'Cuidou bem dos gibis, cara gente boa.',
+      ),
     ],
   );
 }
@@ -250,7 +426,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         context: context,
                         onPressed: handleUpdateProfile,
                       )
-                    : null,
+                    : showProfile(),
               ),
             ],
           ),
