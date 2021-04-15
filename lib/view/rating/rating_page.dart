@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/controller/rating.controller.dart';
+import 'package:front/model/rating.model.dart';
 import 'package:front/model/session.model.dart';
 import 'package:front/theme/colors.dart';
-import 'package:front/utils/dates.dart';
 import 'package:front/widgets/button.dart';
 import 'package:front/widgets/category_chip.dart';
 import 'package:front/widgets/rating_stars.dart';
@@ -19,7 +20,6 @@ class _RatingPageState extends State<RatingPage> {
   @override
   void initState() {
     super.initState();
-    final session = Provider.of<SessionModel>(context, listen: false);
   }
 
   @override
@@ -28,8 +28,26 @@ class _RatingPageState extends State<RatingPage> {
     super.dispose();
   }
 
+  void _createRating(
+      BuildContext context, int rate, bool report, SessionModel session) {
+    final RatingModel rating = new RatingModel(
+      stars: rate,
+      review: _descriptionController.toString(),
+      report: report,
+      reviewer: session.user.email,
+      reviewed: 'rogerio@email.com',
+      requestid: '8d27b6c1-ac8a-4f29-97b0-96cef6938267',
+    );
+
+    new RatingController().createNewRating(rating, context);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final session = Provider.of<SessionModel>(context, listen: false);
+    int rate = 0;
+    bool report = false;
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -113,7 +131,9 @@ class _RatingPageState extends State<RatingPage> {
                           ),
                     ),
                     SizedBox(height: 10),
-                    RatingStars((rating) {}),
+                    RatingStars((rating) {
+                      rate = rating;
+                    }),
                     SizedBox(height: 30),
                     Text(
                       'Fale mais sobre sua experiência',
@@ -159,19 +179,25 @@ class _RatingPageState extends State<RatingPage> {
                       children: [
                         CategoryChip(
                           label: 'Sim',
-                          onTapHandler: () {},
+                          onTapHandler: () {
+                            report = true;
+                          },
                         ),
                         SizedBox(width: 10),
                         CategoryChip(
                           label: 'Não',
-                          onTapHandler: () {},
+                          onTapHandler: () {
+                            report = false;
+                          },
                         ),
                       ],
                     ),
                     SizedBox(height: 30),
                     Button(
                       title: 'Enviar avaliação',
-                      onPressedHandler: () {},
+                      onPressedHandler: () {
+                        _createRating(context, rate, report, session);
+                      },
                     )
                   ],
                 ),
