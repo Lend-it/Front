@@ -5,7 +5,6 @@ import 'package:front/model/rating.model.dart';
 import 'package:front/model/session.model.dart';
 import 'package:front/theme/colors.dart';
 import 'package:front/widgets/button.dart';
-import 'package:front/widgets/category_chip.dart';
 import 'package:front/widgets/rating_stars.dart';
 import 'package:provider/provider.dart';
 
@@ -16,10 +15,15 @@ class RatingPage extends StatefulWidget {
 
 class _RatingPageState extends State<RatingPage> {
   TextEditingController _descriptionController;
+  int rate;
+  bool report;
+  bool isSelectedY = false;
+  bool isSelectedN = false;
 
   @override
   void initState() {
     super.initState();
+    _descriptionController = TextEditingController();
   }
 
   @override
@@ -30,9 +34,10 @@ class _RatingPageState extends State<RatingPage> {
 
   void _createRating(
       BuildContext context, int rate, bool report, SessionModel session) {
+    print(_descriptionController);
     final RatingModel rating = new RatingModel(
       stars: rate,
-      review: _descriptionController.toString(),
+      review: _descriptionController.text,
       report: report,
       reviewer: session.user.email,
       reviewed: 'rogerio@email.com',
@@ -45,8 +50,8 @@ class _RatingPageState extends State<RatingPage> {
   @override
   Widget build(BuildContext context) {
     final session = Provider.of<SessionModel>(context, listen: false);
-    int rate = 0;
-    bool report = false;
+    Color chipColor = secondaryColor;
+    Duration animationDuration = Duration(milliseconds: 300);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -143,6 +148,10 @@ class _RatingPageState extends State<RatingPage> {
                     ),
                     SizedBox(height: 15),
                     TextField(
+                      style: Theme.of(context).textTheme.bodyText2.copyWith(
+                            color: darkColor,
+                            fontSize: 14,
+                          ),
                       controller: _descriptionController,
                       maxLines: 4,
                       decoration: InputDecoration(
@@ -158,7 +167,7 @@ class _RatingPageState extends State<RatingPage> {
                                 ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: primaryLightColor,
+                            color: whiteDarkColor,
                             width: 2.0,
                           ),
                         ),
@@ -177,18 +186,97 @@ class _RatingPageState extends State<RatingPage> {
                     SizedBox(height: 10),
                     Row(
                       children: [
-                        CategoryChip(
-                          label: 'Sim',
-                          onTapHandler: () {
-                            report = true;
-                          },
+                        Container(
+                          height: 32,
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                isSelectedY = true;
+                                isSelectedN = false;
+                              });
+                              report = true;
+                            },
+                            child: AnimatedContainer(
+                              duration: animationDuration,
+                              padding: EdgeInsets.symmetric(horizontal: 12),
+                              child: Center(
+                                child: AnimatedDefaultTextStyle(
+                                  duration: animationDuration,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .caption
+                                      .copyWith(
+                                        color: chipColor,
+                                      ),
+                                  child: Text(
+                                    'Sim',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2
+                                        .copyWith(
+                                          color: isSelectedY
+                                              ? lightColor
+                                              : secondaryColor,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                color:
+                                    isSelectedY ? secondaryColor : lightColor,
+                                border: Border.all(
+                                  color: secondaryColor,
+                                ),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                            ),
+                          ),
                         ),
                         SizedBox(width: 10),
-                        CategoryChip(
-                          label: 'Não',
-                          onTapHandler: () {
-                            report = false;
-                          },
+                        Container(
+                          height: 32,
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                isSelectedY = false;
+                                isSelectedN = true;
+                              });
+                              report = false;
+                            },
+                            child: AnimatedContainer(
+                              duration: animationDuration,
+                              padding: EdgeInsets.symmetric(horizontal: 12),
+                              child: Center(
+                                child: AnimatedDefaultTextStyle(
+                                  duration: animationDuration,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .caption
+                                      .copyWith(
+                                        color: chipColor,
+                                      ),
+                                  child: Text(
+                                    'Não',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2
+                                        .copyWith(
+                                          color: isSelectedN
+                                              ? lightColor
+                                              : secondaryColor,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                color: isSelectedN ? secondaryColor : null,
+                                border: Border.all(
+                                  color: secondaryColor,
+                                ),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
