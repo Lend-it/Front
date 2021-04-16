@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:front/controller/user.controller.dart';
 import 'package:front/dtos/locationPageDTO.dart';
+import 'package:front/model/lend.model.dart';
 import 'package:front/model/session.model.dart';
 import 'package:front/model/user.model.dart';
 import 'package:front/routes/app_routes.dart';
@@ -42,6 +43,7 @@ Widget lendInfo({
   @required String product,
   String rateDescription,
   int rate,
+  @required bool isLender,
 }) {
   final stars = List<Icon>.generate(
     rate == null ? 0 : rate,
@@ -79,7 +81,9 @@ Widget lendInfo({
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Emprestou para $username',
+                  isLender == true
+                      ? 'Emprestou para $username'
+                      : 'Pegou emprestado de $username',
                   style: TextStyle(
                     fontSize: 14,
                   ),
@@ -99,16 +103,25 @@ Widget lendInfo({
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            rateDescription,
-                            style: TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
+                          rateDescription == '' || rateDescription == null
+                              ? null
+                              : Container(
+                                  width: 280,
+                                  padding: EdgeInsets.only(
+                                    bottom: 5,
+                                  ),
+                                  child: Text(
+                                    rateDescription,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                    textAlign: TextAlign.justify,
+                                  ),
+                                ),
                           Row(
                             children: [...stars],
                           ),
-                        ],
+                        ].where((element) => element != null).toList(),
                       ),
               ].where((element) => element != null).toList(),
             ),
@@ -226,67 +239,118 @@ Widget editProfile({
   );
 }
 
-Widget showProfile() {
-  return Column(
-    children: [
-      Container(
-        padding: EdgeInsets.only(
-          bottom: 20,
-          top: 20,
-          left: 23,
-          right: 23,
-        ),
-        child: Column(
+Widget showProfile({
+  @required UserModel user,
+}) {
+  UserController _userController = new UserController();
+
+  return FutureBuilder(
+    future: _userController.getUserLends(
+      useremail: user.email,
+    ),
+    builder: (BuildContext context, AsyncSnapshot snapshot) {
+      if (snapshot.hasData) {
+        List<LendModel> userRequests = snapshot.data["userRequests"];
+        List<LendModel> userLends = snapshot.data["userLends"];
+
+        double rateSum = 0;
+        int reportCount = 0;
+        List<LendModel> allLends = new List.from(userRequests)
+          ..addAll((userLends));
+        for (int i = 0; i < userRequests.length; i++) {
+          rateSum += userRequests[i].rate.stars;
+
+          if (userRequests[i].rate.report == true) {
+            reportCount++;
+          }
+        }
+        if (rateSum != 0) {
+          rateSum /= userRequests.length;
+        }
+
+        return Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Youssef Muhamad',
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700),
-                ),
-                Row(
-                  children: <Widget>[
-                    Icon(Icons.star, color: secondaryLightColor),
-                    Text(
-                      '4,5',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w700,
-                        color: grayColor,
+            Container(
+              padding: EdgeInsets.only(
+                bottom: 20,
+                top: 20,
+                left: 23,
+                right: 23,
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        user.name,
+                        style: TextStyle(
+                            fontSize: 28, fontWeight: FontWeight.w700),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      Row(
+                        children: <Widget>[
+                          Icon(Icons.star, color: secondaryLightColor),
+                          Text(
+                            rateSum.toString(),
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w700,
+                              color: grayColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      infoUser(
+                        text: 'Pedidos',
+                        value: userRequests.length.toString(),
+                      ),
+                      infoUser(
+                        text: 'Empréstimos',
+                        value: userLends.length.toString(),
+                      ),
+                      infoUser(
+                        text: 'Denúncias',
+                        value: reportCount.toString(),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                infoUser(text: 'Pedidos', value: '2'),
-                infoUser(text: 'Empréstimos', value: '1'),
-                infoUser(text: 'Denúncias', value: '0'),
-              ],
+            Divider(
+              thickness: 1,
+              color: whiteDarkColor,
+            ),
+            Column(
+              children: allLends
+                  .map(
+                    (lend) => lendInfo(
+                      username: lend.requester.name,
+                      product: lend.title,
+                      rate: lend.rate.stars,
+                      rateDescription: lend.rate.review,
+                      isLender: user.email == lend.lender.email ? true : false,
+                    ),
+                  )
+                  .toList(),
             ),
           ],
-        ),
-      ),
-      Divider(
-        thickness: 1,
-        color: whiteDarkColor,
-      ),
-      lendInfo(
-        product: 'Playstation 3',
-        username: 'Youseff Muhamad',
-      ),
-      lendInfo(
-        product: 'Gibis da Mônica',
-        username: 'Ésio Freitas',
-        rate: 5,
-        rateDescription: 'Cuidou bem dos gibis, cara gente boa.',
-      ),
-    ],
+        );
+      } else if (snapshot.hasError) {
+        // TODO: Fazer uma tela de Retry bonita(lembrar da retry policy na gateway)
+        return Center(
+          child: Text(snapshot.error),
+        );
+      }
+      // TODO: Shimmer effect com LendCard dummy
+      return Center(child: CircularProgressIndicator());
+    },
   );
 }
 
@@ -305,6 +369,10 @@ class _ProfilePageState extends State<ProfilePage> {
   TextEditingController _newPasswordController;
 
   UserController _userController = new UserController();
+  UserModel _sessionUser;
+
+  List<LendModel> _userRequests;
+  List<LendModel> _userLends;
 
   Future<void> handleUpdateProfile() async {
     await _userController.updateUser(
@@ -319,11 +387,11 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     final session = Provider.of<SessionModel>(context, listen: false);
-    final UserModel user = session.user;
+    _sessionUser = session.user;
 
-    _emailController = TextEditingController(text: user.email);
-    _nameController = TextEditingController(text: user.name);
-    _whatsappController = TextEditingController(text: user.whatsapp);
+    _emailController = TextEditingController(text: _sessionUser.email);
+    _nameController = TextEditingController(text: _sessionUser.name);
+    _whatsappController = TextEditingController(text: _sessionUser.whatsapp);
     _passwordController = TextEditingController();
     _newPasswordController = TextEditingController();
   }
@@ -331,6 +399,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     Duration animationDuration = Duration(milliseconds: 300);
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -426,7 +495,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         context: context,
                         onPressed: handleUpdateProfile,
                       )
-                    : showProfile(),
+                    : showProfile(
+                        user: _sessionUser,
+                      ),
               ),
             ],
           ),
