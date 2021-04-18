@@ -66,8 +66,6 @@ class _LendPageState extends State<LendPage> {
         itemBuilder: (context, i) {
           return LendCard(
             lend: lends[i],
-            trailing: Icons.favorite_border,
-            leading: 'Emprestar',
             onPressed: () {
               Navigator.pushNamed(
                 context,
