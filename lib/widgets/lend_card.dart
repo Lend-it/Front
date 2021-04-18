@@ -19,10 +19,9 @@ class LendCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final SessionModel session =
         Provider.of<SessionModel>(context, listen: false);
-    // final bool isFromUser = session.user.id == lend.requester.id;
-    final bool isFromUser = true;
+    final bool isFromUser = session.user.id == lend.requester.id;
     final bool isRequestOpen = lend.lender == null;
-    String status = lend.finalized
+    final String status = lend.finalized
         ? 'Fechado'
         : isRequestOpen
             ? 'Aberto'
@@ -41,18 +40,28 @@ class LendCard extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: onPressed,
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Column(
-                    children: [
-                      lendCardHeader(context, isFromUser, status),
-                      lendCardBody(context),
-                      Divider(thickness: 1.2),
-                      SizedBox(height: 6),
-                      lendCardFooter(context),
-                    ],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    topRight: Radius.circular(8),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12,
+                      horizontal: 16,
+                    ),
+                    child: Column(
+                      children: [
+                        lendCardHeader(context, isFromUser, status),
+                        lendCardBody(context),
+                        Divider(thickness: 1.2),
+                        SizedBox(height: 4),
+                        lendCardFooter(context),
+                      ],
+                    ),
                   ),
                 ),
-                if (isFromUser) lendCardCTAs(context),
+                if (isFromUser && !lend.finalized)
+                  lendCardCTAs(context, isRequestOpen),
               ],
             ),
           ),
@@ -61,7 +70,7 @@ class LendCard extends StatelessWidget {
     );
   }
 
-  Container lendCardCTAs(BuildContext context) {
+  Container lendCardCTAs(BuildContext context, bool isRequestOpen) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,15 +78,15 @@ class LendCard extends StatelessWidget {
           getLendCardCTA(
             context,
             () {},
-            Icons.edit_outlined,
-            'Editar',
+            isRequestOpen ? Icons.edit_outlined : Icons.check,
+            isRequestOpen ? 'Editar' : 'Devolver',
             true,
           ),
           getLendCardCTA(
             context,
             () {},
-            Icons.delete_outline,
-            'Excluir',
+            isRequestOpen ? Icons.delete_outline : Icons.repeat,
+            isRequestOpen ? 'Excluir' : 'Reabrir',
             false,
           ),
         ],
@@ -108,8 +117,8 @@ class LendCard extends StatelessWidget {
           onTap: tapHandler,
           child: Container(
             padding: EdgeInsets.only(
-              left: isLeading ? 12 : 0,
-              right: isLeading ? 0 : 12,
+              left: isLeading ? 16 : 0,
+              right: isLeading ? 0 : 16,
             ),
             height: 50,
             child: Row(
@@ -121,7 +130,7 @@ class LendCard extends StatelessWidget {
                   size: 20,
                   color: lightColor,
                 ),
-                SizedBox(width: 6),
+                SizedBox(width: 4),
                 Text(
                   text,
                   style: Theme.of(context).textTheme.bodyText2.copyWith(
@@ -198,7 +207,7 @@ class LendCard extends StatelessWidget {
 
   Padding lendCardBody(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.only(top: 8, bottom: 4),
       child: Text(
         '${lend.description.substring(0, 84)}${lend.description.length > 84 ? '...' : ''}',
         style: Theme.of(context).textTheme.bodyText2,
