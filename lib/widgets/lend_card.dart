@@ -30,23 +30,104 @@ class LendCard extends StatelessWidget {
 
     return Opacity(
       opacity: lend.finalized ? .7 : 1,
-      child: Card(
-        elevation: 3,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(8.0),
-          onTap: onPressed,
-          child: Padding(
-            padding: const EdgeInsets.all(18.0),
+      child: Column(
+        children: [
+          Card(
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
             child: Column(
               children: [
-                lendCardHeader(context, isFromUser, status),
-                lendCardBody(context),
-                Divider(thickness: 1.2),
-                SizedBox(height: 6),
-                lendCardFooter(context)
+                InkWell(
+                  onTap: onPressed,
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Column(
+                    children: [
+                      lendCardHeader(context, isFromUser, status),
+                      lendCardBody(context),
+                      Divider(thickness: 1.2),
+                      SizedBox(height: 6),
+                      lendCardFooter(context),
+                    ],
+                  ),
+                ),
+                if (isFromUser) lendCardCTAs(context),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container lendCardCTAs(BuildContext context) {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          getLendCardCTA(
+            context,
+            () {},
+            Icons.edit_outlined,
+            'Editar',
+            true,
+          ),
+          getLendCardCTA(
+            context,
+            () {},
+            Icons.delete_outline,
+            'Excluir',
+            false,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget getLendCardCTA(
+    BuildContext context,
+    Function tapHandler,
+    IconData icon,
+    String text,
+    bool isLeading,
+  ) {
+    BorderRadius borderRadius = BorderRadius.only(
+      bottomLeft: isLeading ? Radius.circular(8) : Radius.circular(0),
+      bottomRight: isLeading ? Radius.circular(0) : Radius.circular(8),
+    );
+
+    return Flexible(
+      child: Material(
+        color: primaryColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: borderRadius,
+        ),
+        child: InkWell(
+          borderRadius: borderRadius,
+          onTap: tapHandler,
+          child: Container(
+            padding: EdgeInsets.only(
+              left: isLeading ? 12 : 0,
+              right: isLeading ? 0 : 12,
+            ),
+            height: 50,
+            child: Row(
+              mainAxisAlignment:
+                  isLeading ? MainAxisAlignment.start : MainAxisAlignment.end,
+              children: [
+                Icon(
+                  icon,
+                  size: 20,
+                  color: lightColor,
+                ),
+                SizedBox(width: 6),
+                Text(
+                  text,
+                  style: Theme.of(context).textTheme.bodyText2.copyWith(
+                        color: lightColor,
+                      ),
+                )
               ],
             ),
           ),
