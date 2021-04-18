@@ -28,24 +28,27 @@ class LendCard extends StatelessWidget {
             ? 'Aberto'
             : 'Em Andamento';
 
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(8.0),
-        onTap: onPressed,
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Column(
-            children: [
-              lendCardHeader(context, isFromUser, status),
-              lendCardBody(context),
-              Divider(thickness: 1.2),
-              SizedBox(height: 6),
-              lendCardFooter(context)
-            ],
+    return Opacity(
+      opacity: lend.finalized ? .7 : 1,
+      child: Card(
+        elevation: 3,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(8.0),
+          onTap: onPressed,
+          child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Column(
+              children: [
+                lendCardHeader(context, isFromUser, status),
+                lendCardBody(context),
+                Divider(thickness: 1.2),
+                SizedBox(height: 6),
+                lendCardFooter(context)
+              ],
+            ),
           ),
         ),
       ),
