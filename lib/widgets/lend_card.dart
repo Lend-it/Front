@@ -6,131 +6,6 @@ import 'package:front/theme/colors.dart';
 import 'package:front/utils/dates.dart';
 import 'package:provider/provider.dart';
 
-// Widget lendCardHeader({
-//   String title,
-//   String category,
-// }) {
-//   return Padding(
-//     padding: EdgeInsets.symmetric(horizontal: 23.0, vertical: 7.0),
-//     child: IntrinsicHeight(
-//       child: Row(
-//         children: <Widget>[
-//           Text(
-//             title,
-//             textAlign: TextAlign.left,
-//             style: TextStyle(
-//               fontWeight: FontWeight.w700,
-//               fontSize: 16,
-//             ),
-//           ),
-//           VerticalDivider(
-//             width: 20,
-//             color: grayColor,
-//             thickness: 1,
-//             endIndent: 17,
-//             indent: 17,
-//           ),
-//           Chip(
-//             label: Text(
-//               category,
-//               style: TextStyle(color: lightColor),
-//             ),
-//             backgroundColor: secondaryLightColor,
-//           ),
-//         ],
-//       ),
-//     ),
-//   );
-// }
-
-// Widget lendCardHandler({
-//   Function onPressed,
-// }) {
-//   return GestureDetector(
-//     onTap: onPressed,
-//     child: Container(
-//       padding: EdgeInsets.only(
-//         left: 23,
-//         right: 23,
-//         top: 12,
-//         bottom: 14,
-//       ),
-//       decoration: BoxDecoration(
-//         color: primaryColor,
-//         borderRadius: BorderRadius.only(
-//           bottomLeft: Radius.circular(8),
-//           bottomRight: Radius.circular(8),
-//         ),
-//       ),
-//       child: Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//         children: <Widget>[],
-//       ),
-//     ),
-//   );
-// }
-
-// Widget lendCardUserInfo({
-//   String profilePic,
-//   String userName,
-//   String userRating,
-//   String startDate,
-//   String endDate,
-// }) {
-//   return Padding(
-//     padding: EdgeInsets.only(bottom: 11, top: 4, right: 23, left: 23),
-//     child: Row(
-//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//       children: <Widget>[
-//         Row(
-//           children: <Widget>[
-//             CircleAvatar(
-//               radius: 20,
-//               backgroundImage: NetworkImage(profilePic),
-//             ),
-//             Padding(
-//               padding: EdgeInsets.symmetric(horizontal: 7.0),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: <Widget>[
-//                   Text(userName),
-//                   Row(
-//                     children: <Widget>[
-//                       Icon(Icons.star, color: secondaryLightColor),
-//                       Text(userRating)
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ],
-//         ),
-//         Row(
-//           children: <Widget>[
-//             Icon(Icons.calendar_today_outlined),
-//             Padding(
-//                 padding: EdgeInsets.symmetric(horizontal: 7.0),
-//                 child: Text(
-//                     '${Dates.formatDateDDMM(startDate)} até ${Dates.formatDateDDMM(endDate)}')),
-//           ],
-//         ),
-//       ],
-//     ),
-//   );
-// }
-
-// Widget lendCardDescription({String description}) {
-//   return Padding(
-//     padding: EdgeInsets.symmetric(horizontal: 23.0),
-//     child: Text(
-//       description,
-//       style: TextStyle(fontSize: 16),
-//       maxLines: 2,
-//       overflow: TextOverflow.ellipsis,
-//     ),
-//   );
-// }
-
 class LendCard extends StatelessWidget {
   final Function onPressed;
   final LendModel lend;
@@ -155,19 +30,93 @@ class LendCard extends StatelessWidget {
 
     return Container(
       child: Card(
-        elevation: 4,
+        elevation: 3,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(18.0),
           child: Column(
             children: [
               lendCardHeader(context, isFromUser, status),
+              lendCardBody(context),
+              Divider(thickness: 1.2),
+              SizedBox(height: 6),
+              lendCardFooter(context)
               // lendCardFooter(),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Row lendCardFooter(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            CircleAvatar(
+              radius: 16,
+              backgroundImage: NetworkImage(lend.requester.photo),
+            ),
+            SizedBox(width: 4),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Text(
+                    lend.requester.name,
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      Icons.star,
+                      color: secondaryLightColor,
+                      size: 18,
+                    ),
+                    Text(
+                      lend.requester.rating,
+                      style: Theme.of(context).textTheme.caption.copyWith(
+                            color: grayColor,
+                          ),
+                    )
+                  ],
+                ),
+              ],
+            )
+          ],
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.calendar_today_outlined,
+              color: grayColor,
+              size: 18,
+            ),
+            SizedBox(width: 4),
+            Text(
+              '${Dates.formatDateDDMM(lend.startDate)} até ${Dates.formatDateDDMM(lend.endDate)}',
+              style: Theme.of(context).textTheme.caption,
+            ),
+          ],
+        )
+      ],
+    );
+  }
+
+  Padding lendCardBody(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Text(
+        '${lend.description.substring(0, 84)}${lend.description.length > 84 ? '...' : ''}',
+        style: Theme.of(context).textTheme.bodyText2,
       ),
     );
   }
