@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:front/model/lend.model.dart';
+import 'package:front/model/session.model.dart';
 import 'package:front/theme/colors.dart';
 import 'package:front/utils/dates.dart';
+import 'package:provider/provider.dart';
 
 // Widget lendCardHeader({
 //   String title,
@@ -140,39 +142,70 @@ class LendCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SessionModel session =
+        Provider.of<SessionModel>(context, listen: false);
+    // final bool isFromUser = session.user.id == lend.requester.id;
+    final bool isFromUser = true;
+    final bool isRequestOpen = lend.lender == null;
+    String status = lend.finalized
+        ? 'Fechado'
+        : isRequestOpen
+            ? 'Aberto'
+            : 'Em Andamento';
+
     return Container(
       child: Card(
         elevation: 4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Text(lend.title),
-                Container(
-                  height: 16,
-                  width: 1,
-                  color: Colors.black12,
-                  margin: EdgeInsets.symmetric(horizontal: 8),
-                ),
-                Chip(
-                  label: Text(
-                    lend.category.title,
-                    style: Theme.of(context).textTheme.caption.copyWith(
-                          color: lightColor,
-                        ),
-                  ),
-                  backgroundColor: secondaryLightColor,
-                  visualDensity: VisualDensity(vertical: -3),
-                )
-              ],
-            )
-            // lendCardFooter(),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              lendCardHeader(context, isFromUser, status),
+              // lendCardFooter(),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Column lendCardHeader(BuildContext context, bool isFromUser, String status) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              lend.title,
+              style: Theme.of(context).textTheme.subtitle2,
+            ),
+            Container(
+              height: 16,
+              width: 1,
+              color: Colors.black12,
+              margin: EdgeInsets.symmetric(horizontal: 8),
+            ),
+            Chip(
+              label: Text(
+                lend.category.title,
+                style: Theme.of(context).textTheme.caption.copyWith(
+                      color: lightColor,
+                    ),
+              ),
+              backgroundColor: secondaryLightColor,
+              visualDensity: VisualDensity(vertical: -3),
+            )
+          ],
+        ),
+        if (isFromUser)
+          Text(
+            'Status: $status',
+            style: Theme.of(context).textTheme.caption,
+          )
+      ],
     );
   }
 }
