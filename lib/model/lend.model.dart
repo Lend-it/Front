@@ -34,15 +34,9 @@ class LendModel {
       startDate: json["startdate"],
       finalized: json["finalized"],
       category: CategoryModel.fromJson(json),
-      lender: UserModel.fromJson(json["lender"]),
+      lender:
+          json["lender"] != null ? UserModel.fromJson(json["lender"]) : null,
       requester: UserModel.fromJson(json["requester"]),
-      //user: UserModel(
-      //id: json["user"]['id'],
-      //name: json["user"]['name'],
-      //email: json["user"]['email'],
-      //photo: json["user"]["photo"],
-      //rating: json["user"]['rating'],
-      //),
     );
   }
 
