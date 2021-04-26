@@ -7,6 +7,7 @@ import 'package:front/view/home/home_page.dart';
 import 'package:front/view/lend/create_lend.dart';
 import 'package:front/view/profile/profile_page.dart';
 import 'package:front/view/lend/show_lend.dart';
+import 'package:front/view/rating/rating_page.dart';
 
 import 'app_routes.dart';
 import 'package:front/view/auth/login_page.dart';
@@ -21,5 +22,6 @@ class Routes {
     AppRoutes.GEOLOCATION_PAGE: (ctx) => GeolocationPage(),
     AppRoutes.MAP_PAGE: (ctx) => MapPage(),
     AppRoutes.CREATE_LEND: (ctx) => CreateLend(),
+    AppRoutes.RATING_PAGE: (ctx) => RatingPage(),
   };
 }

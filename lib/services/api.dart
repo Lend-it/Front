@@ -37,9 +37,17 @@ class Api {
   Future<http.Response> post({
     @required String route,
     @required dynamic body,
+    dynamic header,
   }) async {
     String token = await getToken();
 
+    if (header != null) {
+      return http.post(_url + route, body: jsonEncode(body), headers: {
+        ...headers,
+        "authorization": token,
+        ...header,
+      });
+    }
     return http.post(_url + route, body: jsonEncode(body), headers: {
       ...headers,
       "authorization": token,
