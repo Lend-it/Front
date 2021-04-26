@@ -63,7 +63,6 @@ class LendController {
 
     if (useremail != null && isLender == true) {
       route = route + '?lender=$useremail';
-      print(route);
     }
 
     Response response = await api.get(route: route);
