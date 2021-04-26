@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
 import 'package:front/model/user.model.dart';
 import 'package:front/services/api.dart';
+import 'package:front/model/lend.model.dart';
 
 class UserController {
   Api api = new Api();
@@ -80,5 +81,34 @@ class UserController {
         status: 'success',
       );
     }
+  }
+
+  Future<dynamic> getUserLends({@required String useremail}) async {
+    Response response = await api.get(
+      route: '/users/user/requests/$useremail',
+    );
+
+    dynamic requests = jsonDecode(response.body);
+    dynamic userRequesterRates = requests['mergedUserWithRequester'];
+    dynamic userLenderRates = requests['mergedUserWithLender'];
+
+    List<LendModel> userRequests = List<LendModel>.from(
+      userRequesterRates.map((lendData) {
+        LendModel lend = LendModel.fromJson(lendData);
+        return lend;
+      }).toList(),
+    );
+
+    List<LendModel> userLends = List<LendModel>.from(
+      userLenderRates.map((lendData) {
+        LendModel lend = LendModel.fromJson(lendData);
+        return lend;
+      }).toList(),
+    );
+
+    return {
+      "userRequests": userRequests,
+      "userLends": userLends,
+    };
   }
 }
