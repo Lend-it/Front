@@ -92,8 +92,6 @@ class _HomePageState extends State<HomePage> {
                                   arguments: lend,
                                 );
                               },
-                              leading: "maia",
-                              trailing: Icons.ac_unit,
                             ),
                           )
                           .toList(),
