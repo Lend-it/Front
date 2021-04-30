@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/routes/app_routes.dart';
 import 'package:front/theme/colors.dart';
 import 'package:front/theme/custom_icons.dart';
 import 'package:front/view/home/home_page.dart';
@@ -55,7 +56,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
         backgroundColor: secondaryColor,
         elevation: 2,
         child: Icon(Icons.add, size: 35),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, AppRoutes.CREATE_LEND);
+        },
       ),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterDocked,

@@ -264,10 +264,12 @@ Widget showProfile({
             reportCount++;
           }
         }
+
         if (rateSum != 0) {
           rateSum /= userRequests.length;
         }
 
+        print(allLends[0]);
         return Column(
           children: [
             Container(
