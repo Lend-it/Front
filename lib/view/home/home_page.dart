@@ -3,13 +3,14 @@ import 'package:flutter/widgets.dart';
 import 'package:front/controller/lend.controller.dart';
 import 'package:front/model/category.model.dart';
 import 'package:front/model/lend.model.dart';
-import 'package:front/model/user.model.dart';
+import 'package:front/model/session.model.dart';
 import 'package:front/routes/app_routes.dart';
 import 'package:front/widgets/base_page.dart';
 import 'package:front/widgets/lend_card.dart';
 import 'package:front/widgets/category_chip_list.dart';
 
 import 'package:front/widgets/page_heading.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -39,12 +40,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final session = Provider.of<SessionModel>(context, listen: false);
+
     return Scaffold(
       body: BasePage(
         header: Container(
           padding: EdgeInsets.only(top: 28),
           child: PageHeading(
-            title: "Boa tarde, Maia",
+            title: "Boa tarde, ${session.user.name}",
             subtitle: "Que dia lindo para ajudar alguém!",
             inverted: true,
           ),
@@ -89,8 +92,6 @@ class _HomePageState extends State<HomePage> {
                                   arguments: lend,
                                 );
                               },
-                              leading: "maia",
-                              trailing: Icons.ac_unit,
                             ),
                           )
                           .toList(),

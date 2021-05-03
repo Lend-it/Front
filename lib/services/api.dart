@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Api {
   Api._privateConstructor();
   // final String _url = "https://lendit-gateway-homolog.herokuapp.com";
-  final String _url = "http://10.0.2.2:3000/";
+  final String _url = "http://10.0.2.2:3000";
   static final Api _instance = Api._privateConstructor();
   static final headers = {"content-type": 'application/json'};
 
@@ -37,9 +37,17 @@ class Api {
   Future<http.Response> post({
     @required String route,
     @required dynamic body,
+    dynamic header,
   }) async {
     String token = await getToken();
 
+    if (header != null) {
+      return http.post(_url + route, body: jsonEncode(body), headers: {
+        ...headers,
+        "authorization": token,
+        ...header,
+      });
+    }
     return http.post(_url + route, body: jsonEncode(body), headers: {
       ...headers,
       "authorization": token,
