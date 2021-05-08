@@ -18,8 +18,8 @@ class CreateLend extends StatefulWidget {
   final bool isEdit;
 
   CreateLend({
-    @required this.lend,
-    @required this.isEdit,
+    this.lend,
+    this.isEdit = false,
   });
 
   @override

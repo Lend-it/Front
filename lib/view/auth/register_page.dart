@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:front/controller/user.controller.dart';
 import 'package:front/model/user.model.dart';
 import 'package:front/theme/colors.dart';
+import 'package:front/view/lend/create_lend.dart';
 import 'package:front/widgets/base_auth_page.dart';
 import 'package:front/widgets/input.dart';
 import 'package:front/widgets/button.dart';
@@ -117,7 +118,15 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Button(
                 title: 'Criar conta',
                 onPressedHandler: () {
-                  _createUser(context);
+                  //_createUser(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CreateLend(
+                          isEdit: false,
+                          lend: null,
+                        ),
+                      ));
                 },
               ),
             ),
