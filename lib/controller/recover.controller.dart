@@ -8,12 +8,50 @@ import 'package:front/services/api.dart';
 class RecoverController {
   Api api = new Api();
 
+  void resetPassword(
+    String token,
+    String password,
+    String confirmPassword,
+    BuildContext context,
+  ) async {
+    Response response;
+    if (password == confirmPassword) {
+      response = await api.patch(
+        route: "/users/password/reset",
+        body: {
+          "newPassword": password,
+          "token": token,
+        },
+      );
+      if (response.body.contains('error')) {
+        var errorMessage = jsonDecode(response.body)['error'];
+        NotificationPopup.notificate(
+          title: errorMessage,
+          status: 'fail',
+          context: context,
+        );
+      } else {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          AppRoutes.LOGIN_PAGE,
+          (_) => false,
+        );
+      }
+    } else {
+      var errorMessage = jsonDecode(response.body)['error'];
+      NotificationPopup.notificate(
+        title: errorMessage,
+        status: 'fail',
+        context: context,
+      );
+    }
+  }
+
   void sendMail(
     String email,
     BuildContext context,
   ) async {
     Response response = await api.post(
-      route: "/password/forgot",
+      route: "/users/password/forgot",
       body: {
         "useremail": email,
       },

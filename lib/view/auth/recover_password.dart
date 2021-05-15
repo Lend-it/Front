@@ -27,7 +27,6 @@ class _RecoverPasswordState extends State<RecoverPassword> {
   }
 
   void _recoverPassword() {
-    print(_emailController.text);
     _recoverController.sendMail(
       _emailController.text,
       context,

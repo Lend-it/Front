@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/controller/recover.controller.dart';
 import 'package:front/widgets/base_auth_page.dart';
 import 'package:front/widgets/button.dart';
 import 'package:front/widgets/input.dart';
@@ -10,24 +11,34 @@ class NewPassword extends StatefulWidget {
 }
 
 class _NewPasswordState extends State<NewPassword> {
-  TextEditingController _emailController;
+  TextEditingController _tokenController;
   TextEditingController _passwordController;
   TextEditingController _passwordConfirmController;
+  RecoverController _recoverController = RecoverController();
 
   @override
   void initState() {
     super.initState();
-    _emailController = TextEditingController();
+    _tokenController = TextEditingController();
     _passwordController = TextEditingController();
     _passwordConfirmController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _tokenController.dispose();
     _passwordController.dispose();
     _passwordConfirmController.dispose();
     super.dispose();
+  }
+
+  void _resetPassword() {
+    _recoverController.resetPassword(
+      _tokenController.text,
+      _passwordController.text,
+      _passwordConfirmController.text,
+      context,
+    );
   }
 
   @override
@@ -45,7 +56,7 @@ class _NewPasswordState extends State<NewPassword> {
                 prefix: Icons.lock_outline,
                 placeholder: 'Código do E-mail',
                 type: TextInputType.emailAddress,
-                controller: _passwordController,
+                controller: _tokenController,
                 isPassword: true,
               ),
               Input(
@@ -59,13 +70,13 @@ class _NewPasswordState extends State<NewPassword> {
                 prefix: Icons.lock_outline,
                 placeholder: 'Repetir Nova Senha',
                 type: TextInputType.emailAddress,
-                controller: _passwordController,
+                controller: _passwordConfirmController,
                 isPassword: true,
               ),
               SizedBox(height: 10),
               Button(
                 title: 'Salvar',
-                onPressedHandler: () {},
+                onPressedHandler: _resetPassword,
               )
             ],
           ),
