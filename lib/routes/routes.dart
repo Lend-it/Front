@@ -9,6 +9,7 @@ import 'package:front/view/home/home_page.dart';
 import 'package:front/view/lend/create_lend.dart';
 import 'package:front/view/profile/profile_page.dart';
 import 'package:front/view/lend/show_lend.dart';
+import 'package:front/view/rating/rating_page.dart';
 
 import 'app_routes.dart';
 import 'package:front/view/auth/login_page.dart';
@@ -25,5 +26,6 @@ class Routes {
     AppRoutes.CREATE_LEND: (ctx) => CreateLend(),
     AppRoutes.RECOVER_PASSWORD: (ctx) => RecoverPassword(),
     AppRoutes.NEW_PASSWORD: (ctx) => NewPassword(),
+    AppRoutes.RATING_PAGE: (ctx) => RatingPage(),
   };
 }

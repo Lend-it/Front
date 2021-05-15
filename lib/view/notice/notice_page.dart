@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:front/controller/lend.controller.dart';
 import 'package:front/model/lend.model.dart';
+import 'package:front/routes/app_routes.dart';
 import 'package:front/utils/confirm_modal.dart';
 
 class NoticePage extends StatefulWidget {
@@ -34,21 +35,31 @@ class _NoticePageState extends State<NoticePage> {
       ),
       body: Container(
         child: Center(
-          child: FlatButton(
-            onPressed: () => ConfirmModal.showConfirmModal(
-              context: context,
-              lend: lends[4],
-              title: 'Confirmação de devolução.',
-              subtitle:
-                  'Você realmente quer devolver o ${lends[4].title} para ${lends[4].requester.name}?',
-              confirmButtonText: 'Sim, quero devolver',
-              declineButtonText: 'Não, quero voltar atrás',
-              confirmPressed: () async {
-                await lendController.finalizeLend(lends[4].id);
-              },
-            ),
-            child: Text('finalizar lend'),
-            color: Colors.blue,
+          child: Column(
+            children: [
+              FlatButton(
+                onPressed: () => ConfirmModal.showConfirmModal(
+                  context: context,
+                  lend: lends[4],
+                  title: 'Confirmação de devolução.',
+                  subtitle:
+                      'Você realmente quer devolver o ${lends[4].title} para ${lends[4].requester.name}?',
+                  confirmButtonText: 'Sim, quero devolver',
+                  declineButtonText: 'Não, quero voltar atrás',
+                  confirmPressed: () async {
+                    await lendController.finalizeLend(lends[4].id);
+                  },
+                ),
+                child: Text('finalizar lend'),
+                color: Colors.blue,
+              ),
+              FlatButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoutes.RATING_PAGE);
+                },
+                child: Text('Rating page'),
+              )
+            ],
           ),
         ),
       ),

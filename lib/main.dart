@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:front/routes/app_routes.dart';
@@ -12,7 +14,39 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final FirebaseMessaging _fcm = FirebaseMessaging();
+
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isIOS) {
+      _fcm.requestNotificationPermissions(IosNotificationSettings());
+    }
+
+    _fcm.configure(
+      // Called on foreground
+      onMessage: (Map<String, dynamic> message) async {
+        print('onMessage $message');
+      },
+
+      // Called when the app is closed and the user clicked on the notification
+      onLaunch: (Map<String, dynamic> message) async {
+        print('onLaunch $message');
+      },
+
+      // Called when the app in the background and the user clicked on the notification
+      onResume: (Map<String, dynamic> message) async {
+        print('onResume $message');
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -25,7 +59,7 @@ class MyApp extends StatelessWidget {
         title: 'Lend.it',
         debugShowCheckedModeBanner: false,
         theme: projectTheme,
-        initialRoute: AppRoutes.HOME_PAGE,
+        initialRoute: AppRoutes.LOGIN_PAGE,
         home: BottomNavigation(),
         onGenerateRoute: (settings) {
           return CupertinoPageRoute(

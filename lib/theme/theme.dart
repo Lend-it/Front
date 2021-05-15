@@ -50,6 +50,7 @@ ThemeData _buildProjectTheme() {
         fontSize: 14,
         fontWeight: FontWeight.normal,
         color: darkColor,
+        height: 1,
       ),
     ),
   );

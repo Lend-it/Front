@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:front/model/category.model.dart';
+import 'package:front/model/rate.model.dart';
 import 'package:front/model/user.model.dart';
 
 class LendModel {
@@ -12,6 +13,7 @@ class LendModel {
   final UserModel requester;
   final UserModel lender;
   final bool finalized;
+  final RateModel rate;
 
   LendModel({
     this.id = "",
@@ -23,27 +25,22 @@ class LendModel {
     @required this.requester,
     @required this.lender,
     @required this.finalized,
+    @required this.rate,
   });
 
   factory LendModel.fromJson(Map<String, dynamic> json) {
     return LendModel(
-      id: json["requestid"],
-      title: json["productname"],
-      description: json["description"],
-      endDate: json["enddate"],
-      startDate: json["startdate"],
-      finalized: json["finalized"],
-      category: CategoryModel.fromJson(json),
-      lender: UserModel.fromJson(json["lender"]),
-      requester: UserModel.fromJson(json["requester"]),
-      //user: UserModel(
-      //id: json["user"]['id'],
-      //name: json["user"]['name'],
-      //email: json["user"]['email'],
-      //photo: json["user"]["photo"],
-      //rating: json["user"]['rating'],
-      //),
-    );
+        id: json["requestid"],
+        title: json["productname"],
+        description: json["description"],
+        endDate: json["enddate"],
+        startDate: json["startdate"],
+        finalized: json["finalized"],
+        category: CategoryModel.fromJson(json),
+        lender:
+            json["lender"] != null ? UserModel.fromJson(json["lender"]) : null,
+        requester: UserModel.fromJson(json["requester"]),
+        rate: json["rate"] != null ? RateModel.fromJson(json["rate"]) : null);
   }
 
   Map<String, dynamic> toJson() {
@@ -55,6 +52,7 @@ class LendModel {
       "description": this.description,
       "productcategoryid": int.parse(this.category.id),
       "lender": this.lender.toJson(),
+      "rate": this.rate.toJson(),
       "requester": this.requester.toJson(),
     };
   }

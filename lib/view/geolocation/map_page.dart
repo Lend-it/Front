@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:front/controller/user.controller.dart';
+import 'package:front/dtos/locationPageDTO.dart';
 import 'package:front/routes/app_routes.dart';
 import 'package:front/widgets/page_heading.dart';
 import 'package:front/widgets/base_page.dart';
@@ -16,6 +18,8 @@ class _MapPageState extends State<MapPage> {
   GoogleMapController _mapController;
   Set<Marker> _markers = new Set<Marker>();
   LatLng _selectedCoords;
+
+  UserController _userController = new UserController();
 
   void _onMapCreated(GoogleMapController controller) {
     _mapController = controller;
@@ -37,7 +41,7 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    final Position position = ModalRoute.of(context).settings.arguments;
+    final LocationPageDTO data = ModalRoute.of(context).settings.arguments;
 
     return BasePage(
       header: SvgPicture.asset(
@@ -59,17 +63,25 @@ class _MapPageState extends State<MapPage> {
               markers: _markers,
               onTap: _updateCoordOnTap,
               initialCameraPosition: CameraPosition(
-                target: LatLng(position.latitude, position.longitude),
+                target: LatLng(data.position.latitude, data.position.longitude),
                 zoom: 14.0,
               ),
             ),
           ),
           Button(
             title: "Salvar localização",
-            onPressedHandler: () {
+            onPressedHandler: () async {
+              if (data.route == AppRoutes.PROFILE_PAGE) {
+                await _userController.updateUserLocation(
+                  context: context,
+                  position: _selectedCoords,
+                  useremail: data.useremail,
+                );
+              }
+
               Navigator.pushNamed(
                 context,
-                AppRoutes.REGISTER_PAGE,
+                data.route,
                 arguments: _selectedCoords,
               );
             },

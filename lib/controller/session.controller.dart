@@ -27,7 +27,10 @@ class SessionController {
   void cleanToken(BuildContext context) async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     localStorage.remove('token');
-    Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      AppRoutes.LOGIN_PAGE,
+      (_) => false,
+    );
   }
 
   void createSession(
@@ -44,7 +47,6 @@ class SessionController {
     );
     if (response.body.contains('error')) {
       var errorMessage = jsonDecode(response.body)['error'];
-      print(errorMessage);
       NotificationPopup.notificate(
         title: errorMessage,
         context: context,
@@ -54,7 +56,10 @@ class SessionController {
       final dynamic body = jsonDecode(response.body);
       saveToken(body['token']);
       saveUser(UserModel.fromJson(body['user']), context);
-      Navigator.pushNamed(context, AppRoutes.HOME_PAGE);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        AppRoutes.HOME_PAGE,
+        (_) => false,
+      );
     }
   }
 }
