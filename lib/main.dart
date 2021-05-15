@@ -10,6 +10,10 @@ import 'package:provider/provider.dart';
 
 import 'model/session.model.dart';
 
+Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
+  print(message);
+}
+
 void main() {
   runApp(MyApp());
 }
@@ -25,6 +29,10 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+
+    _fcm.subscribeToTopic('all');
+    _fcm.getToken().then((value) => print(value));
+
     if (Platform.isIOS) {
       _fcm.requestNotificationPermissions(IosNotificationSettings());
     }
@@ -44,6 +52,7 @@ class _MyAppState extends State<MyApp> {
       onResume: (Map<String, dynamic> message) async {
         print('onResume $message');
       },
+      // onBackgroundMessage: myBackgroundMessageHandler,
     );
   }
 
