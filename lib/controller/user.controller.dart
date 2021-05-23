@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:front/dtos/locationPageDTO.dart';
+import 'package:front/routes/app_routes.dart';
 import 'package:front/utils/notification_popup.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
 import 'package:front/model/user.model.dart';
@@ -17,17 +20,28 @@ class UserController {
     if (response.body.contains('error')) {
       var errorMessage = jsonDecode(response.body)['error'];
       NotificationPopup.notificate(
-        title: errorMessage,
+        title: 'Não foi possível criar conta',
         context: context,
         status: 'fail',
       );
     }
 
-    Navigator.of(context).pop();
-    NotificationPopup.notificate(
-      title: 'Conta criada com sucesso',
-      context: context,
-      status: 'success',
+    Navigator.of(context).pushNamed(
+      AppRoutes.GEOLOCATION_PAGE,
+      arguments: new LocationPageDTO(
+        route: '',
+        useremail: '',
+        position: Position(
+          heading: 0,
+          speed: 0,
+          timestamp: DateTime(121231),
+          speedAccuracy: 0,
+          accuracy: 0,
+          altitude: 0,
+          latitude: 0,
+          longitude: 0,
+        ),
+      ),
     );
   }
 
