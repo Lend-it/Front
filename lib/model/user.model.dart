@@ -42,15 +42,15 @@ class UserModel {
 
   Map<String, dynamic> toJson() {
     return {
-      "id": this.id,
+      // "id": this.id,
       "name": this.name,
       "useremail": this.email,
       "whatsappnumber": this.whatsapp,
       "password": this.password,
-      "photo": this.photo,
-      "rating": this.rating,
-      "latitude": this.latitude,
-      "longitude": this.longitude,
+      // "photo": this.photo,
+      // "rating": this.rating,
+      // "latitude": this.latitude,
+      // "longitude": this.longitude,
     };
   }
 }

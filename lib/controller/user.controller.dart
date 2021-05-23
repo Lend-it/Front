@@ -12,16 +12,23 @@ class UserController {
   Api api = new Api();
 
   void createNewUser(UserModel user, BuildContext context) async {
-    Response response = await api.post(route: "/users", body: user.toJson());
+    Response response =
+        await api.post(route: "/users/user", body: user.toJson());
     if (response.body.contains('error')) {
       var errorMessage = jsonDecode(response.body)['error'];
-      print(errorMessage);
       NotificationPopup.notificate(
         title: errorMessage,
         context: context,
         status: 'fail',
       );
     }
+
+    Navigator.of(context).pop();
+    NotificationPopup.notificate(
+      title: 'Conta criada com sucesso',
+      context: context,
+      status: 'success',
+    );
   }
 
   Future<void> updateUser({
