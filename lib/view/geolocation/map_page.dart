@@ -3,10 +3,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:front/controller/user.controller.dart';
 import 'package:front/dtos/locationPageDTO.dart';
 import 'package:front/routes/app_routes.dart';
+import 'package:front/utils/notification_popup.dart';
 import 'package:front/widgets/page_heading.dart';
 import 'package:front/widgets/base_page.dart';
 import 'package:front/widgets/button.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapPage extends StatefulWidget {
@@ -77,12 +77,20 @@ class _MapPageState extends State<MapPage> {
                   position: _selectedCoords,
                   useremail: data.useremail,
                 );
+                Navigator.of(context).popUntil(
+                  (Route route) => route.settings.name == AppRoutes.PROFILE_PAGE
+                      ? true
+                      : false,
+                );
               }
 
-              Navigator.pushNamed(
-                context,
-                data.route,
-                arguments: _selectedCoords,
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+              NotificationPopup.notificate(
+                title: 'Conta criada com sucesso',
+                context: context,
+                status: 'success',
               );
             },
           ),
