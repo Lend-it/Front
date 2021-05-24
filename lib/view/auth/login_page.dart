@@ -125,12 +125,20 @@ class _LoginPageState extends State<LoginPage> {
                               prefix: Icons.lock_outline,
                               isPassword: true,
                             ),
-                            Text(
-                              "Esqueceu sua senha? Recupere aqui",
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                color: lightColor,
-                                fontSize: 16,
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  AppRoutes.RECOVER_PASSWORD,
+                                );
+                              },
+                              child: Text(
+                                "Esqueceu sua senha? Recupere aqui",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  color: lightColor,
+                                  fontSize: 16,
+                                ),
                               ),
                             ),
                             SizedBox(height: 15),

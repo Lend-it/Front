@@ -45,11 +45,9 @@ class BaseAuthPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     title,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: lightColor,
-                      fontSize: 24,
-                    ),
+                    style: Theme.of(context).textTheme.headline2.copyWith(
+                          color: lightColor,
+                        ),
                   ),
                 ),
                 SizedBox(height: 8),
@@ -57,11 +55,9 @@ class BaseAuthPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     subtitle,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w300,
-                      color: lightColor,
-                      fontSize: 16,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText2.copyWith(
+                          color: lightColor,
+                        ),
                   ),
                 ),
                 SizedBox(height: 20),
